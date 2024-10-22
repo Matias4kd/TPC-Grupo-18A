@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace Dominio
 {
-    public class Prepagas
+    public class Prepaga
     {
         public int IdPrepaga { get; set; }
         public string Nombre { get; set; }
-
     }
 }

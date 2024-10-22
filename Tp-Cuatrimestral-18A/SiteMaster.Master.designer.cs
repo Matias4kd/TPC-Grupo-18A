@@ -11,7 +11,7 @@ namespace Tp_Cuatrimestral_18A
 {
 
 
-    public partial class MasterPage
+    public partial class SiteMaster
     {
 
         /// <summary>

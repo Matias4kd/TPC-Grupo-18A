@@ -70,17 +70,18 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MasterPage.Master.cs">
-      <DependentUpon>MasterPage.Master</DependentUpon>
-    </Compile>
-    <Compile Include="MasterPage.Master.designer.cs">
-      <DependentUpon>MasterPage.Master</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SiteMaster.Master.cs">
+      <DependentUpon>SiteMaster.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SiteMaster.Master.designer.cs">
+      <DependentUpon>SiteMaster.Master</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="MasterPage.Master" />
     <None Include="packages.config" />
+    <Content Include="SiteMaster.Master" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -90,15 +91,15 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Dominio\Dominio.csproj">
-      <Project>{9bd320df-b3b4-4746-8604-8f73ebd84b17}</Project>
+      <Project>{0cbbb582-d947-4cc3-91c4-b67d0223e310}</Project>
       <Name>Dominio</Name>
     </ProjectReference>
     <ProjectReference Include="..\Negocio\Negocio.csproj">
-      <Project>{b75516af-7600-42f3-8450-1368cb529fd9}</Project>
+      <Project>{87b5000d-5951-48b0-b669-cd0310aae080}</Project>
       <Name>Negocio</Name>
     </ProjectReference>
     <ProjectReference Include="..\Seguridad\Seguridad.csproj">
-      <Project>{a501e1af-9d87-481b-abd6-86e6d4c59b1d}</Project>
+      <Project>{d6733ddc-3726-4a1d-8722-8a403cb5f026}</Project>
       <Name>Seguridad</Name>
     </ProjectReference>
   </ItemGroup>
