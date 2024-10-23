@@ -6,10 +6,19 @@ using System.Threading.Tasks;
 
 namespace Seguridad
 {
+
+    public enum TipoUsuario
+    {
+        Administrador= 1,
+        Recepcionista = 2,
+        Medico = 3
+    }
     public class Usuario
-    {        public int UsuarioId { get; set; }
+    {
+        public int IdUsuario { get; set; }
         public string NombreUsuario { get; set; }
-        public string Contrasena { get; set; }
-        public Rol Rol { get; set; }
+        public string Contraseña { get; set; }
+        public TipoUsuario TipoUsuario { get; set; }
+
     }
 }
