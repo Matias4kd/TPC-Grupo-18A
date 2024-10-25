@@ -1,5 +1,7 @@
-
-
+create DATABASE ClinicaMedica_DB
+GO
+use ClinicaMedica_DB
+GO
 
 CREATE TABLE Permisos(
     IDPermiso SMALLINT PRIMARY KEY IDENTITY(1,1),
