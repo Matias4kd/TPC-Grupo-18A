@@ -49,6 +49,42 @@ namespace Negocio
             }
         }
 
+
+
+        public List<Especialidad> ListarTodas()
+        {
+            List<Especialidad> lista = new List<Especialidad>();
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.setearConsulta("SELECT NombreEspecialidad from Especialidades");
+                datos.ejecutarLectura();
+
+                while (datos.Lector.Read())
+                {
+                    Especialidad especialidad = new Especialidad
+                    {
+                        
+                        Nombre = (string)datos.Lector["NombreEspecialidad"],
+                        
+                    };
+
+                    lista.Add(especialidad);
+                }
+
+                return lista;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
     }
 
 }

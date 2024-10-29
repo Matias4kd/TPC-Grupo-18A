@@ -147,6 +147,95 @@ namespace Negocio
         }
 
 
+        public List<Medico> ListarPorEspecialidad(string nombreEspecialidad)
+        {
+            List<Medico> lista = new List<Medico>();
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                string consulta = @"SELECT DISTINCT m.IdMedico, m.Nombres, m.Apellidos, m.Matricula, m.Mail 
+                    FROM Medicos m
+                    INNER JOIN Especialidades_x_Medico em ON m.IdMedico = em.IdMedico
+                    INNER JOIN Especialidades e ON em.IdEspecialidad = e.IdEspecialidad
+                    WHERE e.NombreEspecialidad = @nombreEspecialidad";
+
+                datos.setearConsulta(consulta);
+                datos.setearParametro("@nombreEspecialidad", nombreEspecialidad);
+                datos.ejecutarLectura();
+
+                while (datos.Lector.Read())
+                {
+                    Medico medico = new Medico
+                    {
+                        IdMedico = (int)datos.Lector["IdMedico"],
+                        Nombres = (string)datos.Lector["Nombres"],
+                        Apellidos = (string)datos.Lector["Apellidos"],
+                        Matricula = (string)datos.Lector["Matricula"],
+                        Email = (string)datos.Lector["Mail"]
+                    };
+                    lista.Add(medico);
+                }
+
+                return lista;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al obtener médicos por especialidad", ex);
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+        public List<Medico> ListarPorPrepaga(string nombrePrepaga)
+        {
+            if (string.IsNullOrEmpty(nombrePrepaga))
+            {
+                throw new ArgumentException("Nombre de prepaga no válido");
+            }
+
+            List<Medico> lista = new List<Medico>();
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                // Consulta SQL para filtrar únicamente por prepaga
+                string consulta = @"SELECT DISTINCT m.IdMedico, m.Nombres, m.Apellidos, m.Matricula, m.Mail 
+                            FROM Medicos m
+                            INNER JOIN Prepagas_x_Medico pm ON m.IdMedico = pm.IdMedico
+                            INNER JOIN Prepagas p ON pm.IdPrepaga = p.IdPrepaga
+                            WHERE p.NombrePrepaga = @nombrePrepaga";
+
+                datos.setearConsulta(consulta);
+                datos.setearParametro("@nombrePrepaga", nombrePrepaga);
+                datos.ejecutarLectura();
+
+                while (datos.Lector.Read())
+                {
+                    Medico medico = new Medico
+                    {
+                        IdMedico = (int)datos.Lector["IdMedico"],
+                        Nombres = (string)datos.Lector["Nombres"],
+                        Apellidos = (string)datos.Lector["Apellidos"],
+                        Matricula = (string)datos.Lector["Matricula"],
+                        Email = (string)datos.Lector["Mail"]
+                    };
+                    lista.Add(medico);
+                }
+
+                return lista;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al obtener médicos por prepaga", ex);
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
 
         public void Eliminar(int id)
         {

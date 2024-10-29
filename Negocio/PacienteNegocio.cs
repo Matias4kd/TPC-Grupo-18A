@@ -17,20 +17,21 @@ namespace Negocio
 
             try
             {
-                datos.setearConsulta("SELECT Id, Nombre, Apellido, DNI, FechaNacimiento, Email, Telefono FROM Pacientes");
+                datos.setearConsulta("SELECT IdPaciente, Nombres, Apellidos, DNI, FechaNacimiento, Mail, Telefono, Direccion FROM Pacientes");
                 datos.ejecutarLectura();
 
                 while (datos.Lector.Read())
                 {
                     Paciente paciente = new Paciente
                     {
-                        IdPaciente = (int)datos.Lector["Id"],
-                        Nombre = (string)datos.Lector["Nombre"],
-                        Apellido = (string)datos.Lector["Apellido"],
+                        IdPaciente = (long)datos.Lector["IdPaciente"],
+                        Nombre = (string)datos.Lector["Nombres"],
+                        Apellido = (string)datos.Lector["Apellidos"],
                         DNI = (string)datos.Lector["DNI"],
                         FechaNacimiento = (DateTime)datos.Lector["FechaNacimiento"],
-                        Email = (string)datos.Lector["Email"],
-                        Telefono = (string)datos.Lector["Telefono"]
+                        Email = (string)datos.Lector["Mail"],
+                        Telefono = (string)datos.Lector["Telefono"],
+                        Direccion = (string)datos.Lector["Direccion"]
                     };
 
                     lista.Add(paciente);
@@ -54,14 +55,17 @@ namespace Negocio
 
             try
             {
-                string consulta = "INSERT INTO Pacientes (Nombre, Apellido, DNI, FechaNacimiento, Email, Telefono) VALUES (@Nombre, @Apellido, @DNI, @FechaNacimiento, @Email, @Telefono)";
+                string consulta = "INSERT INTO Pacientes (Nombres, Apellidos, DNI, FechaNacimiento, Mail, Telefono, Direccion, IdPrepaga) " +
+                                  "VALUES (@Nombres, @Apellidos, @DNI, @FechaNacimiento, @Mail, @Telefono, @Direccion, @IdPrepaga)";
                 datos.setearConsulta(consulta);
-                datos.setearParametro("@Nombre", paciente.Nombre);
-                datos.setearParametro("@Apellido", paciente.Apellido);
+                datos.setearParametro("@Nombres", paciente.Nombre);
+                datos.setearParametro("@Apellidos", paciente.Apellido);
                 datos.setearParametro("@DNI", paciente.DNI);
                 datos.setearParametro("@FechaNacimiento", paciente.FechaNacimiento);
-                datos.setearParametro("@Email", paciente.Email);
+                datos.setearParametro("@Mail", paciente.Email);
                 datos.setearParametro("@Telefono", paciente.Telefono);
+                datos.setearParametro("@Direccion", paciente.Direccion);
+                datos.setearParametro("@IdPrepaga", paciente.prepaga != null ? paciente.prepaga.IdPrepaga : (object)DBNull.Value);
                 datos.ejecutarAccion();
             }
             catch (Exception ex)
@@ -80,16 +84,67 @@ namespace Negocio
 
             try
             {
-                string consulta = "UPDATE Pacientes SET Nombre=@Nombre, Apellido=@Apellido, DNI=@DNI, FechaNacimiento=@FechaNacimiento, Email=@Email, Telefono=@Telefono WHERE Id=@Id";
+                string consulta = "UPDATE Pacientes SET Nombres=@Nombres, Apellidos=@Apellidos, DNI=@DNI, FechaNacimiento=@FechaNacimiento, " +
+                                  "Mail=@Mail, Telefono=@Telefono, Direccion=@Direccion, IdPrepaga=@IdPrepaga WHERE IdPaciente=@IdPaciente";
                 datos.setearConsulta(consulta);
-                datos.setearParametro("@Nombre", paciente.Nombre);
-                datos.setearParametro("@Apellido", paciente.Apellido);
+                datos.setearParametro("@Nombres", paciente.Nombre);
+                datos.setearParametro("@Apellidos", paciente.Apellido);
                 datos.setearParametro("@DNI", paciente.DNI);
                 datos.setearParametro("@FechaNacimiento", paciente.FechaNacimiento);
-                datos.setearParametro("@Email", paciente.Email);
+                datos.setearParametro("@Mail", paciente.Email);
                 datos.setearParametro("@Telefono", paciente.Telefono);
-                datos.setearParametro("@Id", paciente.IdPaciente);
+                datos.setearParametro("@Direccion", paciente.Direccion);
+                datos.setearParametro("@IdPrepaga", paciente.prepaga != null ? paciente.prepaga.IdPrepaga : (object)DBNull.Value);
+                datos.setearParametro("@IdPaciente", paciente.IdPaciente);
                 datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+
+        public Paciente ObtenerPorID(int id)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            Paciente paciente = null;
+
+            try
+            {
+                datos.setearConsulta("SELECT IdPaciente, Nombres, Apellidos, DNI, FechaNacimiento, Mail, Telefono, Direccion, IdPrepaga FROM Pacientes WHERE IdPaciente = @IdPaciente");
+                datos.setearParametro("@IdPaciente", id);
+                datos.ejecutarLectura();
+
+                if (datos.Lector.Read())
+                {
+                    paciente = new Paciente
+                    {
+                        IdPaciente = (long)datos.Lector["IdPaciente"],
+                        Nombre = (string)datos.Lector["Nombres"],
+                        Apellido = (string)datos.Lector["Apellidos"],
+                        DNI = (string)datos.Lector["DNI"],
+                        FechaNacimiento = (DateTime)datos.Lector["FechaNacimiento"],
+                        Email = (string)datos.Lector["Mail"],
+                        Telefono = (string)datos.Lector["Telefono"],
+                        Direccion = (string)datos.Lector["Direccion"]
+                    };
+
+                    // Verificar si el campo IdPrepaga no es nulo antes de asignarlo
+                    if (datos.Lector["IdPrepaga"] != DBNull.Value)
+                    {
+                        paciente.prepaga = new Prepaga
+                        {
+                            IdPrepaga = (int)datos.Lector["IdPrepaga"]
+                        };
+                    }
+                }
+
+                return paciente;
             }
             catch (Exception ex)
             {
@@ -107,9 +162,9 @@ namespace Negocio
 
             try
             {
-                string consulta = "DELETE FROM Pacientes WHERE Id = @Id";
+                string consulta = "DELETE FROM Pacientes WHERE IdPaciente = @IdPaciente";
                 datos.setearConsulta(consulta);
-                datos.setearParametro("@Id", id);
+                datos.setearParametro("@IdPaciente", id);
                 datos.ejecutarAccion();
             }
             catch (Exception ex)
@@ -123,4 +178,5 @@ namespace Negocio
         }
     }
 }
+    
 

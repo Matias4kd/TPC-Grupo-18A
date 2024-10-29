@@ -135,6 +135,7 @@ INSERT INTO Prepagas(NombrePrepaga) VALUES ('Osde')
 INSERT INTO Prepagas(NombrePrepaga) VALUES ('Galeno')
 INSERT INTO Prepagas(NombrePrepaga) VALUES ('Swis Medical')
 INSERT INTO Prepagas(NombrePrepaga) VALUES ('Medicus')
+INSERT INTO Prepagas(NombrePrepaga) VALUES ('No tiene')
 
 
 INSERT INTO Medicos (Nombres, Apellidos, Matricula, Mail, Telefono) VALUES ('Juan', 'Pérez', 'M001', 'juan.perez@example.com', '123456789');

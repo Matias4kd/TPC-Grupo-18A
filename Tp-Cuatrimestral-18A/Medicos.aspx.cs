@@ -6,6 +6,9 @@ using System.Web.UI.WebControls;
 
 namespace ClinicaMedica
 {
+
+
+
     public partial class Medicos : Page
     {
         private PrepagaNegocio prepagaNegocio;
@@ -21,10 +24,7 @@ namespace ClinicaMedica
             if (!IsPostBack)
             {
                 CargarPrepagas();
-                // Inicialmente el dropdown de especialidades estará vacío hasta que se seleccione una prepaga
-                ddlEspecialidades.Items.Clear();
-                ddlEspecialidades.Items.Insert(0, new ListItem("Seleccione una prepaga primero", ""));
-                ddlEspecialidades.Enabled = false;
+                CargarEspecialidades();
             }
         }
 
@@ -37,6 +37,7 @@ namespace ClinicaMedica
                 ddlPrepagas.DataValueField = "IdPrepaga";
                 ddlPrepagas.DataBind();
 
+                // Agregar opción "Seleccione una prepaga" en el índice 0
                 ddlPrepagas.Items.Insert(0, new ListItem("Seleccione una prepaga", ""));
             }
             catch (Exception ex)
@@ -45,30 +46,17 @@ namespace ClinicaMedica
             }
         }
 
-        protected void ddlPrepagas_SelectedIndexChanged(object sender, EventArgs e)
+        private void CargarEspecialidades()
         {
-            if (string.IsNullOrEmpty(ddlPrepagas.SelectedValue))
-            {
-                ddlEspecialidades.Items.Clear();
-                ddlEspecialidades.Items.Insert(0, new ListItem("Seleccione una prepaga primero", ""));
-                ddlEspecialidades.Enabled = false;
-                return;
-            }
-
             try
             {
-                string nombrePrepaga = ddlPrepagas.SelectedItem.Text;
-                ddlEspecialidades.DataSource = especialidadNegocio.ListarPorPrepaga(nombrePrepaga);
+                ddlEspecialidades.DataSource = especialidadNegocio.ListarTodas();
                 ddlEspecialidades.DataTextField = "Nombre";
-                ddlEspecialidades.DataValueField = "IdEspecialidad";
+                
                 ddlEspecialidades.DataBind();
 
+                // Agregar opción "Seleccione una especialidad" en el índice 0
                 ddlEspecialidades.Items.Insert(0, new ListItem("Seleccione una especialidad", ""));
-                ddlEspecialidades.Enabled = true;
-
-                // Limpiar el GridView cuando se cambia la prepaga
-                gvMedicos.DataSource = null;
-                gvMedicos.DataBind();
             }
             catch (Exception ex)
             {
@@ -76,20 +64,47 @@ namespace ClinicaMedica
             }
         }
 
+        protected void ddlPrepagas_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            CargarMedicos();
+        }
+
         protected void ddlEspecialidades_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(ddlPrepagas.SelectedValue) ||
-                string.IsNullOrEmpty(ddlEspecialidades.SelectedValue))
-            {
-                return;
-            }
+            CargarMedicos();
+        }
 
+        private void CargarMedicos()
+        {
             try
             {
+                // Verificar que se haya seleccionado una prepaga o especialidad
+                bool prepagaSeleccionada = ddlPrepagas.SelectedIndex > 0;
+                bool especialidadSeleccionada = ddlEspecialidades.SelectedIndex > 0;
 
-                string nombrePrepaga = ddlPrepagas.SelectedItem.Text;
-                string nombreEspecialidad = ddlEspecialidades.SelectedItem.Text;
-                gvMedicos.DataSource = medicoNegocio.ListarPorPrepagaYEspecialidad(nombrePrepaga, nombreEspecialidad);
+                if (prepagaSeleccionada && especialidadSeleccionada)
+                {
+                    // Filtrar por prepaga y especialidad
+                    gvMedicos.DataSource = medicoNegocio.ListarPorPrepagaYEspecialidad(
+                        ddlPrepagas.SelectedItem.Text, ddlEspecialidades.SelectedItem.Text);
+
+                }
+                else if (especialidadSeleccionada)
+                {
+                    // Filtrar solo por especialidad
+                    gvMedicos.DataSource = medicoNegocio.ListarPorEspecialidad(ddlEspecialidades.SelectedItem.Text);
+                }
+                else if (prepagaSeleccionada)
+                {
+                    // Filtrar solo por prepaga
+                    gvMedicos.DataSource = medicoNegocio.ListarPorPrepaga(ddlPrepagas.SelectedItem.Text);
+                }
+                else
+                {
+                    // Si no se selecciona ninguna opción, limpiar el GridView
+                    gvMedicos.DataSource = null;
+                }
+
                 gvMedicos.DataBind();
             }
             catch (Exception ex)
@@ -98,21 +113,10 @@ namespace ClinicaMedica
             }
         }
 
-        private void CargarMedicos()
-        {
-           
-            gvMedicos.DataSource = medicoNegocio.Listar();
-            gvMedicos.DataBind();
-        }
-
         protected void lnkSeleccionar_Command(object sender, CommandEventArgs e)
         {
-            if (e.CommandName == "Seleccionar")
-            {
-                int idMedico = Convert.ToInt32(e.CommandArgument);
-                // Aquí puedes redirigir a la página de turnos o realizar la acción que necesites
-                Response.Redirect($"Turnos.aspx?idMedico={idMedico}");
-            }
+            int idMedico = Convert.ToInt32(e.CommandArgument);
+            Response.Write("Médico seleccionado con ID: " + idMedico);
         }
 
         private void MostrarMensaje(string mensaje)
@@ -121,4 +125,6 @@ namespace ClinicaMedica
             pnlMensajes.Visible = true;
         }
     }
+
 }
+
