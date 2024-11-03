@@ -31,7 +31,7 @@ namespace Tp_Cuatrimestral_18A
                 if (negocio.Loguear(usuario))
                 {
                     Session.Add("Usuario", usuario);
-                    Response.Redirect("Medicos.aspx");
+                    Response.Redirect("IndexLogueado.aspx");
                 }
                 else 
                 {
