@@ -16,7 +16,7 @@
             <asp:TextBox ID="txtApellido" runat="server" CssClass="form-control" />
 
             <asp:Label ID="lblDNI" runat="server" Text="DNI:" AssociatedControlID="txtDNI" />
-            <asp:TextBox ID="txtDNI" runat="server" CssClass="form-control" ReadOnly="true" />
+            <asp:TextBox ID="txtDNI" runat="server" CssClass="form-control" ReadOnly="false" />
 
             <asp:Label ID="lblEmail" runat="server" Text="Email:" AssociatedControlID="txtEmail" />
             <asp:TextBox ID="txtEmail" runat="server" CssClass="form-control" />
