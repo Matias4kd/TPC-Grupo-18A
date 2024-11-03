@@ -1,10 +1,11 @@
-﻿<%@ Page Title="Gestión de Pacientes" Language="C#" MasterPageFile="~/SiteMaster.master" AutoEventWireup="true" CodeBehind="Pacientes.aspx.cs"  Inherits="ClinicaMedica.Pacientes" %>
+﻿<%@ Page Title="Gestión de Pacientes" Language="C#" MasterPageFile="~/SiteMaster.master" AutoEventWireup="true" CodeBehind="Pacientes.aspx.cs" Inherits="ClinicaMedica.Pacientes" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="row mt-3">
         <div class="col-12">
             <h2>Gestión de Pacientes</h2>
             <asp:Button ID="btnAgregarPaciente" runat="server" Text="Agregar Paciente" CssClass="btn btn-primary" OnClick="btnAgregarPaciente_Click" />
+            <asp:Label ID="lblMensaje" runat="server" CssClass="d-block mt-3"></asp:Label> <!-- Label para mostrar mensajes -->
         </div>
     </div>
 
@@ -30,7 +31,8 @@
                         <ItemTemplate>
                             <asp:LinkButton ID="lnkModificar" runat="server" Text="Modificar" CssClass="btn btn-warning btn-sm" OnClick="btnModificar_Click"
                                 CommandName="Modificar" CommandArgument='<%# Eval("IdPaciente") %>' />
-                            <asp:LinkButton ID="lnkEliminar" runat="server" Text="Eliminar" CssClass="btn btn-danger btn-sm"
+                            <asp:LinkButton ID="lnkEliminar" runat="server" Text="Eliminar" CssClass="btn btn-danger btn-sm" OnClick="btnEliminar_Click"
+                                OnClientClick="return confirm('¿Está seguro que desea eliminar este registro? Esta acción no se podrá deshacer.');"
                                 CommandName="Eliminar" CommandArgument='<%# Eval("IdPaciente") %>' />
                         </ItemTemplate>
                     </asp:TemplateField>
@@ -39,4 +41,3 @@
         </div>
     </div>
 </asp:Content>
-

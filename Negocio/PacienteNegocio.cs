@@ -156,7 +156,7 @@ namespace Negocio
             }
         }
 
-        public void Eliminar(int id)
+        public void Eliminar(int idPaciente)
         {
             AccesoDatos datos = new AccesoDatos();
 
@@ -164,7 +164,7 @@ namespace Negocio
             {
                 string consulta = "DELETE FROM Pacientes WHERE IdPaciente = @IdPaciente";
                 datos.setearConsulta(consulta);
-                datos.setearParametro("@IdPaciente", id);
+                datos.setearParametro("@IdPaciente", idPaciente);
                 datos.ejecutarAccion();
             }
             catch (Exception ex)
@@ -176,6 +176,39 @@ namespace Negocio
                 datos.cerrarConexion();
             }
         }
+
+
+        public void EliminarTurnosPorPaciente(int idPaciente)
+        {
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                string consulta = "DELETE FROM Turnos WHERE IdPaciente = @IdPaciente";
+                datos.setearConsulta(consulta);
+                datos.setearParametro("@IdPaciente", idPaciente);
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+        public void EliminarPacienteYTurnos(int idPaciente)
+        {
+            // Primero elimina los turnos asociados
+            EliminarTurnosPorPaciente(idPaciente);
+
+            // Luego elimina el paciente
+            Eliminar(idPaciente);
+        }
+
+
     }
 }
     

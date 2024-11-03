@@ -36,15 +36,42 @@ namespace ClinicaMedica
 
         protected void btnModificar_Click(object sender, EventArgs e)
         {
-            Response.Redirect("ModificarPaciente.aspx");
+            LinkButton btnModificar = (LinkButton)sender;
+            string idPaciente = btnModificar.CommandArgument; // Obtiene el ID del paciente desde el CommandArgument
+            Response.Redirect("ModificarPaciente.aspx?Id=" + idPaciente); // Pasa el ID en la URL
         }
 
-            protected void btnAgregarPaciente_Click(object sender, EventArgs e)
+        protected void btnEliminar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                LinkButton btnEliminar = (LinkButton)sender;
+                int idPaciente = Convert.ToInt32(btnEliminar.CommandArgument);
+
+                PacienteNegocio negocio = new PacienteNegocio();
+                negocio.EliminarPacienteYTurnos(idPaciente);
+
+                lblMensaje.Text = "Paciente eliminado correctamente.";
+                lblMensaje.CssClass = "text-success";
+                CargarPacientes();
+            }
+            catch (Exception ex)
+            {
+                lblMensaje.Text = "Error al eliminar el paciente: " + ex.Message;
+                lblMensaje.CssClass = "text-danger";
+            }
+        }
+
+        protected void btnAgregarPaciente_Click(object sender, EventArgs e)
         {
             Response.Redirect("AltaPaciente.aspx");
         }
 
+       
 
-     
+
+
+
+
     }
 }

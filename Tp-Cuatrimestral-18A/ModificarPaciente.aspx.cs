@@ -55,7 +55,7 @@ namespace ClinicaMedica
                     txtTelefono.Text = paciente.Telefono;
                     txtDireccion.Text = paciente.Direccion;
                     ddlPrepaga.SelectedValue = paciente.prepaga.IdPrepaga.ToString();
-                    txtFechaNacimiento.Text = paciente.FechaNacimiento.ToString("dd-mm-yyyy");
+                    txtFechaNacimiento.Text = paciente.FechaNacimiento.ToString("yyyy-MM-dd");
                 }
             }
             catch (Exception ex)
