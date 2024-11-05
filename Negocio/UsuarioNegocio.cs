@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Seguridad;
 using Negocio;
+using System.Reflection;
 
 namespace Negocio
 {
@@ -45,22 +46,22 @@ namespace Negocio
 			Usuario usuario = new Usuario();
 			try
 			{
-				datos.setearConsulta("Select u.IdUsuario, u.NombreUsuario, u.Contraseña, u.Nombres, u.Apellidos, u.Mail, u.Telefono, u.IdRol, r.NombreRol from Usuarios as u " +
-                                        "inner join Roles as r on r.IdRol = u.IdRol WHERE u.NombreUsuario = @NombreUsuario");
+				datos.setearConsulta("Select u.IdUsuario, u.NombreUsuario, u.Contraseña, u.Nombres, u.Apellidos, u.Mail, u.Telefono, u.IdRol, r.NombreRol from Usuarios as u inner join Roles as r on r.IdRol = u.IdRol WHERE u.NombreUsuario = @NombreUsuario");
 				datos.setearParametro("@NombreUsuario", Nombreusuario);
 				datos.ejecutarLectura();
 
 				while (datos.lector.Read())
 				{
-					usuario.IdUsuario = (int)datos.lector["u.IdUsuario"];
-					usuario.NombreUsuario = (string)datos.lector["u.NombreUsuario"];
-					usuario.Contraseña = (string)datos.lector["u.Contraseña"];
-					usuario.Nombre = (string)datos.lector["u.Nombres"];
-					usuario.Apellido= (string)datos.lector["u.Apellidos"];
-					usuario.Mail= (string)datos.lector["u.Mail"];
-					usuario.Telefono= (string)datos.lector["u.Telefono"];
-					usuario.Rol.RolId = (int)datos.lector["r.IdRol"];
-					usuario.Rol.Nombre= (string)datos.lector["r.NombreRol"];
+					usuario.IdUsuario = (int)datos.lector["IdUsuario"];
+					usuario.NombreUsuario = (string)datos.lector["NombreUsuario"];
+					usuario.Contraseña = (string)datos.lector["Contraseña"];
+					usuario.Nombre = (string)datos.lector["Nombres"];
+					usuario.Apellido= (string)datos.lector["Apellidos"];
+					usuario.Mail= (string)datos.lector["Mail"];
+					usuario.Telefono= (string)datos.lector["Telefono"];
+					usuario.Rol = new Rol();
+					usuario.Rol.RolId = Convert.ToInt32(datos.lector["IdRol"]);
+					usuario.Rol.Nombre= (string)datos.lector["NombreRol"];
 
 					return usuario;
 				}

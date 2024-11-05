@@ -30,7 +30,7 @@ namespace Tp_Cuatrimestral_18A
                 usuario.Contraseña = txtPassword.Text;
                 if (usuarioNegocio.Loguear(usuario))
                 {
-                    //usuario = usuarioNegocio.cargarDatosUsuario(usuario.NombreUsuario);
+                    usuario = usuarioNegocio.cargarDatosUsuario(usuario.NombreUsuario);
                     Session.Add("Usuario", usuario);
                     Response.Redirect("Medicos.aspx");
                 }
