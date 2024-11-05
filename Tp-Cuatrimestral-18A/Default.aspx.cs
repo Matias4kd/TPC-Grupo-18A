@@ -22,16 +22,17 @@ namespace Tp_Cuatrimestral_18A
         protected void btnIngresar_Click(object sender, EventArgs e) 
         {
             Usuario usuario = new Usuario();
-            UsuarioNegocio negocio = new UsuarioNegocio();
+            UsuarioNegocio usuarioNegocio = new UsuarioNegocio();
 
             try
             {
                 usuario.NombreUsuario = txtUsername.Text;
                 usuario.Contraseña = txtPassword.Text;
-                if (negocio.Loguear(usuario))
+                if (usuarioNegocio.Loguear(usuario))
                 {
+                    //usuario = usuarioNegocio.cargarDatosUsuario(usuario.NombreUsuario);
                     Session.Add("Usuario", usuario);
-                    Response.Redirect("IndexLogueado.aspx");
+                    Response.Redirect("Medicos.aspx");
                 }
                 else 
                 {

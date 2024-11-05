@@ -53,10 +53,31 @@ namespace Tp_Cuatrimestral_18A
             }
 
             Usuario nuevoUsuario = new Usuario();
+            Rol rolSeleccionado = new Rol();
 
-            if(ddlRol.SelectedIndex == 3)
+            nuevoUsuario.NombreUsuario = txtNombreUsuario.Text;
+            nuevoUsuario.Contraseña = txtPassword.Text;
+            nuevoUsuario.Nombre = txtNombre.Text;
+            nuevoUsuario.Apellido = txtApellido.Text;
+            nuevoUsuario.Mail = txtEmail.Text;
+            nuevoUsuario.Telefono = txtTelefono.Text;
+
+            rolSeleccionado.RolId = int.Parse(ddlRol.SelectedValue);
+            rolSeleccionado.Nombre = ddlRol.SelectedItem.Text;
+
+            nuevoUsuario.Rol = rolSeleccionado;
+
+            usuarioNegocio.AgregarUsuario(nuevoUsuario);
+
+            if(rolSeleccionado.RolId == 3)
             {
                 Medico nuevoMedico = new Medico();
+
+                nuevoMedico.IdUsuario = usuarioNegocio.buscarID(nuevoUsuario.NombreUsuario);
+                nuevoMedico.Matricula = txtMatricula.Text;
+
+                medicoNegocio.Agregar(nuevoMedico);
+
             }
         }
 
@@ -64,5 +85,12 @@ namespace Tp_Cuatrimestral_18A
         {
             Response.Redirect("Default.aspx");
         }
+
+        protected void ddlRol_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            lblMatricula.Visible = true;
+            txtMatricula.Visible = true;
+        }
+
     }
 }

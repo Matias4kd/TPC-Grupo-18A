@@ -11,7 +11,7 @@
 <div class="row mt-4">
     <div class="col-md-6">
         <asp:Label ID="lblNombreUsuario" runat="server" Text="Nombre:" AssociatedControlID="txtNombre" />
-        <asp:TextBox ID="txtNombre" runat="server" CssClass="form-control" />
+        <asp:TextBox ID="txtNombreUsuario" runat="server" CssClass="form-control" />
 
         <asp:Label ID="lblPassword" runat="server" Text="Contraseña:" AssociatedControlID="txtPassword" />
         <asp:TextBox ID="txtPassword" TextMode="Password" runat="server" CssClass="form-control" />
@@ -20,7 +20,7 @@
         <asp:TextBox ID="txtConfirmacionPassword" TextMode="Password" runat="server" CssClass="form-control" />
 
         <asp:Label ID="lblNombre" runat="server" Text="Nombre:" AssociatedControlID="txtNombre" />
-        <asp:TextBox ID="TextBox1" runat="server" CssClass="form-control" />
+        <asp:TextBox ID="txtNombre" runat="server" CssClass="form-control" />
         
         <asp:Label ID="lblApellido" runat="server" Text="Apellido:" AssociatedControlID="txtApellido" />
         <asp:TextBox ID="txtApellido" runat="server" CssClass="form-control" />
@@ -32,7 +32,7 @@
         <asp:TextBox ID="txtTelefono" runat="server" CssClass="form-control" />
 
         <asp:Label ID="lblRol" runat="server" Text="Seleccionar Rol:" AssociatedControlID="ddlRol" />
-        <asp:DropDownList ID="ddlRol" runat="server" CssClass="form-control">
+        <asp:DropDownList ID="ddlRol" runat="server" CssClass="form-control" OnSelectedIndexChanged="ddlRol_SelectedIndexChanged">
             <asp:ListItem Text="Seleccionar" Value="0" />           
         </asp:DropDownList>
 

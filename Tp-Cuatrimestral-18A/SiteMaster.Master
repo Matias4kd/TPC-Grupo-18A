@@ -17,6 +17,25 @@
             <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
                 <div class="container-fluid">
                     <span class="navbar-brand mb-0 h1">Clinica Médica ZN</span>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav" id="navbarOptions" runat="server">
+                            <li class="nav-item active">
+                                <a class="nav-link" href="Medicos.aspx">Medicos</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="Pacientes.aspx">Pacientes</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="ABMUsuarios.aspx">AltaUsuarios</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link " href="Default.aspx">Cerrar Sesion</a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </nav>
 

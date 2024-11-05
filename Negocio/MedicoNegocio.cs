@@ -17,18 +17,19 @@ namespace Negocio
 
             try
             {
-                datos.setearConsulta("SELECT IdMedico, Nombres, Apellidos, Matricula, Mail FROM Medicos");
+                datos.setearConsulta("SELECT m.IdMedico, u.IdUsuario, u.Nombres, u.Apellidos, m.Matricula, u.Mail FROM Medicos as m INNER JOIN Usuarios as u on  u.IdUsuario = m.IdUsuario ");
                 datos.ejecutarLectura();
 
                 while (datos.Lector.Read())
                 {
                     Medico medico = new Medico
                     {
-                        IdMedico = (int)datos.Lector["IdMedico"],
-                        Nombres = (string)datos.Lector["Nombres"],
-                        Apellidos = (string)datos.Lector["Apellidos"],
-                        Matricula = (string)datos.Lector["Matricula"],
-                        Email = (string)datos.Lector["Mail"]
+                        IdMedico = (int)datos.Lector["m.IdMedico"],
+                        IdUsuario = (int)datos.Lector["u.IdUsuario"],
+                        Nombres = (string)datos.Lector["u.Nombres"],
+                        Apellidos = (string)datos.Lector["u.Apellidos"],
+                        Matricula = (string)datos.Lector["m.Matricula"],
+                        Email = (string)datos.Lector["u.Mail"]
                     };
 
                     lista.Add(medico);
@@ -52,12 +53,10 @@ namespace Negocio
 
             try
             {
-                string consulta = "INSERT INTO Medicos (Nombre, Apellido, Matricula, Email) VALUES (@Nombre, @Apellido, @Matricula, @Email)";
+                string consulta = "INSERT INTO Medicos (IdUsuario, Matricula) VALUES (@IdUsuario, @Matricula)";
                 datos.setearConsulta(consulta);
-                datos.setearParametro("@Nombre", medico.Nombres);
-                datos.setearParametro("@Apellido", medico.Apellidos);
+                datos.setearParametro("@IdUsuario", medico.IdUsuario);
                 datos.setearParametro("@Matricula", medico.Matricula);
-                datos.setearParametro("@Email", medico.Email);
                 datos.ejecutarAccion();
             }
             catch (Exception ex)
@@ -70,7 +69,7 @@ namespace Negocio
             }
         }
 
-        public void Modificar(Medico medico)
+        public void Modificar(Medico medico) // REFORMULAR
         {
             AccesoDatos datos = new AccesoDatos();
 
@@ -106,7 +105,7 @@ namespace Negocio
             AccesoDatos datos = new AccesoDatos();
             try
             {
-                // Ajustar la consulta SQL para filtrar por nombre de prepaga y especialidad
+                // Ajustar la consulta SQL para filtrar por nombre de prepaga y especialidad                      REFORMULAR
                 string consulta = @"SELECT DISTINCT m.IdMedico, m.Nombres, m.Apellidos, m.Matricula, m.Mail 
                             FROM Medicos m
                             INNER JOIN Prepagas_x_Medico pm ON m.IdMedico = pm.IdMedico
@@ -153,7 +152,7 @@ namespace Negocio
             AccesoDatos datos = new AccesoDatos();
 
             try
-            {
+            {    //                     REFORMULAR
                 string consulta = @"SELECT DISTINCT m.IdMedico, m.Nombres, m.Apellidos, m.Matricula, m.Mail 
                     FROM Medicos m
                     INNER JOIN Especialidades_x_Medico em ON m.IdMedico = em.IdMedico
@@ -200,7 +199,7 @@ namespace Negocio
             AccesoDatos datos = new AccesoDatos();
             try
             {
-                // Consulta SQL para filtrar únicamente por prepaga
+                // Consulta SQL para filtrar únicamente por prepaga                      REFORMULAR
                 string consulta = @"SELECT DISTINCT m.IdMedico, m.Nombres, m.Apellidos, m.Matricula, m.Mail 
                             FROM Medicos m
                             INNER JOIN Prepagas_x_Medico pm ON m.IdMedico = pm.IdMedico
