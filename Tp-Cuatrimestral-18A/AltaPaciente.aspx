@@ -30,7 +30,6 @@
             <asp:Label ID="lblPrepaga" runat="server" Text="Prepaga:" AssociatedControlID="ddlPrepaga" />
             <asp:DropDownList ID="ddlPrepaga" runat="server" CssClass="form-control">
                 <asp:ListItem Text="Seleccionar" Value="0" />
-               
             </asp:DropDownList>
 
             <asp:Label ID="lblFechaNacimiento" runat="server" Text="Fecha de Nacimiento:" AssociatedControlID="txtFechaNacimiento" />
