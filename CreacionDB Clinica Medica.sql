@@ -23,16 +23,17 @@ CREATE TABLE Usuarios(
     IdUsuario int PRIMARY KEY IDENTITY(1,1),
     NombreUsuario VARCHAR(50) UNIQUE NOT NULL,
     Contraseña VARCHAR(50) not NULL,
+    Nombres VARCHAR(50) not null,
+    Apellidos VARCHAR(50) not null,
+    Mail varchar(50) not null, 
+    Telefono varchar(20) not null,
     IdRol SMALLINT NOT NULL FOREIGN KEY REFERENCES Roles(IdRol)
 )
 GO
 Create table Medicos(
     IdMedico int PRIMARY KEY IDENTITY(1,1),
-    Nombres VARCHAR(50) not null,
-    Apellidos VARCHAR(50) not null,
+    IdUsuario int FOREIGN KEY REFERENCES Usuarios(IdUsuario),
     Matricula VARCHAR(50) unique not null,
-    Mail varchar(50) not null, 
-    Telefono varchar(20) not null,
     FechaAlta DATETIME DEFAULT GETDATE(),
 )
 GO
@@ -123,13 +124,35 @@ INSERT INTO Permisos_X_Rol (IdPermiso, IdRol) VALUES (5, 3); -- Modificar Turnos
 
 
 -- Administrador
-INSERT INTO Usuarios (NombreUsuario, Contraseña, IdRol) VALUES ('admin', 'admin123', 1);
+INSERT INTO Usuarios (NombreUsuario, Contraseña, Nombres, Apellidos, Mail, Telefono, IdRol) 
+VALUES ('admin', 'admin123', 'Carlos', 'Pérez', 'admin@example.com', '111222333', 1);
 
 -- Recepcionista
-INSERT INTO Usuarios (NombreUsuario, Contraseña, IdRol) VALUES ('recepcionista', 'recep123', 2);
+INSERT INTO Usuarios (NombreUsuario, Contraseña, Nombres, Apellidos, Mail, Telefono, IdRol) 
+VALUES ('recepcionista1', 'recepcion123', 'Laura', 'Gómez', 'laura.gomez@example.com', '444555666', 2);
 
--- Médico
-INSERT INTO Usuarios (NombreUsuario, Contraseña, IdRol) VALUES ('medico1', 'medico123', 3);
+-- Médicos
+INSERT INTO Usuarios (NombreUsuario, Contraseña, Nombres, Apellidos, Mail, Telefono, IdRol) 
+VALUES ('medico1', 'medico123', 'Juan', 'Alvarez', 'juan.alvarez@example.com', '777888999', 3);
+INSERT INTO Usuarios (NombreUsuario, Contraseña, Nombres, Apellidos, Mail, Telefono, IdRol) 
+VALUES ('medico2', 'medico123', 'Ana', 'Rodriguez', 'ana.rodriguez@example.com', '888999000', 3);
+INSERT INTO Usuarios (NombreUsuario, Contraseña, Nombres, Apellidos, Mail, Telefono, IdRol) 
+VALUES ('medico3', 'medico123', 'Luis', 'Martínez', 'luis.martinez@example.com', '999000111', 3);
+INSERT INTO Usuarios (NombreUsuario, Contraseña, Nombres, Apellidos, Mail, Telefono, IdRol) 
+VALUES ('medico4', 'medico123', 'Marta', 'Lopez', 'marta.lopez@example.com', '123456789', 3);
+INSERT INTO Usuarios (NombreUsuario, Contraseña, Nombres, Apellidos, Mail, Telefono, IdRol) 
+VALUES ('medico5', 'medico123', 'Carlos', 'Fernandez', 'carlos.fernandez@example.com', '234567890', 3);
+INSERT INTO Usuarios (NombreUsuario, Contraseña, Nombres, Apellidos, Mail, Telefono, IdRol) 
+VALUES ('medico6', 'medico123', 'Patricia', 'Gonzalez', 'patricia.gonzalez@example.com', '345678901', 3);
+INSERT INTO Usuarios (NombreUsuario, Contraseña, Nombres, Apellidos, Mail, Telefono, IdRol) 
+VALUES ('medico7', 'medico123', 'Raúl', 'Cruz', 'raul.cruz@example.com', '456789012', 3);
+INSERT INTO Usuarios (NombreUsuario, Contraseña, Nombres, Apellidos, Mail, Telefono, IdRol) 
+VALUES ('medico8', 'medico123', 'Beatriz', 'Vázquez', 'beatriz.vazquez@example.com', '567890123', 3);
+INSERT INTO Usuarios (NombreUsuario, Contraseña, Nombres, Apellidos, Mail, Telefono, IdRol) 
+VALUES ('medico9', 'medico123', 'Sergio', 'Morales', 'sergio.morales@example.com', '678901234', 3);
+INSERT INTO Usuarios (NombreUsuario, Contraseña, Nombres, Apellidos, Mail, Telefono, IdRol) 
+VALUES ('medico10', 'medico123', 'Lucía', 'Hernandez', 'lucia.hernandez@example.com', '789012345', 3);
+
 
 INSERT INTO Prepagas(NombrePrepaga) VALUES ('Osde')
 INSERT INTO Prepagas(NombrePrepaga) VALUES ('Galeno')
@@ -138,17 +161,17 @@ INSERT INTO Prepagas(NombrePrepaga) VALUES ('Medicus')
 INSERT INTO Prepagas(NombrePrepaga) VALUES ('No tiene')
 
 
-INSERT INTO Medicos (Nombres, Apellidos, Matricula, Mail, Telefono) VALUES ('Juan', 'Pérez', 'M001', 'juan.perez@example.com', '123456789');
-INSERT INTO Medicos (Nombres, Apellidos, Matricula, Mail, Telefono) VALUES ('María', 'Gómez', 'M002', 'maria.gomez@example.com', '987654321');
-INSERT INTO Medicos (Nombres, Apellidos, Matricula, Mail, Telefono) VALUES ('Carlos', 'Fernández', 'M003', 'carlos.fernandez@example.com', '123123123');
-INSERT INTO Medicos (Nombres, Apellidos, Matricula, Mail, Telefono) VALUES ('Laura', 'Martínez', 'M004', 'laura.martinez@example.com', '321321321');
-INSERT INTO Medicos (Nombres, Apellidos, Matricula, Mail, Telefono) VALUES ('Ana', 'Sánchez', 'M005', 'ana.sanchez@example.com', '456456456');
-INSERT INTO Medicos (Nombres, Apellidos, Matricula, Mail, Telefono) VALUES ('Diego', 'Rodríguez', 'M006', 'diego.rodriguez@example.com', '654654654');
-INSERT INTO Medicos (Nombres, Apellidos, Matricula, Mail, Telefono) VALUES ('Clara', 'Martínez', 'M007', 'clara.martinez@example.com', '789789789');
-INSERT INTO Medicos (Nombres, Apellidos, Matricula, Mail, Telefono) VALUES ('Santiago', 'López', 'M008', 'santiago.lopez@example.com', '321654987');
-INSERT INTO Medicos (Nombres, Apellidos, Matricula, Mail, Telefono) VALUES ('Valentina', 'González', 'M009', 'valentina.gonzalez@example.com', '987321654');
-INSERT INTO Medicos (Nombres, Apellidos, Matricula, Mail, Telefono) VALUES ('Fernando', 'Hernández', 'M010', 'fernando.hernandez@example.com', '123789456');
-
+-- Relacionamos los médicos con los usuarios correspondientes
+INSERT INTO Medicos (IdUsuario, Matricula) VALUES (1, 'MED001');
+INSERT INTO Medicos (IdUsuario, Matricula) VALUES (2, 'MED002');
+INSERT INTO Medicos (IdUsuario, Matricula) VALUES (3, 'MED003');
+INSERT INTO Medicos (IdUsuario, Matricula) VALUES (4, 'MED004');
+INSERT INTO Medicos (IdUsuario, Matricula) VALUES (5, 'MED005');
+INSERT INTO Medicos (IdUsuario, Matricula) VALUES (6, 'MED006');
+INSERT INTO Medicos (IdUsuario, Matricula) VALUES (7, 'MED007');
+INSERT INTO Medicos (IdUsuario, Matricula) VALUES (8, 'MED008');
+INSERT INTO Medicos (IdUsuario, Matricula) VALUES (9, 'MED009');
+INSERT INTO Medicos (IdUsuario, Matricula) VALUES (10, 'MED010');
 
 INSERT INTO Prepagas_x_Medico (IdPrepaga, IdMedico) VALUES (1, 1); -- Osde
 INSERT INTO Prepagas_x_Medico (IdPrepaga, IdMedico) VALUES (2, 2); -- Galeno
