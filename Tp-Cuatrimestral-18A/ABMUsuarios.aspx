@@ -32,7 +32,7 @@
         <asp:TextBox ID="txtTelefono" runat="server" CssClass="form-control" />
 
         <asp:Label ID="lblRol" runat="server" Text="Seleccionar Rol:" AssociatedControlID="ddlRol" />
-        <asp:DropDownList ID="ddlRol" runat="server" CssClass="form-control" OnSelectedIndexChanged="ddlRol_SelectedIndexChanged">
+        <asp:DropDownList ID="ddlRol" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlRol_SelectedIndexChanged">
             <asp:ListItem Text="Seleccionar" Value="0" />           
         </asp:DropDownList>
 

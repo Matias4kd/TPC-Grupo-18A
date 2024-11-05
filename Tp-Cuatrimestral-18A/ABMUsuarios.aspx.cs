@@ -88,8 +88,22 @@ namespace Tp_Cuatrimestral_18A
 
         protected void ddlRol_SelectedIndexChanged(object sender, EventArgs e) // REVISAR
         {
-            lblMatricula.Visible = true;
-            txtMatricula.Visible = true;
+            Rol rolSeleccionado = new Rol();
+
+            rolSeleccionado.RolId = int.Parse(ddlRol.SelectedValue);
+            rolSeleccionado.Nombre = ddlRol.SelectedItem.Text;
+
+            if (rolSeleccionado.RolId == 3)
+            {
+                lblMatricula.Visible = true;
+                txtMatricula.Visible = true;
+
+            }
+            else
+            {
+                lblMatricula.Visible = false;
+                txtMatricula.Visible = false;
+            }
         }
 
     }
