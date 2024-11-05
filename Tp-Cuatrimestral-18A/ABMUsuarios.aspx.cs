@@ -86,7 +86,7 @@ namespace Tp_Cuatrimestral_18A
             Response.Redirect("Default.aspx");
         }
 
-        protected void ddlRol_SelectedIndexChanged(object sender, EventArgs e)
+        protected void ddlRol_SelectedIndexChanged(object sender, EventArgs e) // REVISAR
         {
             lblMatricula.Visible = true;
             txtMatricula.Visible = true;

@@ -10,7 +10,7 @@
 
 <div class="row mt-4">
     <div class="col-md-6">
-        <asp:Label ID="lblNombreUsuario" runat="server" Text="Nombre:" AssociatedControlID="txtNombre" />
+        <asp:Label ID="lblNombreUsuario" runat="server" Text="Nombre de Usuario:" AssociatedControlID="txtNombre" />
         <asp:TextBox ID="txtNombreUsuario" runat="server" CssClass="form-control" />
 
         <asp:Label ID="lblPassword" runat="server" Text="Contraseña:" AssociatedControlID="txtPassword" />

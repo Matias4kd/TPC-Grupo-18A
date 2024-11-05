@@ -67,7 +67,6 @@
     <Content Include="ABMUsuarios.aspx" />
     <Content Include="AltaPaciente.aspx" />
     <Content Include="Default.aspx" />
-    <Content Include="IndexLogueado.aspx" />
     <Content Include="ModificarPaciente.aspx" />
     <Content Include="Pacientes.aspx" />
     <Content Include="Web.config" />
@@ -94,13 +93,6 @@
     </Compile>
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="IndexLogueado.aspx.cs">
-      <DependentUpon>IndexLogueado.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="IndexLogueado.aspx.designer.cs">
-      <DependentUpon>IndexLogueado.aspx</DependentUpon>
     </Compile>
     <Compile Include="ModificarPaciente.aspx.cs">
       <DependentUpon>ModificarPaciente.aspx</DependentUpon>
