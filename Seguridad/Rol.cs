@@ -10,6 +10,5 @@ namespace Seguridad
     {
         public int RolId { get; set; }
         public string Nombre { get; set; } // Admin, Recepcionista, Medico
-        public List<int> Permisos { get; set; }
     }
 }

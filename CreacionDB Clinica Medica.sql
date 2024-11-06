@@ -3,20 +3,9 @@ GO
 use ClinicaMedica_DB
 GO
 
-CREATE TABLE Permisos(
-    IDPermiso SMALLINT PRIMARY KEY IDENTITY(1,1),
-    NombrePermiso varchar(50) not null,
-)
-GO
 CREATE TABLE Roles(
     IdRol SMALLINT PRIMARY KEY IDENTITY(1,1),
     NombreRol VARCHAR(50) not null,
-)
-GO
-Create table Permisos_X_Rol(
-    IdPermiso SMALLINT FOREIGN KEY REFERENCES Permisos(IDPermiso),
-    IdRol SMALLINT FOREIGN KEY REFERENCES Roles(IdRol),
-    PRIMARY KEY(IdPermiso,IdRol),
 )
 GO
 CREATE TABLE Usuarios(
@@ -96,31 +85,6 @@ Create table Turnos(
 INSERT INTO Roles (NombreRol) VALUES ('Administrador');
 INSERT INTO Roles (NombreRol) VALUES ('Recepcionista');
 INSERT INTO Roles (NombreRol) VALUES ('Medico');
-
-INSERT INTO Permisos (NombrePermiso) VALUES ('Administrar Pacientes');
-INSERT INTO Permisos (NombrePermiso) VALUES ('Administrar Médicos');
-INSERT INTO Permisos (NombrePermiso) VALUES ('Dar Alta Turnos');
-INSERT INTO Permisos (NombrePermiso) VALUES ('Ver Turnos');
-INSERT INTO Permisos (NombrePermiso) VALUES ('Modificar Turnos');
-INSERT INTO Permisos (NombrePermiso) VALUES ('Administrar Recepcionistas');
-
--- Administrador: Puede manipular todo
-INSERT INTO Permisos_X_Rol (IdPermiso, IdRol) VALUES (1, 1); -- Administrar Pacientes
-INSERT INTO Permisos_X_Rol (IdPermiso, IdRol) VALUES (2, 1); -- Administrar Médicos
-INSERT INTO Permisos_X_Rol (IdPermiso, IdRol) VALUES (3, 1); -- Dar Alta Turnos
-INSERT INTO Permisos_X_Rol (IdPermiso, IdRol) VALUES (4, 1); -- Ver Turnos
-INSERT INTO Permisos_X_Rol (IdPermiso, IdRol) VALUES (5, 1); -- Modificar Turnos
-INSERT INTO Permisos_X_Rol (IdPermiso, IdRol) VALUES (6, 1); -- Administrar Recepcionistas
-
--- Recepcionista: Puede administrar pacientes y médicos, y dar de alta turnos
-INSERT INTO Permisos_X_Rol (IdPermiso, IdRol) VALUES (1, 2); -- Administrar Pacientes
-INSERT INTO Permisos_X_Rol (IdPermiso, IdRol) VALUES (2, 2); -- Administrar Médicos
-INSERT INTO Permisos_X_Rol (IdPermiso, IdRol) VALUES (3, 2); -- Dar Alta Turnos
-INSERT INTO Permisos_X_Rol (IdPermiso, IdRol) VALUES (4, 2); -- Ver Turnos
-
--- Médico: Puede ver y modificar sus turnos
-INSERT INTO Permisos_X_Rol (IdPermiso, IdRol) VALUES (4, 3); -- Ver Turnos
-INSERT INTO Permisos_X_Rol (IdPermiso, IdRol) VALUES (5, 3); -- Modificar Turnos
 
 
 -- Administrador

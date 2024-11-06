@@ -79,11 +79,13 @@ namespace Tp_Cuatrimestral_18A
                 medicoNegocio.Agregar(nuevoMedico);
 
             }
+
+            Response.Redirect("Medicos.aspx");
         }
 
         protected void btnVolver_Click(object sender, EventArgs e)
         {
-            Response.Redirect("Default.aspx");
+            Response.Redirect("Medicos.aspx");
         }
 
         protected void ddlRol_SelectedIndexChanged(object sender, EventArgs e) // REVISAR

@@ -11,18 +11,14 @@ namespace Tp_Cuatrimestral_18A
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            // Obtiene el nombre de la página actual
             string currentPage = System.IO.Path.GetFileName(Request.Path);
 
-            // Verifica si la página actual es "Default.aspx"
             if (currentPage.Equals("Default.aspx", StringComparison.OrdinalIgnoreCase))
             {
-                // Oculta las opciones específicas en la barra de navegación para "Default.aspx"
                 navbarOptions.Visible = false;
             }
             else
             {
-                // Muestra las opciones en otras páginas
                 navbarOptions.Visible = true;
             }
         }
