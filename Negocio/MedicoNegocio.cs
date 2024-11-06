@@ -17,19 +17,21 @@ namespace Negocio
 
             try
             {
-                datos.setearConsulta("SELECT m.IdMedico, u.IdUsuario, u.Nombres, u.Apellidos, m.Matricula, u.Mail FROM Medicos as m INNER JOIN Usuarios as u on  u.IdUsuario = m.IdUsuario ");
+                datos.setearConsulta(@"SELECT m.IdMedico, u.IdUsuario, u.Nombres, u.Apellidos, m.Matricula, u.Mail 
+                               FROM Medicos m
+                               INNER JOIN Usuarios u ON u.IdUsuario = m.IdUsuario");
                 datos.ejecutarLectura();
 
                 while (datos.Lector.Read())
                 {
                     Medico medico = new Medico
                     {
-                        IdMedico = (int)datos.Lector["m.IdMedico"],
-                        IdUsuario = (int)datos.Lector["u.IdUsuario"],
-                        Nombres = (string)datos.Lector["u.Nombres"],
-                        Apellidos = (string)datos.Lector["u.Apellidos"],
-                        Matricula = (string)datos.Lector["m.Matricula"],
-                        Email = (string)datos.Lector["u.Mail"]
+                        IdMedico = (int)datos.Lector["IdMedico"],
+                        IdUsuario = (int)datos.Lector["IdUsuario"],
+                        Nombres = (string)datos.Lector["Nombres"],
+                        Apellidos = (string)datos.Lector["Apellidos"],
+                        Matricula = (string)datos.Lector["Matricula"],
+                        Email = (string)datos.Lector["Mail"]
                     };
 
                     lista.Add(medico);
@@ -46,6 +48,7 @@ namespace Negocio
                 datos.cerrarConexion();
             }
         }
+
 
         public void Agregar(Medico medico)
         {
@@ -105,9 +108,9 @@ namespace Negocio
             AccesoDatos datos = new AccesoDatos();
             try
             {
-                // Ajustar la consulta SQL para filtrar por nombre de prepaga y especialidad                      REFORMULAR
-                string consulta = @"SELECT DISTINCT m.IdMedico, m.Nombres, m.Apellidos, m.Matricula, m.Mail 
+                string consulta = @"SELECT DISTINCT m.IdMedico, u.Nombres, u.Apellidos, m.Matricula, u.Mail 
                             FROM Medicos m
+                            INNER JOIN Usuarios u ON u.IdUsuario = m.IdUsuario
                             INNER JOIN Prepagas_x_Medico pm ON m.IdMedico = pm.IdMedico
                             INNER JOIN Especialidades_x_Medico em ON m.IdMedico = em.IdMedico
                             INNER JOIN Prepagas p ON pm.IdPrepaga = p.IdPrepaga
@@ -146,18 +149,20 @@ namespace Negocio
         }
 
 
+
         public List<Medico> ListarPorEspecialidad(string nombreEspecialidad)
         {
             List<Medico> lista = new List<Medico>();
             AccesoDatos datos = new AccesoDatos();
 
             try
-            {    //                     REFORMULAR
-                string consulta = @"SELECT DISTINCT m.IdMedico, m.Nombres, m.Apellidos, m.Matricula, m.Mail 
-                    FROM Medicos m
-                    INNER JOIN Especialidades_x_Medico em ON m.IdMedico = em.IdMedico
-                    INNER JOIN Especialidades e ON em.IdEspecialidad = e.IdEspecialidad
-                    WHERE e.NombreEspecialidad = @nombreEspecialidad";
+            {
+                string consulta = @"SELECT DISTINCT m.IdMedico, u.Nombres, u.Apellidos, m.Matricula, u.Mail 
+                            FROM Medicos m
+                            INNER JOIN Usuarios u ON u.IdUsuario = m.IdUsuario
+                            INNER JOIN Especialidades_x_Medico em ON m.IdMedico = em.IdMedico
+                            INNER JOIN Especialidades e ON em.IdEspecialidad = e.IdEspecialidad
+                            WHERE e.NombreEspecialidad = @nombreEspecialidad";
 
                 datos.setearConsulta(consulta);
                 datos.setearParametro("@nombreEspecialidad", nombreEspecialidad);
@@ -188,6 +193,7 @@ namespace Negocio
             }
         }
 
+
         public List<Medico> ListarPorPrepaga(string nombrePrepaga)
         {
             if (string.IsNullOrEmpty(nombrePrepaga))
@@ -199,9 +205,9 @@ namespace Negocio
             AccesoDatos datos = new AccesoDatos();
             try
             {
-                // Consulta SQL para filtrar únicamente por prepaga                      REFORMULAR
-                string consulta = @"SELECT DISTINCT m.IdMedico, m.Nombres, m.Apellidos, m.Matricula, m.Mail 
+                string consulta = @"SELECT DISTINCT m.IdMedico, u.Nombres, u.Apellidos, m.Matricula, u.Mail 
                             FROM Medicos m
+                            INNER JOIN Usuarios u ON u.IdUsuario = m.IdUsuario
                             INNER JOIN Prepagas_x_Medico pm ON m.IdMedico = pm.IdMedico
                             INNER JOIN Prepagas p ON pm.IdPrepaga = p.IdPrepaga
                             WHERE p.NombrePrepaga = @nombrePrepaga";
@@ -234,6 +240,7 @@ namespace Negocio
                 datos.cerrarConexion();
             }
         }
+
 
 
         public void Eliminar(int id)
