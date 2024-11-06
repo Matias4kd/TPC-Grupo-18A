@@ -42,7 +42,7 @@
                             <asp:LinkButton ID="lnkSeleccionar" runat="server" CssClass="btn btn-primary btn-sm"
                                 CommandName="Seleccionar" CommandArgument='<%# Eval("IdMedico") %>'
                                 OnCommand="lnkSeleccionar_Command">
-                                Seleccionar
+                                Turnos
                             </asp:LinkButton>
                         </ItemTemplate>
                     </asp:TemplateField>
