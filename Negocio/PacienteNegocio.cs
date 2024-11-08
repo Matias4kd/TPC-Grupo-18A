@@ -156,6 +156,53 @@ namespace Negocio
             }
         }
 
+        public Paciente ObtenerPorDNI(int dni)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            Paciente paciente = null;
+
+            try
+            {
+                datos.setearConsulta("SELECT IdPaciente, Nombres, Apellidos, DNI, FechaNacimiento, Mail, Telefono, Direccion, IdPrepaga FROM Pacientes WHERE DNI = @DNI");
+                datos.setearParametro("@DNI", dni);
+                datos.ejecutarLectura();
+
+                if (datos.Lector.Read())
+                {
+                    paciente = new Paciente
+                    {
+                        IdPaciente = (long)datos.Lector["IdPaciente"],
+                        Nombre = (string)datos.Lector["Nombres"],
+                        Apellido = (string)datos.Lector["Apellidos"],
+                        DNI = (string)datos.Lector["DNI"],
+                        FechaNacimiento = (DateTime)datos.Lector["FechaNacimiento"],
+                        Email = (string)datos.Lector["Mail"],
+                        Telefono = (string)datos.Lector["Telefono"],
+                        Direccion = (string)datos.Lector["Direccion"]
+                    };
+
+                    // Verificar si el campo IdPrepaga no es nulo antes de asignarlo
+                    if (datos.Lector["DNI"] != DBNull.Value)
+                    {
+                        paciente.prepaga = new Prepaga
+                        {
+                            IdPrepaga = (int)datos.Lector["IdPrepaga"]
+                        };
+                    }
+                }
+
+                return paciente;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
         public void Eliminar(int idPaciente)
         {
             AccesoDatos datos = new AccesoDatos();

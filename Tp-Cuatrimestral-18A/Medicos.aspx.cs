@@ -116,7 +116,7 @@ namespace ClinicaMedica
         protected void lnkSeleccionar_Command(object sender, CommandEventArgs e)
         {
             int idMedico = Convert.ToInt32(e.CommandArgument);
-            Response.Write("Médico seleccionado con ID: " + idMedico);
+            Response.Redirect("TurnosMedico.aspx?IdMedico=" + idMedico);
         }
 
         private void MostrarMensaje(string mensaje)
