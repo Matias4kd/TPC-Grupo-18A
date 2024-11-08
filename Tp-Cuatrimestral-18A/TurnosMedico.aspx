@@ -3,13 +3,45 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <div class="row-6">
-        <div class="col-6">
-            <label for="txtDni" class="form-label" style="margin-top: 100px; margin-left: 100px">Ingrese su DNI: </label>
-            <asp:TextBox runat="server" ID="txtDni" Style="margin-left: 20px" />
-            <asp:Button Text="Aceptar" runat="server" OnClick="btnAceptar_Click" />
+    <asp:Panel ID="pnlFormularioMedico" runat="server">
+        <div class="container mt-5" id="CardContainer">
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header bg-primary text-white">
+                            <h5 class="card-title mb-0">Información del Médico</h5>
+                        </div>
+                        <div class="card-body">
+                            <p>
+                                <strong>Nombre:</strong>
+                                <asp:Label ID="lblNombreMedico" runat="server" CssClass="form-control-plaintext" />
+                            </p>
+                            <p>
+                                <strong>Apellido:</strong>
+                                <asp:Label ID="lblApellidoMedico" runat="server" CssClass="form-control-plaintext" />
+                            </p>
+                            <p>
+                                <strong>Matricula:</strong>
+                                <asp:Label ID="lblMatriculaMedico" runat="server" CssClass="form-control-plaintext" />
+                            </p>
+                        </div>
+                    </div>
+                    <p style="margin-top: 20px"><strong>Seleccione un horario: </strong></p>
+                    <asp:DropDownList ID="ddlTurnosDisponibles" runat="server" class="form-select"></asp:DropDownList>
+                    <asp:Button ID="btnAceptarHorario" runat="server" Text="Aceptar" class="btn btn-primary btn-sm" Style="margin-top: 20px" OnClick="btnAceptarHorario_Click" />
+                </div>
+            </div>
         </div>
-    </div>
+    </asp:Panel>
+    <asp:Panel ID="pnlDni" runat="server" Visible="false">
+        <div class="row-6">
+            <div class="col-6">
+                <asp:Label runat="server" ID="lblIngresarDni" class="form-label" style="margin-top: 100px; margin-left: 100px">Ingrese el DNI del paciente: </asp:Label>
+                <asp:TextBox runat="server" ID="txtDni" Style="margin-left: 20px; margin-top: 100px; margin-left: 20px; margin-right: 20px; margin-bottom: 40px" />
+                <asp:Button Text="Aceptar" ID="txtAceptar" runat="server" OnClick="btnAceptar_Click" />
+            </div>
+       </div>
+    </asp:Panel>
 
     <asp:Panel ID="pnlFormularioPaciente" runat="server" Visible="false" CssClass="container border rounded p-4 shadow-sm">
         <h4 class="text-center mb-4">Formulario de Paciente</h4>
@@ -71,7 +103,7 @@
         </div>
 
         <div class="text-center">
-            <asp:Button Text="Agendar Turno" runat="server" OnClick="btnGuardar_Click" CssClass="btn btn-primary w-100" />
+            <asp:Button Text="Agendar Turno" runat="server" OnClick="btnAgendar_Click" CssClass="btn btn-primary w-100" />
         </div>
     </asp:Panel>
 </asp:Content>

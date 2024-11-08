@@ -12,5 +12,6 @@ namespace Dominio
         public DayOfWeek DiaDeLaSemana { get; set; }
         public TimeSpan HoraInicio { get; set; }
         public TimeSpan HoraFin { get; set; }
+
     }
 }

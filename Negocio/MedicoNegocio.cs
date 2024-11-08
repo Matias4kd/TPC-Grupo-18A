@@ -241,6 +241,40 @@ namespace Negocio
             }
         }
 
+        public Medico ObtenerPorID(int id)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            Medico medico = null;
+
+            try
+            {
+                datos.setearConsulta("SELECT m.IdMedico, m.IdUsuario, m.Matricula, u.Nombres, u.Apellidos, u.Mail FROM Medicos as m JOIN Usuarios as u ON m.IdUsuario = u.IdUsuario WHERE IdMedico = @IdMedico");
+                datos.setearParametro("@IdMedico", id);
+                datos.ejecutarLectura();
+
+                if (datos.Lector.Read())
+                {
+                    medico = new Medico
+                    {
+                        IdMedico = (int)datos.Lector["IdMedico"],
+                        Nombres = (string)datos.Lector["Nombres"],
+                        Apellidos = (string)datos.Lector["Apellidos"],
+                        Matricula = (string)datos.Lector["Matricula"],
+                        Email = (string)datos.Lector["Mail"],
+                    };
+                }
+
+                return medico;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
 
 
         public void Eliminar(int id)
