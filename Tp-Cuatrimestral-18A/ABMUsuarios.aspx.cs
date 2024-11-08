@@ -14,6 +14,8 @@ namespace Tp_Cuatrimestral_18A
     {
         private UsuarioNegocio usuarioNegocio= new UsuarioNegocio();
         private MedicoNegocio medicoNegocio= new MedicoNegocio();
+        private Usuario usuario = new Usuario();
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -21,6 +23,14 @@ namespace Tp_Cuatrimestral_18A
                 CargarRoles();
                 lblMatricula.Visible = false;
                 txtMatricula.Visible = false;
+
+                if (Request.QueryString["Id"] != null)
+                {
+                    int IdUsuario = Convert.ToInt32(Request.QueryString["Id"]);
+                    
+                    usuario = usuarioNegocio.cargarDatosUsuario(IdUsuario);
+                    cargarCampos(usuario);
+                }
             }
         }
 
@@ -44,40 +54,102 @@ namespace Tp_Cuatrimestral_18A
                 throw ex;
             }
         }
-
-        protected void btnGuardar_Click(object sender, EventArgs e)
+        private void cargarCampos(Usuario usuario)
         {
-            if(txtPassword != txtConfirmacionPassword)
+            if(usuario != null)
             {
+                txtNombreUsuario.Text = usuario.NombreUsuario;
+                txtPassword.Text = usuario.Contraseña;
+                txtConfirmacionPassword.Text = usuario.Contraseña;
+                txtNombre.Text = usuario.Nombre;
+                txtApellido.Text = usuario.Apellido;
+                txtEmail.Text = usuario.Mail;
+                txtTelefono.Text = usuario.Telefono;
+                ddlRol.SelectedValue = usuario.Rol.RolId.ToString();
+
+                if (usuario.Rol.RolId == 3)
+                {
+                    lblMatricula.Visible = true;
+                    txtMatricula.Visible = true;
+
+                    MedicoNegocio Mnegocio = new MedicoNegocio();
+
+                    Medico medico = Mnegocio.BuscarMatricula(usuario.IdUsuario);
+
+                    txtMatricula.Text = medico.Matricula;
+                }
 
             }
-
-            Usuario nuevoUsuario = new Usuario();
-            Rol rolSeleccionado = new Rol();
-
-            nuevoUsuario.NombreUsuario = txtNombreUsuario.Text;
-            nuevoUsuario.Contraseña = txtPassword.Text;
-            nuevoUsuario.Nombre = txtNombre.Text;
-            nuevoUsuario.Apellido = txtApellido.Text;
-            nuevoUsuario.Mail = txtEmail.Text;
-            nuevoUsuario.Telefono = txtTelefono.Text;
-
-            rolSeleccionado.RolId = int.Parse(ddlRol.SelectedValue);
-            rolSeleccionado.Nombre = ddlRol.SelectedItem.Text;
-
-            nuevoUsuario.Rol = rolSeleccionado;
-
-            usuarioNegocio.AgregarUsuario(nuevoUsuario);
-
-            if(rolSeleccionado.RolId == 3)
+        }
+        protected void btnGuardar_Click(object sender, EventArgs e)
+        {
+            if(Request.QueryString["Id"] != null)
             {
-                Medico nuevoMedico = new Medico();
+                
+                Rol rolSeleccionado = new Rol();
 
-                nuevoMedico.IdUsuario = usuarioNegocio.buscarID(nuevoUsuario.NombreUsuario);
-                nuevoMedico.Matricula = txtMatricula.Text;
+                Usuario usuarioModificado =  new Usuario();
 
-                medicoNegocio.Agregar(nuevoMedico);
+                usuarioModificado.IdUsuario = usuario.IdUsuario;
+                usuarioModificado.NombreUsuario = txtNombreUsuario.Text;
+                usuarioModificado.Contraseña = txtPassword.Text;
+                usuarioModificado.Nombre = txtNombre.Text;
+                usuarioModificado.Apellido = txtApellido.Text;
+                usuarioModificado.Mail = txtEmail.Text;
+                usuarioModificado.Telefono = txtTelefono.Text;
 
+                rolSeleccionado.RolId = int.Parse(ddlRol.SelectedValue);
+                rolSeleccionado.Nombre = ddlRol.SelectedItem.Text;
+
+                usuarioModificado.Rol = rolSeleccionado;
+
+                usuarioNegocio.ModificarUsuario(usuarioModificado);
+
+                if (rolSeleccionado.RolId == 3)
+                {
+                    Medico medico = new Medico();
+
+                    medico.IdUsuario = usuarioNegocio.buscarID(usuarioModificado.NombreUsuario);
+                    medico.Matricula = txtMatricula.Text;
+                    
+                    txtMatricula.Enabled = false; //buscar como deshabilitar el control
+
+                }
+            }
+            else
+            {
+                if (txtPassword != txtConfirmacionPassword)
+                {
+
+                }
+
+                Usuario nuevoUsuario = new Usuario();
+                Rol rolSeleccionado = new Rol();
+
+                nuevoUsuario.NombreUsuario = txtNombreUsuario.Text;
+                nuevoUsuario.Contraseña = txtPassword.Text;
+                nuevoUsuario.Nombre = txtNombre.Text;
+                nuevoUsuario.Apellido = txtApellido.Text;
+                nuevoUsuario.Mail = txtEmail.Text;
+                nuevoUsuario.Telefono = txtTelefono.Text;
+
+                rolSeleccionado.RolId = int.Parse(ddlRol.SelectedValue);
+                rolSeleccionado.Nombre = ddlRol.SelectedItem.Text;
+
+                nuevoUsuario.Rol = rolSeleccionado;
+
+                usuarioNegocio.AgregarUsuario(nuevoUsuario);
+
+                if(rolSeleccionado.RolId == 3)
+                {
+                    Medico nuevoMedico = new Medico();
+
+                    nuevoMedico.IdUsuario = usuarioNegocio.buscarID(nuevoUsuario.NombreUsuario);
+                    nuevoMedico.Matricula = txtMatricula.Text;
+
+                    medicoNegocio.Agregar(nuevoMedico);
+
+                }
             }
             
             Response.Redirect("Usuarios.aspx");

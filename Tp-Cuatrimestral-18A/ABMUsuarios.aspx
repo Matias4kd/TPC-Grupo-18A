@@ -37,7 +37,7 @@
         </asp:DropDownList>
 
         <asp:Label ID="lblMatricula" runat="server" Text="Matricula:" AssociatedControlID="txtMatricula" />
-        <asp:TextBox ID="txtMatricula" runat="server" CssClass="form-control" />
+        <asp:TextBox ID="txtMatricula" runat="server" CssClass="form-control" SupportsDisabledAttribute="True" />
         
         <br />
 

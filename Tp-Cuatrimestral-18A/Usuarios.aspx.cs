@@ -28,7 +28,9 @@ namespace Tp_Cuatrimestral_18A
 
         protected void lnkModificar_Click(object sender, EventArgs e)
         {
-
+            LinkButton btnModificar = (LinkButton)sender;
+            string idUsuario = btnModificar.CommandArgument; // Obtiene el ID del paciente desde el CommandArgument
+            Response.Redirect("ABMUsuarios.aspx?Id=" + idUsuario); // Pasa el ID en la URL
         }
 
         protected void lnkEliminar_Click(object sender, EventArgs e)

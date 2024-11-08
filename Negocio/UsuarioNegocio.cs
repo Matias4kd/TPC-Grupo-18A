@@ -80,7 +80,73 @@ namespace Negocio
 			}
 			
 		}
+        public Usuario cargarDatosUsuario(int id)
+        {
+            Usuario usuario = new Usuario();
+            try
+            {
+                datos.setearConsulta("Select u.IdUsuario, u.NombreUsuario, u.Contraseña, u.Nombres, u.Apellidos, u.Mail, u.Telefono, u.IdRol, r.NombreRol from Usuarios as u inner join Roles as r on r.IdRol = u.IdRol WHERE u.IdUsuario = @IdUsuario");
+                datos.setearParametro("@IdUsuario", id);
+                datos.ejecutarLectura();
 
+                while (datos.lector.Read())
+                {
+                    usuario.IdUsuario = (int)datos.lector["IdUsuario"];
+                    usuario.NombreUsuario = (string)datos.lector["NombreUsuario"];
+                    usuario.Contraseña = (string)datos.lector["Contraseña"];
+                    usuario.Nombre = (string)datos.lector["Nombres"];
+                    usuario.Apellido = (string)datos.lector["Apellidos"];
+                    usuario.Mail = (string)datos.lector["Mail"];
+                    usuario.Telefono = (string)datos.lector["Telefono"];
+                    usuario.Rol = new Rol();
+                    usuario.Rol.RolId = Convert.ToInt32(datos.lector["IdRol"]);
+                    usuario.Rol.Nombre = (string)datos.lector["NombreRol"];
+
+                    return usuario;
+                }
+
+                return null;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+
+        }
+
+		public void ModificarUsuario(Usuario usuario)
+		{
+            try
+            {
+                string consulta = "Update Usuarios set NombreUsuario=@NombreUsuario, Contraseña=@Contraseña, Nombres=@Nombres, Apellidos=@Apellidos," +
+                                    " Mail=@Mail, Telefono=@telefono, IdRol=@IdRol" +
+                                    " where IdUsuario = @IdUsuario";
+                datos.setearConsulta(consulta);
+                datos.setearParametro("@NombreUsuario", usuario.NombreUsuario);
+                datos.setearParametro("@Contraseña", usuario.Contraseña);
+                datos.setearParametro("@Nombres", usuario.Nombre);
+                datos.setearParametro("@Apellidos", usuario.Apellido);
+                datos.setearParametro("@Mail", usuario.Mail);
+                datos.setearParametro("@telefono", usuario.Telefono);
+                datos.setearParametro("@IdRol", usuario.Rol.RolId);
+                datos.setearParametro("@IdUsuario", usuario.IdUsuario);
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
 
         public void AgregarUsuario(Usuario usuario)
 		{

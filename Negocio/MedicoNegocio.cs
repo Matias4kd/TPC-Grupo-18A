@@ -72,30 +72,7 @@ namespace Negocio
             }
         }
 
-        public void Modificar(Medico medico) // REFORMULAR
-        {
-            AccesoDatos datos = new AccesoDatos();
-
-            try
-            {
-                string consulta = "UPDATE Medicos SET Nombre=@Nombre, Apellido=@Apellido, Matricula=@Matricula, Email=@Email WHERE Id=@Id";
-                datos.setearConsulta(consulta);
-                datos.setearParametro("@Nombre", medico.Nombres);
-                datos.setearParametro("@Apellido", medico.Apellidos);
-                datos.setearParametro("@Matricula", medico.Matricula);
-                datos.setearParametro("@Email", medico.Email);
-                datos.setearParametro("@Id", medico.IdMedico);
-                datos.ejecutarAccion();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-                datos.cerrarConexion();
-            }
-        }
+        
 
         public List<Medico> ListarPorPrepagaYEspecialidad(string nombrePrepaga, string nombreEspecialidad)
         {
@@ -296,6 +273,43 @@ namespace Negocio
             {
                 datos.cerrarConexion();
             }
+        }
+
+        public Medico BuscarMatricula(int idUsuario)
+        {
+
+            AccesoDatos datos = new AccesoDatos();
+            Medico medico = null;
+
+            try
+            {
+                datos.setearConsulta("SELECT m.IdMedico, m.IdUsuario, m.Matricula, u.Nombres, u.Apellidos, u.Mail FROM Medicos as m JOIN Usuarios as u ON m.IdUsuario = u.IdUsuario WHERE m.IdUsuario = @IdUsuario");
+                datos.setearParametro("@IdUsuario", idUsuario);
+                datos.ejecutarLectura();
+
+                if (datos.Lector.Read())
+                {
+                    medico = new Medico
+                    {
+                        IdMedico = (int)datos.Lector["IdMedico"],
+                        Nombres = (string)datos.Lector["Nombres"],
+                        Apellidos = (string)datos.Lector["Apellidos"],
+                        Matricula = (string)datos.Lector["Matricula"],
+                        Email = (string)datos.Lector["Mail"],
+                    };
+                }
+
+                return medico;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+
         }
     }
 }
