@@ -27,7 +27,6 @@ namespace Tp_Cuatrimestral_18A
                 if (Request.QueryString["Id"] != null)
                 {
                     int IdUsuario = Convert.ToInt32(Request.QueryString["Id"]);
-                    
                     usuario = usuarioNegocio.cargarDatosUsuario(IdUsuario);
                     cargarCampos(usuario);
                 }
@@ -90,7 +89,7 @@ namespace Tp_Cuatrimestral_18A
 
                 Usuario usuarioModificado =  new Usuario();
 
-                usuarioModificado.IdUsuario = usuario.IdUsuario;
+                usuarioModificado.IdUsuario = usuario.IdUsuario; //no lo esta levantando
                 usuarioModificado.NombreUsuario = txtNombreUsuario.Text;
                 usuarioModificado.Contraseña = txtPassword.Text;
                 usuarioModificado.Nombre = txtNombre.Text;
