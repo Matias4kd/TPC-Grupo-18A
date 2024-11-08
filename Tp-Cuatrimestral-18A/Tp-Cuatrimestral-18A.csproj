@@ -70,6 +70,7 @@
     <Content Include="ModificarPaciente.aspx" />
     <Content Include="Pacientes.aspx" />
     <Content Include="TurnosMedico.aspx" />
+    <Content Include="Usuarios.aspx" />
     <Content Include="Web.config" />
     <Content Include="Medicos.aspx" />
   </ItemGroup>
@@ -130,6 +131,13 @@
     </Compile>
     <Compile Include="TurnosMedico.aspx.designer.cs">
       <DependentUpon>TurnosMedico.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Usuarios.aspx.cs">
+      <DependentUpon>Usuarios.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Usuarios.aspx.designer.cs">
+      <DependentUpon>Usuarios.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

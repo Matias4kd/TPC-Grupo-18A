@@ -11,61 +11,61 @@ namespace Tp_Cuatrimestral_18A
 {
 
 
-    public partial class Default
+    public partial class Usuarios
     {
 
         /// <summary>
-        /// lblError control.
+        /// lblTitulo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblError;
+        protected global::System.Web.UI.WebControls.Label lblTitulo;
 
         /// <summary>
-        /// txtUsername control.
+        /// btnAgregarUsuario control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtUsername;
+        protected global::System.Web.UI.WebControls.Button btnAgregarUsuario;
 
         /// <summary>
-        /// txtPassword control.
+        /// lblMensaje control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtPassword;
+        protected global::System.Web.UI.WebControls.Label lblMensaje;
 
         /// <summary>
-        /// btnLogin control.
+        /// txtBuscarUsuario control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnLogin;
+        protected global::System.Web.UI.WebControls.TextBox txtBuscarUsuario;
 
         /// <summary>
-        /// pnlError control.
+        /// btnBuscar control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlError;
+        protected global::System.Web.UI.WebControls.Button btnBuscar;
 
         /// <summary>
-        /// litError control.
+        /// gvUsuarios control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal litError;
+        protected global::System.Web.UI.WebControls.GridView gvUsuarios;
     }
 }

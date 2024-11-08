@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Seguridad;
 using Negocio;
 using System.Reflection;
+using Dominio;
 
 namespace Negocio
 {
@@ -83,8 +84,6 @@ namespace Negocio
 
         public void AgregarUsuario(Usuario usuario)
 		{
-			
-
 			try
 			{
 				string consulta = "INSERT INTO Usuarios(NombreUsuario, Contraseña, Nombres, Apellidos, Mail, Telefono, IdRol)" +
@@ -140,5 +139,47 @@ namespace Negocio
 			}
             
 		}
+
+		public List<Usuario> Listar()
+		{
+            List<Usuario> lista = new List<Usuario>();
+
+            try
+            {
+                datos.setearConsulta("SELECT u.IdUsuario, u.NombreUsuario, u.Contraseña,u.Nombres, u.Apellidos, u.Mail, u.Telefono, r.IdRol, r.NombreRol FROM Usuarios as u inner join Roles as r on u.IdRol = r.IdRol ");
+                datos.ejecutarLectura();
+
+                while (datos.Lector.Read())
+                {
+					Usuario usuario = new Usuario();
+
+
+					usuario.IdUsuario = (int)datos.Lector["IdUsuario"];
+					usuario.NombreUsuario = (string)datos.Lector["NombreUsuario"];
+					usuario.Nombre = (string)datos.Lector["Nombres"];
+					usuario.Apellido = (string)datos.Lector["Apellidos"];
+					usuario.Mail = (string)datos.Lector["Mail"];
+					usuario.Telefono = (string)datos.Lector["Telefono"];
+                    
+					usuario.Rol = new Rol();
+                    usuario.Rol.RolId = Convert.ToInt32(datos.lector["IdRol"]);
+                    usuario.Rol.Nombre = (string)datos.lector["NombreRol"];
+
+
+                    lista.Add(usuario);
+                }
+
+                return lista;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+
+        }
     }
 }
