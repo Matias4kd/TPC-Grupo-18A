@@ -11,15 +11,25 @@ namespace Negocio
 {
     public class RolNegocio
     {
-        public List<Rol> Listar()
+        public List<Rol> Listar(Usuario usuarioSesion)
         {
             List<Rol> lista = new List<Rol>();
             AccesoDatos datos = new AccesoDatos();
 
             try
-            {
-                datos.setearConsulta("SELECT IdRol, NombreRol FROM Roles");
-                datos.ejecutarLectura();
+            {   
+                if(usuarioSesion.Rol.RolId == 2) 
+                {
+
+                    datos.setearConsulta("SELECT IdRol, NombreRol FROM Roles where IdRol = 3");
+                    datos.ejecutarLectura();
+
+                } 
+                else { 
+
+                    datos.setearConsulta("SELECT IdRol, NombreRol FROM Roles");
+                    datos.ejecutarLectura();
+                }
 
                 while (datos.Lector.Read())
                 {

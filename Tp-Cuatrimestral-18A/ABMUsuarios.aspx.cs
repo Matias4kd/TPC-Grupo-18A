@@ -39,10 +39,17 @@ namespace Tp_Cuatrimestral_18A
                     usuarioLogueado = (Usuario)Session["Usuario"];
                     if(usuarioLogueado.Rol.RolId == 1)
                     {
+                   
                         lblPassword.Visible = true;
                         txtPassword.Visible = true;
                         lblConfirmacionPassword.Visible = true;
                         txtConfirmacionPassword.Visible = true;
+                    }
+
+                    if (usuarioLogueado.Rol.RolId == 2)
+                    {
+                        ddlRol.SelectedIndex= 1;
+
                     }
                     
                 }
@@ -55,14 +62,22 @@ namespace Tp_Cuatrimestral_18A
 
             try
             {
-                List<Rol> listaRoles = rolNegocio.Listar();
+                Usuario usuarioLogueado = new Usuario();
+                usuarioLogueado = (Usuario)Session["Usuario"];
+
+                List<Rol> listaRoles = rolNegocio.Listar(usuarioLogueado);
 
                 ddlRol.DataSource = listaRoles;
                 ddlRol.DataTextField = "Nombre"; // Campo a mostrar
                 ddlRol.DataValueField = "RolId"; // Valor asociado
                 ddlRol.DataBind();
 
-                ddlRol.Items.Insert(0, new ListItem("Seleccionar Rol", "0"));
+                if (usuarioLogueado.Rol.RolId != 2)
+                {
+
+                    ddlRol.Items.Insert(0, new ListItem("Seleccionar Rol", "0"));
+
+                }
             }
             catch (Exception ex)
             {                
