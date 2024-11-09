@@ -22,14 +22,18 @@
                     </button>
                     <div class="collapse navbar-collapse" id="navbarNav">
                         <ul class="navbar-nav" id="navbarOptions" runat="server">
-                            <li class="nav-item active">
-                                <a class="nav-link" href="Medicos.aspx">Medicos</a>
-                            </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="Pacientes.aspx">Pacientes</a>
                             </li>
+                            <li class="nav-item active">
+                                <a class="nav-link" href="Medicos.aspx">
+                                    Medicos
+                                </a>
+                            </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="Usuarios.aspx">Usuarios</a>
+                                <a class="nav-link" href="Usuarios.aspx">
+                                    <asp:Label ID="lblGestionUsuarios" runat="server" Text="Usuarios"></asp:Label>
+                                </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link " href="Default.aspx">Cerrar Sesion</a>

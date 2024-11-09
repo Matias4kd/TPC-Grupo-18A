@@ -1,5 +1,6 @@
 ﻿using ClinicaMedica;
 using Negocio;
+using Seguridad;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,13 +17,22 @@ namespace Tp_Cuatrimestral_18A
         {
             if (!IsPostBack)
             {
-                CargarPacientes();
+                Usuario usuarioLogueado = new Usuario();
+                usuarioLogueado = (Usuario)Session["Usuario"];
+                if (usuarioLogueado.Rol.RolId == 2)
+                {
+                    btnAgregarUsuario.Text = "Agregar Medico";
+                    lblTitulo.Text = "Gestión de Medicos";
+                }
+                CargarUsuarios();
             }
         }
 
-        private void CargarPacientes()
+        private void CargarUsuarios()
         {
-            gvUsuarios.DataSource = negocio.Listar();
+            Usuario usuarioLogueado = new Usuario();
+            usuarioLogueado = (Usuario)Session["Usuario"];
+            gvUsuarios.DataSource = negocio.Listar(usuarioLogueado);
             gvUsuarios.DataBind();
         }
 

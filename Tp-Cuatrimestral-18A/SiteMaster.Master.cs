@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Seguridad;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -20,7 +21,14 @@ namespace Tp_Cuatrimestral_18A
             else
             {
                 navbarOptions.Visible = true;
-            }
+                Usuario usuarioLogueado = new Usuario();
+                usuarioLogueado = (Usuario)Session["Usuario"];
+                if (usuarioLogueado.Rol.RolId == 2)
+                {
+                    lblGestionUsuarios.Text = "Administrar Medicos";
+
+                }
+            }            
         }
     }
 }

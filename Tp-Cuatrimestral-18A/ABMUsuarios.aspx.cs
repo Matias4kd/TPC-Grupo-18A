@@ -29,6 +29,22 @@ namespace Tp_Cuatrimestral_18A
                     int IdUsuario = Convert.ToInt32(Request.QueryString["Id"]);
                     usuario = usuarioNegocio.cargarDatosUsuario(IdUsuario);
                     cargarCampos(usuario);
+
+                    lblPassword.Visible = false;
+                    txtPassword.Visible = false;
+                    lblConfirmacionPassword.Visible = false;
+                    txtConfirmacionPassword.Visible = false;
+
+                    Usuario usuarioLogueado = new Usuario();
+                    usuarioLogueado = (Usuario)Session["Usuario"];
+                    if(usuarioLogueado.Rol.RolId == 1)
+                    {
+                        lblPassword.Visible = true;
+                        txtPassword.Visible = true;
+                        lblConfirmacionPassword.Visible = true;
+                        txtConfirmacionPassword.Visible = true;
+                    }
+                    
                 }
             }
         }
@@ -82,6 +98,15 @@ namespace Tp_Cuatrimestral_18A
         }
         protected void btnGuardar_Click(object sender, EventArgs e)
         {
+            rfvNombreUsuario.Enabled = true;
+            rfvPassword.Enabled = true;
+            rfvConfirmPassword.Enabled = true;
+            rfvNombre.Enabled = true;
+            rfvApellido.Enabled = true;
+            rfvEmail.Enabled = true;
+            rfvTelefono.Enabled = true;
+            ddlRol.Enabled = true;
+
             if(Request.QueryString["Id"] != null)
             {
                 
@@ -91,7 +116,6 @@ namespace Tp_Cuatrimestral_18A
 
                 usuarioModificado.IdUsuario = usuario.IdUsuario; //no lo esta levantando
                 usuarioModificado.NombreUsuario = txtNombreUsuario.Text;
-                usuarioModificado.Contraseña = txtPassword.Text;
                 usuarioModificado.Nombre = txtNombre.Text;
                 usuarioModificado.Apellido = txtApellido.Text;
                 usuarioModificado.Mail = txtEmail.Text;
@@ -156,6 +180,7 @@ namespace Tp_Cuatrimestral_18A
 
         protected void btnVolver_Click(object sender, EventArgs e)
         {
+            
             Response.Redirect("Usuarios.aspx");
         }
 

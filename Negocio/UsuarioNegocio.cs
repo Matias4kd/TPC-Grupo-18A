@@ -8,6 +8,8 @@ using Negocio;
 using System.Reflection;
 using Dominio;
 
+
+
 namespace Negocio
 {
     public class UsuarioNegocio
@@ -123,12 +125,11 @@ namespace Negocio
 		{
             try
             {
-                string consulta = "Update Usuarios set NombreUsuario=@NombreUsuario, Contraseña=@Contraseña, Nombres=@Nombres, Apellidos=@Apellidos," +
+                string consulta = "Update Usuarios set NombreUsuario=@NombreUsuario, Nombres=@Nombres, Apellidos=@Apellidos," +
                                     " Mail=@Mail, Telefono=@telefono, IdRol=@IdRol" +
                                     " where IdUsuario = @IdUsuario";
                 datos.setearConsulta(consulta);
-                datos.setearParametro("@NombreUsuario", usuario.NombreUsuario);
-                datos.setearParametro("@Contraseña", usuario.Contraseña);
+                datos.setearParametro("@NombreUsuario", usuario.NombreUsuario);                
                 datos.setearParametro("@Nombres", usuario.Nombre);
                 datos.setearParametro("@Apellidos", usuario.Apellido);
                 datos.setearParametro("@Mail", usuario.Mail);
@@ -206,14 +207,23 @@ namespace Negocio
             
 		}
 
-		public List<Usuario> Listar()
+		public List<Usuario> Listar(Usuario usuarioLogueado)
 		{
             List<Usuario> lista = new List<Usuario>();
 
             try
             {
-                datos.setearConsulta("SELECT u.IdUsuario, u.NombreUsuario, u.Contraseña,u.Nombres, u.Apellidos, u.Mail, u.Telefono, r.IdRol, r.NombreRol FROM Usuarios as u inner join Roles as r on u.IdRol = r.IdRol ");
-                datos.ejecutarLectura();
+				if(usuarioLogueado.Rol.RolId == 2)
+				{
+                    datos.setearConsulta("SELECT u.IdUsuario, u.NombreUsuario, u.Contraseña,u.Nombres, u.Apellidos, u.Mail, u.Telefono, r.IdRol, r.NombreRol FROM Usuarios as u inner join Roles as r on u.IdRol = r.IdRol where u.IdRol = 3");
+                    datos.ejecutarLectura();
+                }
+                else
+                {
+                    datos.setearConsulta("SELECT u.IdUsuario, u.NombreUsuario, u.Contraseña,u.Nombres, u.Apellidos, u.Mail, u.Telefono, r.IdRol, r.NombreRol FROM Usuarios as u inner join Roles as r on u.IdRol = r.IdRol ");
+                    datos.ejecutarLectura();
+                }
+                
 
                 while (datos.Lector.Read())
                 {
