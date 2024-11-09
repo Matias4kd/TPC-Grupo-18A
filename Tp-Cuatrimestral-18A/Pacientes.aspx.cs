@@ -1,10 +1,12 @@
 ﻿using System;
 using Negocio;
+using Dominio;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Seguridad;
 
 
 namespace ClinicaMedica
@@ -67,11 +69,17 @@ namespace ClinicaMedica
             Response.Redirect("AltaPaciente.aspx");
         }
 
-       
+        protected void linkSeleccionar_Click(object sender, EventArgs e)
+        {
 
+            LinkButton btnSeleccionar = (LinkButton)sender;
+            int idPaciente = Convert.ToInt32(btnSeleccionar.CommandArgument);
+            Paciente paciente = new Paciente();
+            PacienteNegocio pacienteNegocio = new PacienteNegocio();
+            paciente = pacienteNegocio.ObtenerPorID(idPaciente);
+            Session.Add("PacienteSeleccionado", paciente);
+            Response.Redirect("Medicos.aspx");
 
-
-
-
+        }
     }
 }

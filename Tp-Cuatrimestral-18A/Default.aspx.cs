@@ -32,7 +32,7 @@ namespace Tp_Cuatrimestral_18A
                 {
                     usuario = usuarioNegocio.cargarDatosUsuario(usuario.NombreUsuario);
                     Session.Add("Usuario", usuario);
-                    Response.Redirect("Medicos.aspx");
+                    Response.Redirect("Pacientes.aspx");
                 }
                 else 
                 {

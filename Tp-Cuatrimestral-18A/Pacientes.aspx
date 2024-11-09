@@ -34,6 +34,9 @@
                             <asp:LinkButton ID="lnkEliminar" runat="server" Text="Eliminar" CssClass="btn btn-danger btn-sm" OnClick="btnEliminar_Click"
                                 OnClientClick="return confirm('¿Está seguro que desea eliminar este registro? Esta acción no se podrá deshacer.');"
                                 CommandName="Eliminar" CommandArgument='<%# Eval("IdPaciente") %>' />
+                            <asp:LinkButton ID="linkSeleccionar" runat="server" Text="Seleccionar" CssClass="btn btn-primary" OnClick ="linkSeleccionar_Click"
+                            CommandName="Seleccionar" CommandArgument='<%# Eval("IdPaciente") %>' />
+
                         </ItemTemplate>
                     </asp:TemplateField>
                 </Columns>
