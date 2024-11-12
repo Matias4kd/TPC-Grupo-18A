@@ -87,7 +87,15 @@ namespace Tp_Cuatrimestral_18A
             {
                 lblNombreMedico.Text = medico.Nombres;
                 lblApellidoMedico.Text = medico.Apellidos;
-                lblMatriculaMedico.Text = medico.Matricula;
+
+                if (medico.Especialidades != null && medico.Especialidades.Count > 0)
+                {
+                    lblEspecialidadesMedico.Text = string.Join(", ", medico.Especialidades.Select(e => e.Nombre));
+                }
+                else
+                {
+                    lblEspecialidadesMedico.Text = "Sin especialidades";
+                }
             }
         }
 

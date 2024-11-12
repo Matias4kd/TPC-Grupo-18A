@@ -225,7 +225,10 @@ namespace Negocio
 
             try
             {
-                datos.setearConsulta("SELECT m.IdMedico, m.IdUsuario, m.Matricula, u.Nombres, u.Apellidos, u.Mail FROM Medicos as m JOIN Usuarios as u ON m.IdUsuario = u.IdUsuario WHERE IdMedico = @IdMedico");
+                datos.setearConsulta("SELECT m.IdMedico, m.IdUsuario, m.Matricula, u.Nombres, u.Apellidos, u.Mail " +
+                                     "FROM Medicos AS m " +
+                                     "JOIN Usuarios AS u ON m.IdUsuario = u.IdUsuario " +
+                                     "WHERE m.IdMedico = @IdMedico");
                 datos.setearParametro("@IdMedico", id);
                 datos.ejecutarLectura();
 
@@ -238,7 +241,30 @@ namespace Negocio
                         Apellidos = (string)datos.Lector["Apellidos"],
                         Matricula = (string)datos.Lector["Matricula"],
                         Email = (string)datos.Lector["Mail"],
+                        Especialidades = new List<Especialidad>()
                     };
+                }
+
+                datos.cerrarConexion();
+
+                if (medico != null)
+                {
+                    datos.setearConsulta("SELECT e.IdEspecialidad, e.NombreEspecialidad " +
+                                         "FROM Especialidades AS e " +
+                                         "JOIN Especialidades_x_Medico AS em ON e.IdEspecialidad = em.IdEspecialidad " +
+                                         "WHERE em.IdMedico = @IdMedico");
+                    datos.setearParametro("@IdMedico", id);
+                    datos.ejecutarLectura();
+
+                    while (datos.Lector.Read())
+                    {
+                        Especialidad especialidad = new Especialidad
+                        {
+                            IdEspecialidad = (int)datos.Lector["IdEspecialidad"],
+                            Nombre = (string)datos.Lector["NombreEspecialidad"]
+                        };
+                        medico.Especialidades.Add(especialidad);
+                    }
                 }
 
                 return medico;

@@ -42,13 +42,13 @@ namespace Tp_Cuatrimestral_18A
         protected global::System.Web.UI.WebControls.Label lblApellidoMedico;
 
         /// <summary>
-        /// Control lblMatriculaMedico.
+        /// Control lblEspecialidadesMedico.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblMatriculaMedico;
+        protected global::System.Web.UI.WebControls.Label lblEspecialidadesMedico;
 
         /// <summary>
         /// Control calendarioTurnos.

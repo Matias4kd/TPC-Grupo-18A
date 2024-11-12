@@ -21,8 +21,8 @@
                                 <asp:Label ID="lblApellidoMedico" runat="server" CssClass="form-control-plaintext" />
                             </p>
                             <p>
-                                <strong>Matricula:</strong>
-                                <asp:Label ID="lblMatriculaMedico" runat="server" CssClass="form-control-plaintext" />
+                                <strong>Especialidades:</strong>
+                                <asp:Label ID="lblEspecialidadesMedico" runat="server" CssClass="form-control-plaintext" />
                             </p>
                         </div>
                     </div>
