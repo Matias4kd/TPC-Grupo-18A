@@ -14,6 +14,12 @@ namespace Tp_Cuatrimestral_18A
         {
             string currentPage = System.IO.Path.GetFileName(Request.Path);
 
+            if (Session["Usuario"] == null && !currentPage.Equals("Default.aspx", StringComparison.OrdinalIgnoreCase))
+            {
+                Response.Redirect("Default.aspx");
+                return;
+            }
+
             if (currentPage.Equals("Default.aspx", StringComparison.OrdinalIgnoreCase))
             {
                 navbarOptions.Visible = false;
@@ -21,14 +27,14 @@ namespace Tp_Cuatrimestral_18A
             else
             {
                 navbarOptions.Visible = true;
-                Usuario usuarioLogueado = new Usuario();
-                usuarioLogueado = (Usuario)Session["Usuario"];
-                if (usuarioLogueado.Rol.RolId == 2)
-                {
-                    lblGestionUsuarios.Text = "Administrar Medicos";
 
+                Usuario usuarioLogueado = (Usuario)Session["Usuario"];
+
+                if (usuarioLogueado?.Rol != null && usuarioLogueado.Rol.RolId == 2)
+                {
+                    lblGestionUsuarios.Text = "Administrar Médicos";
                 }
-            }            
+            }
         }
     }
 }
