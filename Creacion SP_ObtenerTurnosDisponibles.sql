@@ -1,5 +1,3 @@
-
-
 CREATE PROCEDURE SP_ObtenerTurnosDisponibles
     @IdMedico INT,
     @Fecha DATE
@@ -13,7 +11,7 @@ BEGIN
     SELECT @HoraInicio = HoraInicio, @HoraFin = HoraFin
     FROM TurnosTrabajo
     WHERE IdMedico = @IdMedico 
-      AND DiaTrabajo = DATENAME(WEEKDAY, @Fecha);
+      AND DiaTrabajo = FORMAT(@Fecha, 'dddd', 'es-ES'); -- Obtiene el nombre del día en español
 
     -- Verifica que el médico trabaje el día solicitado
     IF @HoraInicio IS NULL OR @HoraFin IS NULL
