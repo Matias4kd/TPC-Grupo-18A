@@ -56,6 +56,15 @@ namespace Negocio
 
         }
 
+        public void SetearSPTurnos(string sp,int idMedico, DateTime fecha)
+        {
+            comando.CommandType = System.Data.CommandType.StoredProcedure;
+            comando.CommandText = sp;
+            comando.Parameters.AddWithValue("@IdMedico", idMedico);
+            comando.Parameters.AddWithValue("@Fecha", fecha);
+
+        }
+
         public void ejecutarAccion()
         {
             comando.Connection = conexion;

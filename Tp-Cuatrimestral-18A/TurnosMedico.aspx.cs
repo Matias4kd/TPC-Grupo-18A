@@ -22,7 +22,10 @@ namespace Tp_Cuatrimestral_18A
                 string idMedicoAnterior = Request.QueryString["IdMedico"];
                 if (int.TryParse(idMedicoAnterior, out int idMedico))
                 {
+                    TurnoNegocio tnegocio = new TurnoNegocio();
                     CargarDatosMedico(idMedico);
+                    ddlTurnosDisponibles.DataSource = tnegocio.turnosDisponibles(idMedico,DateTime.Today);
+
                 }
             }
         }

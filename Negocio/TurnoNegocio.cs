@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Remoting.Messaging;
@@ -10,10 +11,10 @@ namespace Negocio
 {
     public class TurnoNegocio
     {
+        AccesoDatos datos = new AccesoDatos();
         public List<Turno> Listar()
         {
             List<Turno> lista = new List<Turno>();
-            AccesoDatos datos = new AccesoDatos();
 
             try
             {
@@ -68,7 +69,6 @@ namespace Negocio
 
         public void Agregar(Turno turno)
         {
-            AccesoDatos datos = new AccesoDatos();
 
             try
             {
@@ -93,9 +93,36 @@ namespace Negocio
             }
         }
 
+        public List<TimeSpan> turnosDisponibles(int idMedico, DateTime fecha)
+        {
+            List<TimeSpan> turnosDisponibles = new List<TimeSpan>();
+
+            try
+            {
+                datos.SetearSPTurnos("SP_ObtenerTurnosDisponibles", idMedico, fecha);
+                
+                datos.ejecutarLectura();
+                while (datos.Lector.Read())
+                {
+                    TimeSpan horario = (TimeSpan)datos.lector["Horario"];
+                    turnosDisponibles.Add(horario);
+                }
+
+                return turnosDisponibles;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally 
+            { 
+                datos.cerrarConexion(); 
+            }
+        }
+
         public void Modificar(Turno turno)
         {
-            AccesoDatos datos = new AccesoDatos();
 
             try
             {
@@ -121,45 +148,10 @@ namespace Negocio
             }
         }
 
-        // VER TODOS JUNTOS
-
-        //public List<TurnoTrabajo> TurnosPorID(int id)
-        //{
-        //    AccesoDatos datos = new AccesoDatos();
-        //    List<TurnoTrabajo> turnos = new List<TurnoTrabajo>();
-
-        //    try
-        //    {
-        //        datos.setearConsulta("SELECT t.DiaTrabajo, t.HoraInicio, t.HoraFin FROM TurnosTrabajo as t JOIN Medicos as m ON m.IdMedico = t.IdMedico WHERE m.IdMedico = @IdMedico");
-        //        datos.setearParametro("@IdMedico", id);
-        //        datos.ejecutarLectura();
-
-        //        while (datos.Lector.Read())
-        //        {
-        //            TurnoTrabajo turno = new TurnoTrabajo
-        //            {
-        //                DiaDeLaSemana = (DayOfWeek)datos.Lector["DiaTrabajo"],
-        //                HoraInicio = (TimeSpan)datos.Lector["HoraInicio"],
-        //                HoraFin = (TimeSpan)datos.Lector["HoraFin"],
-        //            };
-        //            turnos.Add(turno);
-        //        }
-
-        //        return turnos;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw ex;
-                
-        //    }
-        //    finally
-        //    {
-        //        datos.cerrarConexion();
-        //    }
-        //}
+        
         public void Eliminar(int id)
         {
-            AccesoDatos datos = new AccesoDatos();
+            
 
             try
             {
