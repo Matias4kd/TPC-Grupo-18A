@@ -26,8 +26,10 @@
                             </p>
                         </div>
                     </div>
-                    <p style="margin-top: 20px"><strong>Seleccione un horario: </strong></p>
-                    <asp:DropDownList ID="ddlTurnosDisponibles" runat="server" class="form-select"></asp:DropDownList>
+                    <asp:label runat="server"><strong>Seleccione el día del turno: </strong></asp:label>
+                    <asp:Calendar ID="calendarioTurnos" runat="server" OnSelectionChanged="calendarioTurnos_SelectionChanged" style="margin-left: 200px; margin-top: 20px; margin-bottom: 20px" />
+                    <asp:label runat="server" style="margin-top: 20px" Visible="false" ID="lblSeleccioneHorario"><strong>Seleccione un horario: </strong></asp:label>
+                    <asp:DropDownList ID="ddlTurnosDisponibles" runat="server" class="form-select" visible="false"></asp:DropDownList>
                     <asp:Button ID="btnAceptarHorario" runat="server" Text="Aceptar" class="btn btn-primary btn-sm" Style="margin-top: 20px" OnClick="btnAceptarHorario_Click" />
                 </div>
             </div>

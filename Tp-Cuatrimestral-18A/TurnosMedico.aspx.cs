@@ -16,24 +16,14 @@ namespace Tp_Cuatrimestral_18A
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
             if (!IsPostBack)
             {
                 string idMedicoAnterior = Request.QueryString["IdMedico"];
                 if (int.TryParse(idMedicoAnterior, out int idMedico))
                 {
-                    TurnoNegocio tnegocio = new TurnoNegocio();
                     CargarDatosMedico(idMedico);
 
-
-                    // mover a evento que detecta un cambio en la seleccion de la fecha
-                    List<TimeSpan> turnosDisponibles = new List<TimeSpan>();
-                    //tomar el valor de la fecha
-                    turnosDisponibles = tnegocio.turnosDisponibles(idMedico, DateTime.Today); //reemplazar el datetime.today por el valor de la fecha
-                    ddlTurnosDisponibles.DataSource = turnosDisponibles;
-                    ddlTurnosDisponibles.DataBind();
-                    //
-
+                    ddlTurnosDisponibles.Visible = false;
                 }
             }
         }
@@ -98,6 +88,24 @@ namespace Tp_Cuatrimestral_18A
                 lblNombreMedico.Text = medico.Nombres;
                 lblApellidoMedico.Text = medico.Apellidos;
                 lblMatriculaMedico.Text = medico.Matricula;
+            }
+        }
+
+        protected void calendarioTurnos_SelectionChanged(object sender, EventArgs e)
+        {
+            DateTime fechaSeleccionada = calendarioTurnos.SelectedDate;
+
+            string idMedicoAnterior = Request.QueryString["IdMedico"];
+            if (int.TryParse(idMedicoAnterior, out int idMedico))
+            {
+                TurnoNegocio tnegocio = new TurnoNegocio();
+                List<TimeSpan> turnosDisponibles = tnegocio.turnosDisponibles(idMedico, fechaSeleccionada);
+
+                ddlTurnosDisponibles.DataSource = turnosDisponibles;
+                ddlTurnosDisponibles.DataBind();
+
+                lblSeleccioneHorario.Visible = true;
+                ddlTurnosDisponibles.Visible = true;
             }
         }
     }

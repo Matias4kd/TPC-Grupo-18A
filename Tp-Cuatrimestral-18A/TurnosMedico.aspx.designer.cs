@@ -51,6 +51,24 @@ namespace Tp_Cuatrimestral_18A
         protected global::System.Web.UI.WebControls.Label lblMatriculaMedico;
 
         /// <summary>
+        /// Control calendarioTurnos.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Calendar calendarioTurnos;
+
+        /// <summary>
+        /// Control lblSeleccioneHorario.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblSeleccioneHorario;
+
+        /// <summary>
         /// Control ddlTurnosDisponibles.
         /// </summary>
         /// <remarks>
