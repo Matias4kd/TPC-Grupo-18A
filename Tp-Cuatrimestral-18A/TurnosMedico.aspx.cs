@@ -24,7 +24,15 @@ namespace Tp_Cuatrimestral_18A
                 {
                     TurnoNegocio tnegocio = new TurnoNegocio();
                     CargarDatosMedico(idMedico);
-                    ddlTurnosDisponibles.DataSource = tnegocio.turnosDisponibles(idMedico,DateTime.Today);
+
+
+                    // mover a evento que detecta un cambio en la seleccion de la fecha
+                    List<TimeSpan> turnosDisponibles = new List<TimeSpan>();
+                    //tomar el valor de la fecha
+                    turnosDisponibles = tnegocio.turnosDisponibles(idMedico, DateTime.Today); //reemplazar el datetime.today por el valor de la fecha
+                    ddlTurnosDisponibles.DataSource = turnosDisponibles;
+                    ddlTurnosDisponibles.DataBind();
+                    //
 
                 }
             }

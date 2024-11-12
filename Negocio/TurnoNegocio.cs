@@ -104,8 +104,9 @@ namespace Negocio
                 datos.ejecutarLectura();
                 while (datos.Lector.Read())
                 {
-                    TimeSpan horario = (TimeSpan)datos.lector["Horario"];
-                    turnosDisponibles.Add(horario);
+                    
+                    turnosDisponibles.Add(datos.lector.GetTimeSpan(0));
+
                 }
 
                 return turnosDisponibles;
