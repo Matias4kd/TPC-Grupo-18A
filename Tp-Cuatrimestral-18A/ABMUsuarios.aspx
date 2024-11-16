@@ -10,6 +10,13 @@
 
 <div class="row mt-4">
     <div class="col-md-6">
+        <asp:Label ID="lblRol" runat="server" Text="Seleccionar Rol:" AssociatedControlID="ddlRol" />
+        <asp:DropDownList ID="ddlRol" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlRol_SelectedIndexChanged">
+            <asp:ListItem Text="Seleccionar" Value="0" />           
+        </asp:DropDownList>
+        <asp:RequiredFieldValidator ID="rfvRol" runat="server" ControlToValidate="ddlRol" ErrorMessage="El rol es obligatorio." CssClass="text-danger" Display="Dynamic" />
+        <br />
+
         <asp:Label ID="lblNombreUsuario" runat="server" Text="Nombre de Usuario:" AssociatedControlID="txtNombre" />
         <asp:TextBox ID="txtNombreUsuario" runat="server" CssClass="form-control" />
         <asp:RequiredFieldValidator ID="rfvNombreUsuario" runat="server" ControlToValidate="txtNombreUsuario" ErrorMessage="El nombre de usuario es obligatorio." CssClass="text-danger" Display="Dynamic" />
@@ -46,18 +53,48 @@
         <asp:RequiredFieldValidator ID="rfvTelefono" runat="server" ControlToValidate="txtTelefono" ErrorMessage="El telefono es obligatorio." CssClass="text-danger" Display="Dynamic" />
         <br />
 
-        <asp:Label ID="lblRol" runat="server" Text="Seleccionar Rol:" AssociatedControlID="ddlRol" />
-        <asp:DropDownList ID="ddlRol" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlRol_SelectedIndexChanged">
-            <asp:ListItem Text="Seleccionar" Value="0" />           
-        </asp:DropDownList>
-        <asp:RequiredFieldValidator ID="rfvRol" runat="server" ControlToValidate="ddlRol" ErrorMessage="El rol es obligatorio." CssClass="text-danger" Display="Dynamic" />
-
-
         <asp:Label ID="lblMatricula" runat="server" Text="Matricula:" AssociatedControlID="txtMatricula" />
         <asp:TextBox ID="txtMatricula" runat="server" CssClass="form-control" SupportsDisabledAttribute="True" />
         <asp:RequiredFieldValidator ID="rfvMatricula" runat="server" ControlToValidate="txtMatricula" ErrorMessage="La matricula es obligatoria." CssClass="text-danger" Display="Dynamic" />
-        
         <br />
+
+  
+        <div class="form-group">
+            <asp:Label ID="lblEspecialidades" runat="server" Text="Seleccione especialidad/es:" CssClass="form-label"></asp:Label>
+            <div class="row">
+                <asp:Repeater ID="rptEspecialidades" runat="server">
+                    <ItemTemplate>
+                        <div class="col-6 col-md-4 col-lg-3 mb-3">
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="chkEspecialidad<%# Container.ItemIndex %>" value='<%# Eval("IdEspecialidad") %>' />
+                                <label class="form-check-label" for="chkEspecialidad<%# Container.ItemIndex %>"><%# Eval("Nombre") %></label>
+                            </div>
+                        </div>
+                    </ItemTemplate>
+                </asp:Repeater>
+            </div>
+
+        </div>
+        <br />
+        
+        <div class="form-group">
+            <asp:Label ID="lblPrepagas" runat="server" Text="Seleccione la/las prepaga/as con las que trabaja:" CssClass="form-label"></asp:Label>
+            <div class="row">
+                <asp:Repeater ID="rptPrepagas" runat="server">
+                    <ItemTemplate>
+                        <div class="col-6 col-md-4 col-lg-3 mb-3">
+                            <div class="form-check" >
+                                <input type="checkbox" class="form-check-input" id="chkPrepaga<%# Container.ItemIndex %>" value='<%# Eval("IdPrepaga") %>' />
+                                <label class="form-check-label" for="chkPrepaga<%# Container.ItemIndex %>"><%# Eval("Nombre") %></label>
+                            </div>
+                        </div>
+                    </ItemTemplate>
+                </asp:Repeater>
+            </div>
+        </div>
+        <br />
+
+
 
         <asp:Button ID="btnGuardar" runat="server" Text="Guardar" CssClass="btn btn-primary mt-3" OnClick="btnGuardar_Click" />
 

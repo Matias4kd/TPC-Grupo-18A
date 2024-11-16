@@ -21,8 +21,15 @@ namespace Tp_Cuatrimestral_18A
             if (!IsPostBack)
             {
                 CargarRoles();
+                CargarEspecialidades();
+                CargarPrepagas();
                 lblMatricula.Visible = false;
                 txtMatricula.Visible = false;
+                lblEspecialidades.Visible = false;
+                rptEspecialidades.Visible = false;
+                lblPrepagas.Visible = false;
+                rptPrepagas.Visible = false;
+
 
                 if (Request.QueryString["Id"] != null)
                 {
@@ -48,7 +55,7 @@ namespace Tp_Cuatrimestral_18A
 
                     if (usuarioLogueado.Rol.RolId == 2)
                     {
-                        ddlRol.SelectedIndex= 1;
+                        ddlRol.SelectedIndex = 3;
 
                     }
                     
@@ -81,6 +88,42 @@ namespace Tp_Cuatrimestral_18A
             }
             catch (Exception ex)
             {                
+                throw ex;
+            }
+        }
+
+        private void CargarPrepagas()
+        {
+            PrepagaNegocio prepagaNegocio = new PrepagaNegocio();
+
+            try
+            {
+               
+                List<Prepaga> listaRoles = prepagaNegocio.Listar();
+
+                rptPrepagas.DataSource = listaRoles;
+                rptPrepagas.DataBind();
+
+                
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        private void CargarEspecialidades()
+        {
+            EspecialidadNegocio especialidadNegocio = new EspecialidadNegocio();
+
+            try
+            {                
+                List<Especialidad> listaEspecialidades = especialidadNegocio.ListarTodas();
+
+                rptEspecialidades.DataSource = listaEspecialidades;                
+                rptEspecialidades.DataBind();    
+            }
+            catch (Exception ex)
+            {
                 throw ex;
             }
         }
@@ -210,14 +253,23 @@ namespace Tp_Cuatrimestral_18A
             {
                 lblMatricula.Visible = true;
                 txtMatricula.Visible = true;
+                lblEspecialidades.Visible = true;
+                rptEspecialidades.Visible = true;
+                lblPrepagas.Visible = true;
+                rptPrepagas.Visible = true;
 
             }
             else
             {
                 lblMatricula.Visible = false;
                 txtMatricula.Visible = false;
+                lblEspecialidades.Visible = false;
+                rptEspecialidades.Visible = false;
+                lblPrepagas.Visible = false;
+                rptPrepagas.Visible = false;
             }
         }
+
 
     }
 }
