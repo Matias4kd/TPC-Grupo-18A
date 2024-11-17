@@ -311,12 +311,14 @@ namespace Negocio
         public void Eliminar(int id) //modificar con SP o Cambio en la DB
         {
             AccesoDatos datos = new AccesoDatos();
+            DateTime fechabaja = DateTime.Now;
 
             try
             {
-                string consulta = "DELETE FROM Medicos WHERE Id = @Id";
+                string consulta = "Update Medicos set FechaDeBaja = @Fechadebaja WHERE Id = @Id";
                 datos.setearConsulta(consulta);
                 datos.setearParametro("@Id", id);
+                datos.setearParametro("@Fechadebaja", fechabaja);
                 datos.ejecutarAccion();
             }
             catch (Exception ex)
@@ -329,7 +331,7 @@ namespace Negocio
             }
         }
 
-        public Medico BuscarPorIDUsuario(int idUsuario) // modificar
+        public Medico BuscarPorIDUsuario(int idUsuario) 
         {
 
             Medico medico = new Medico();
