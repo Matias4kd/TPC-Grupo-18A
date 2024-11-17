@@ -308,7 +308,7 @@ namespace Negocio
         }
 
 
-        public void Eliminar(int id) //modificar con SP o Cambio en la DB
+        public void Eliminar(int id) // se aplica baja logica en lugar de fisica para el medico
         {
             AccesoDatos datos = new AccesoDatos();
             DateTime fechabaja = DateTime.Now;
