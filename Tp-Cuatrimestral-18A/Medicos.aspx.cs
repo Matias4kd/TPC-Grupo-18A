@@ -1,4 +1,5 @@
-﻿using Negocio;
+﻿using Dominio;
+using Negocio;
 using System;
 using System.Collections.Generic;
 using System.Web.UI;
@@ -14,6 +15,7 @@ namespace ClinicaMedica
         private PrepagaNegocio prepagaNegocio;
         private EspecialidadNegocio especialidadNegocio;
         private MedicoNegocio medicoNegocio;
+ 
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -23,8 +25,26 @@ namespace ClinicaMedica
 
             if (!IsPostBack)
             {
-                CargarPrepagas();
+
+              
+                Paciente pacienteSeleccionado = (Paciente)Session["PacienteSeleccionado"];
+
+                if (pacienteSeleccionado != null)
+                {
+
+                    CargarPrepagas();
+                    ddlPrepagas.SelectedValue = pacienteSeleccionado.prepaga.IdPrepaga.ToString();
+
+
+                 
+                    ddlPrepagas.Enabled = false;
+
+
+                    
+                }
                 CargarEspecialidades();
+                CargarMedicos();
+
             }
         }
 
@@ -37,7 +57,7 @@ namespace ClinicaMedica
                 ddlPrepagas.DataValueField = "IdPrepaga";
                 ddlPrepagas.DataBind();
 
-                // Agregar opción "Seleccione una prepaga" en el índice 0
+   
                 ddlPrepagas.Items.Insert(0, new ListItem("Seleccione una prepaga", ""));
             }
             catch (Exception ex)
@@ -55,7 +75,7 @@ namespace ClinicaMedica
                 
                 ddlEspecialidades.DataBind();
 
-                // Agregar opción "Seleccione una especialidad" en el índice 0
+                
                 ddlEspecialidades.Items.Insert(0, new ListItem("Seleccione una especialidad", ""));
             }
             catch (Exception ex)
@@ -78,31 +98,31 @@ namespace ClinicaMedica
         {
             try
             {
-                // Verificar que se haya seleccionado una prepaga o especialidad
+                
                 bool prepagaSeleccionada = ddlPrepagas.SelectedIndex > 0;
                 bool especialidadSeleccionada = ddlEspecialidades.SelectedIndex > 0;
 
                 if (prepagaSeleccionada && especialidadSeleccionada)
                 {
-                    // Filtrar por prepaga y especialidad
+             
                     gvMedicos.DataSource = medicoNegocio.ListarPorPrepagaYEspecialidad(
                         ddlPrepagas.SelectedItem.Text, ddlEspecialidades.SelectedItem.Text);
 
                 }
                 else if (especialidadSeleccionada)
                 {
-                    // Filtrar solo por especialidad
+                    
                     gvMedicos.DataSource = medicoNegocio.ListarPorEspecialidad(ddlEspecialidades.SelectedItem.Text);
                 }
                 else if (prepagaSeleccionada)
                 {
-                    // Filtrar solo por prepaga
+                   
                     gvMedicos.DataSource = medicoNegocio.ListarPorPrepaga(ddlPrepagas.SelectedItem.Text);
                 }
                 else
                 {
-                    // Si no se selecciona ninguna opción, limpiar el GridView
-                    gvMedicos.DataSource = null;
+                   
+                    gvMedicos.DataSource = medicoNegocio.Listar();
                 }
 
                 gvMedicos.DataBind();
