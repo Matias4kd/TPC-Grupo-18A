@@ -1,0 +1,14 @@
+﻿.form-check-list {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+    .form-check-list .form-check {
+        display: flex;
+        align-items: center;
+        margin-right: 20px; /* Espacio entre los elementos */
+    }
+
+    .form-check-list input[type="checkbox"] {
+        margin-right: 0.5rem;
+    }

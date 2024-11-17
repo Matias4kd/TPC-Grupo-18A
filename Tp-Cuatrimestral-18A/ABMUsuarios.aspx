@@ -1,5 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/SiteMaster.Master" AutoEventWireup="true" CodeBehind="ABMUsuarios.aspx.cs" Inherits="Tp_Cuatrimestral_18A.ABMUsuarios" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <link rel="stylesheet" href="Styles.css">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="row mt-3">
@@ -58,42 +59,99 @@
         <asp:RequiredFieldValidator ID="rfvMatricula" runat="server" ControlToValidate="txtMatricula" ErrorMessage="La matricula es obligatoria." CssClass="text-danger" Display="Dynamic" />
         <br />
 
-  
-        <div class="form-group">
-            <asp:Label ID="lblEspecialidades" runat="server" Text="Seleccione especialidad/es:" CssClass="form-label"></asp:Label>
-            <div class="row">
-                <asp:Repeater ID="rptEspecialidades" runat="server">
-                    <ItemTemplate>
-                        <div class="col-6 col-md-4 col-lg-3 mb-3">
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input" id="chkEspecialidad<%# Container.ItemIndex %>" value='<%# Eval("IdEspecialidad") %>' />
-                                <label class="form-check-label" for="chkEspecialidad<%# Container.ItemIndex %>"><%# Eval("Nombre") %></label>
-                            </div>
-                        </div>
-                    </ItemTemplate>
-                </asp:Repeater>
+        <div class="form-group"> 
+            <asp:Label ID="lblEspecialidades" runat="server" Text="Seleccione especialidad/es:" CssClass="form-label"></asp:Label> 
+            <div class="row"> 
+                <asp:CheckBoxList ID="cblEspecialidades" runat="server" CssClass="form-check-list"></asp:CheckBoxList>
             </div>
-
         </div>
         <br />
         
-        <div class="form-group">
-            <asp:Label ID="lblPrepagas" runat="server" Text="Seleccione la/las prepaga/as con las que trabaja:" CssClass="form-label"></asp:Label>
-            <div class="row">
-                <asp:Repeater ID="rptPrepagas" runat="server">
-                    <ItemTemplate>
-                        <div class="col-6 col-md-4 col-lg-3 mb-3">
-                            <div class="form-check" >
-                                <input type="checkbox" class="form-check-input" id="chkPrepaga<%# Container.ItemIndex %>" value='<%# Eval("IdPrepaga") %>' />
-                                <label class="form-check-label" for="chkPrepaga<%# Container.ItemIndex %>"><%# Eval("Nombre") %></label>
-                            </div>
-                        </div>
-                    </ItemTemplate>
-                </asp:Repeater>
+        <div class="form-group"> 
+            <asp:Label ID="lblPrepagas" runat="server" Text="Seleccione la/las prepaga/as con las que trabaja:" CssClass="form-label"></asp:Label> 
+            <div class="row"> 
+                <asp:CheckBoxList ID="cblPrepagas" runat="server" CssClass="form-check-list"></asp:CheckBoxList>
             </div>
         </div>
         <br />
 
+        <div class="container" id="contenedorHorarios" runat="server" >
+            <div class="row">
+                <asp:Label ID="lblHorarios" runat="server" Text="Defina el horario de trabajo:" CssClass="form-label"></asp:Label>
+            </div>
+            <div class="row">
+                    <div class="col-12 col-md-4">
+                        <div class="form-group">
+                            <label for="ddlInicioLunes" class="form-label">Lunes: </label>
+                            <br />
+                            <asp:Label ID="lblInicioLunes" runat="server" Text="Inicio: "></asp:Label>
+                            <asp:DropDownList ID="ddlInicioLunes" runat="server" CssClass="form-select" />
+                            <asp:Label ID="lblFinLunes" runat="server" Text="Fin: "></asp:Label>
+                            <asp:DropDownList ID="ddlFinLunes" runat="server" CssClass="form-select mt-2" />
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-4">
+                        <div class="form-group">
+                            <label for="ddlInicioMartes" class="form-label">Martes: </label>
+                            <br />
+                            <asp:Label ID="lblInicioMartes" runat="server" Text="Inicio: "></asp:Label>
+                            <asp:DropDownList ID="ddlInicioMartes" runat="server" CssClass="form-select" />
+                            <asp:Label ID="lblFinMartes" runat="server" Text="Fin: "></asp:Label>
+                            <asp:DropDownList ID="ddlFinMartes" runat="server" CssClass="form-select mt-2" />
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-4">
+                        <div class="form-group">
+                            <label for="ddlInicioMiercoles" class="form-label">Miercoles: </label>
+                            <br />
+                            <asp:Label ID="Label1" runat="server" Text="Inicio: "></asp:Label>
+                            <asp:DropDownList ID="ddlInicioMiercoles" runat="server" CssClass="form-select" />
+                            <asp:Label ID="Label2" runat="server" Text="Fin: "></asp:Label>
+                            <asp:DropDownList ID="ddlFinMiercoles" runat="server" CssClass="form-select mt-2" />
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-4">
+                        <div class="form-group">
+                            <label for="ddlInicioJueves" class="form-label">Jueves: </label>
+                            <br />
+                            <asp:Label ID="lblInicioJueves" runat="server" Text="Inicio: "></asp:Label>
+                            <asp:DropDownList ID="ddlInicioJueves" runat="server" CssClass="form-select" />
+                            <asp:Label ID="lblFinJueves" runat="server" Text="Fin: "></asp:Label>
+                            <asp:DropDownList ID="ddlFinJueves" runat="server" CssClass="form-select mt-2" />
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-4">
+                        <div class="form-group">
+                            <label for="ddlInicioViernes" class="form-label">Viernes: </label>
+                            <br />
+                            <asp:Label ID="lblInicioViernes" runat="server" Text="Inicio: "></asp:Label>
+                            <asp:DropDownList ID="ddlInicioViernes" runat="server" CssClass="form-select" />
+                            <asp:Label ID="lblFInViernes" runat="server" Text="Fin: "></asp:Label>
+                            <asp:DropDownList ID="ddlFinViernes" runat="server" CssClass="form-select mt-2" />
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-4">
+                        <div class="form-group">
+                            <label for="ddlInicioSabado" class="form-label">Sabado: </label>
+                            <br />
+                            <asp:Label ID="lblInicioSabado" runat="server" Text="Inicio: "></asp:Label>
+                            <asp:DropDownList ID="ddlInicioSabado" runat="server" CssClass="form-select" />
+                            <asp:Label ID="lblFinSabado" runat="server" Text="Fin: "></asp:Label>
+                            <asp:DropDownList ID="ddlFinSabado" runat="server" CssClass="form-select mt-2" />
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-4">
+                        <div class="form-group">
+                            <label for="ddlInicioDomingo" class="form-label">Domingo: </label>
+                            <br />
+                            <asp:Label ID="lblInicioDomingo" runat="server" Text="Inicio: "></asp:Label>
+                            <asp:DropDownList ID="ddlInicioDomingo" runat="server" CssClass="form-select" />
+                            <asp:Label ID="lblFinDomingo" runat="server" Text="Fin: "></asp:Label>
+                            <asp:DropDownList ID="ddlFinDomingo" runat="server" CssClass="form-select mt-2" /> 
+                        </div>
+                    </div>                    
+            </div>
+        </div>
 
 
         <asp:Button ID="btnGuardar" runat="server" Text="Guardar" CssClass="btn btn-primary mt-3" OnClick="btnGuardar_Click" />
@@ -101,5 +159,6 @@
         <asp:Button ID="btnVolver" runat="server" Text="Volver" CssClass="btn btn-primary mt-3" OnClick="btnVolver_Click" CausesValidation="false" />
 
     </div>
+
 </div>
 </asp:Content>

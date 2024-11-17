@@ -20,16 +20,53 @@ namespace Tp_Cuatrimestral_18A
         {
             if (!IsPostBack)
             {
+                Usuario usuarioLogueado = new Usuario();
+                usuarioLogueado = (Usuario)Session["Usuario"];
                 CargarRoles();
                 CargarEspecialidades();
                 CargarPrepagas();
-                lblMatricula.Visible = false;
-                txtMatricula.Visible = false;
-                lblEspecialidades.Visible = false;
-                rptEspecialidades.Visible = false;
-                lblPrepagas.Visible = false;
-                rptPrepagas.Visible = false;
+                PopulateTimeDropDown(ddlInicioLunes);
+                PopulateTimeDropDown(ddlFinLunes);
+                PopulateTimeDropDown(ddlInicioMartes);
+                PopulateTimeDropDown(ddlFinMartes);
+                PopulateTimeDropDown(ddlInicioMiercoles);
+                PopulateTimeDropDown(ddlFinMiercoles);
+                PopulateTimeDropDown(ddlInicioJueves);
+                PopulateTimeDropDown(ddlFinJueves);
+                PopulateTimeDropDown(ddlInicioViernes);
+                PopulateTimeDropDown(ddlFinViernes);
+                PopulateTimeDropDown(ddlInicioSabado);
+                PopulateTimeDropDown(ddlFinSabado);
+                PopulateTimeDropDown(ddlInicioDomingo);
+                PopulateTimeDropDown(ddlFinDomingo);
 
+                foreach (ListItem item in cblPrepagas.Items)
+                {
+                    item.Attributes.CssStyle.Add("class", "form-check-input");
+                }
+
+                if (usuarioLogueado.Rol.RolId == 1)
+                {
+                    lblMatricula.Visible = false;
+                    txtMatricula.Visible = false;
+                    lblEspecialidades.Visible = false;
+                    cblEspecialidades.Visible = false;
+                    lblPrepagas.Visible = false;
+                    cblPrepagas.Visible = false;
+                    contenedorHorarios.Visible = false;
+                }
+                if (usuarioLogueado.Rol.RolId == 2)
+                {
+                    ddlRol.SelectedIndex = 3;
+                    ddlRol.Enabled = false;
+                    lblMatricula.Visible = true;
+                    txtMatricula.Visible = true;
+                    lblEspecialidades.Visible = true;
+                    cblEspecialidades.Visible = true;
+                    lblPrepagas.Visible = true;
+                    cblPrepagas.Visible = true;
+
+                }
 
                 if (Request.QueryString["Id"] != null)
                 {
@@ -42,24 +79,24 @@ namespace Tp_Cuatrimestral_18A
                     lblConfirmacionPassword.Visible = false;
                     txtConfirmacionPassword.Visible = false;
 
-                    Usuario usuarioLogueado = new Usuario();
-                    usuarioLogueado = (Usuario)Session["Usuario"];
+                    
                     if(usuarioLogueado.Rol.RolId == 1)
-                    {
-                   
+                    {                   
                         lblPassword.Visible = true;
                         txtPassword.Visible = true;
                         lblConfirmacionPassword.Visible = true;
                         txtConfirmacionPassword.Visible = true;
-                    }
-
-                    if (usuarioLogueado.Rol.RolId == 2)
-                    {
-                        ddlRol.SelectedIndex = 3;
-
-                    }
+                    }                   
                     
                 }
+            }
+        }
+        private void PopulateTimeDropDown(DropDownList ddl)
+        {
+            for(int hora = 0; hora < 24; hora++)
+            {
+                string time = $"{hora:D2}:00";
+                ddl.Items.Add(new ListItem(time, time));
             }
         }
 
@@ -101,8 +138,10 @@ namespace Tp_Cuatrimestral_18A
                
                 List<Prepaga> listaRoles = prepagaNegocio.Listar();
 
-                rptPrepagas.DataSource = listaRoles;
-                rptPrepagas.DataBind();
+                cblPrepagas.DataSource = listaRoles;
+                cblPrepagas.DataTextField = "Nombre"; // Campo a mostrar
+                cblPrepagas.DataValueField = "IdPrepaga"; // Valor asociado
+                cblPrepagas.DataBind();
 
                 
             }
@@ -119,8 +158,10 @@ namespace Tp_Cuatrimestral_18A
             {                
                 List<Especialidad> listaEspecialidades = especialidadNegocio.ListarTodas();
 
-                rptEspecialidades.DataSource = listaEspecialidades;                
-                rptEspecialidades.DataBind();    
+                cblEspecialidades.DataSource = listaEspecialidades;
+                cblEspecialidades.DataTextField = "Nombre"; // Campo a mostrar
+                cblEspecialidades.DataValueField = "IdEspecialidad"; // Valor asociado
+                cblEspecialidades.DataBind();    
             }
             catch (Exception ex)
             {
@@ -189,11 +230,19 @@ namespace Tp_Cuatrimestral_18A
                 if (rolSeleccionado.RolId == 3)
                 {
                     Medico medico = new Medico();
+                    List<Prepaga> prepagasSeleccionadas = new List<Prepaga>();
+                    List<Especialidad> especialidadesSeleccionadas = new List<Especialidad>();
+                    List<TurnoTrabajo> turnosSeleccionados = new List<TurnoTrabajo>();
 
                     medico.IdUsuario = usuarioNegocio.buscarID(usuarioModificado.NombreUsuario);
                     medico.Matricula = txtMatricula.Text;
-                    
+                    medico.Prepagas = prepagasSeleccionadas;
+                    medico.Especialidades = especialidadesSeleccionadas;
+                    medico.TurnosTrabajo = turnosSeleccionados;
+
                     txtMatricula.Enabled = false; //buscar como deshabilitar el control
+
+                    // hacer metodo para modificar medico
 
                 }
             }
@@ -219,16 +268,50 @@ namespace Tp_Cuatrimestral_18A
 
                 nuevoUsuario.Rol = rolSeleccionado;
 
-                usuarioNegocio.AgregarUsuario(nuevoUsuario);
+                //usuarioNegocio.AgregarUsuario(nuevoUsuario);
 
                 if(rolSeleccionado.RolId == 3)
                 {
                     Medico nuevoMedico = new Medico();
 
+                    List<Prepaga> prepagasSeleccionadas = new List<Prepaga>();
+
+                    foreach (ListItem item in cblPrepagas.Items)
+                    {
+                        if (item.Selected)
+                        {
+                            Prepaga seleccionPrepaga= new Prepaga();
+                            seleccionPrepaga.IdPrepaga = int.Parse(item.Value);
+                            seleccionPrepaga.Nombre = item.Text;
+                            prepagasSeleccionadas.Add(seleccionPrepaga);
+                        }
+                    }    
+
+                    List<Especialidad> especialidadesSeleccionadas = new List<Especialidad>();
+
+
+                    foreach (ListItem item in cblPrepagas.Items)
+                    {
+                        if (item.Selected)
+                        {
+                            Especialidad seleccionEspecialidad= new Especialidad();
+                            seleccionEspecialidad.IdEspecialidad = int.Parse(item.Value);
+                            seleccionEspecialidad.Nombre = item.Text;
+                            especialidadesSeleccionadas.Add(seleccionEspecialidad);
+                        }
+                    }
+
+                    List<TurnoTrabajo> turnosSeleccionados = new List<TurnoTrabajo>();
+
                     nuevoMedico.IdUsuario = usuarioNegocio.buscarID(nuevoUsuario.NombreUsuario);
                     nuevoMedico.Matricula = txtMatricula.Text;
+                    nuevoMedico.Prepagas = prepagasSeleccionadas;
+                    nuevoMedico.Especialidades = especialidadesSeleccionadas;
+                    nuevoMedico.TurnosTrabajo = turnosSeleccionados;
 
                     medicoNegocio.Agregar(nuevoMedico);
+
+                    // agregar a especialidades por medico, turnostrabajo y prepagas por medico
 
                 }
             }
@@ -242,7 +325,7 @@ namespace Tp_Cuatrimestral_18A
             Response.Redirect("Usuarios.aspx");
         }
 
-        protected void ddlRol_SelectedIndexChanged(object sender, EventArgs e) // REVISAR
+        protected void ddlRol_SelectedIndexChanged(object sender, EventArgs e)
         {
             Rol rolSeleccionado = new Rol();
 
@@ -254,9 +337,12 @@ namespace Tp_Cuatrimestral_18A
                 lblMatricula.Visible = true;
                 txtMatricula.Visible = true;
                 lblEspecialidades.Visible = true;
-                rptEspecialidades.Visible = true;
+                cblEspecialidades.Visible = true;
                 lblPrepagas.Visible = true;
-                rptPrepagas.Visible = true;
+                cblPrepagas.Visible = true;
+                contenedorHorarios.Visible = true;
+                contenedorHorarios.Visible = true;
+
 
             }
             else
@@ -264,9 +350,10 @@ namespace Tp_Cuatrimestral_18A
                 lblMatricula.Visible = false;
                 txtMatricula.Visible = false;
                 lblEspecialidades.Visible = false;
-                rptEspecialidades.Visible = false;
+                cblEspecialidades.Visible = false;
                 lblPrepagas.Visible = false;
-                rptPrepagas.Visible = false;
+                cblPrepagas.Visible = false; 
+                contenedorHorarios.Visible = false;
             }
         }
 
