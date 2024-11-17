@@ -10,6 +10,8 @@ namespace Negocio
 {
     public class MedicoNegocio
     {
+        AccesoDatos datos = new AccesoDatos();
+
         public List<Medico> Listar()
         {
             List<Medico> lista = new List<Medico>();
@@ -52,8 +54,7 @@ namespace Negocio
 
         public void Agregar(Medico medico)
         {
-            AccesoDatos datos = new AccesoDatos();
-
+                        
             try
             {
                 string consulta = "INSERT INTO Medicos (IdUsuario, Matricula) VALUES (@IdUsuario, @Matricula)";
@@ -61,6 +62,7 @@ namespace Negocio
                 datos.setearParametro("@IdUsuario", medico.IdUsuario);
                 datos.setearParametro("@Matricula", medico.Matricula);
                 datos.ejecutarAccion();
+
             }
             catch (Exception ex)
             {
@@ -72,7 +74,34 @@ namespace Negocio
             }
         }
 
-        
+        public int ObtenerID(Medico Medico)
+        {
+            try
+            {
+                int id;                
+
+                datos.setearConsulta("Select IdMedico from Medicos where Matricula = @Matricula");
+                datos.setearParametro("@Matricula", Medico.Matricula);
+                datos.ejecutarLectura();
+
+                while (datos.lector.Read())
+                {
+                    id = (int)datos.Lector["IdMedico"];
+                    return id;
+                }
+                return -1;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+            
+        }
 
         public List<Medico> ListarPorPrepagaYEspecialidad(string nombrePrepaga, string nombreEspecialidad)
         {
@@ -124,7 +153,6 @@ namespace Negocio
                 datos.cerrarConexion();
             }
         }
-
 
 
         public List<Medico> ListarPorEspecialidad(string nombreEspecialidad)
@@ -280,7 +308,7 @@ namespace Negocio
         }
 
 
-        public void Eliminar(int id)
+        public void Eliminar(int id) //modificar con SP o Cambio en la DB
         {
             AccesoDatos datos = new AccesoDatos();
 
@@ -301,11 +329,13 @@ namespace Negocio
             }
         }
 
-        public Medico BuscarMatricula(int idUsuario)
+        public Medico BuscarPorIDUsuario(int idUsuario) // modificar
         {
 
-            AccesoDatos datos = new AccesoDatos();
-            Medico medico = null;
+            Medico medico = new Medico();
+            EspecialidadNegocio especialidadNegocio = new EspecialidadNegocio();
+            TurnoNegocio turnoNegocio = new TurnoNegocio();
+            PrepagaNegocio prepagaNegocio = new PrepagaNegocio();
 
             try
             {
@@ -315,14 +345,16 @@ namespace Negocio
 
                 if (datos.Lector.Read())
                 {
-                    medico = new Medico
-                    {
-                        IdMedico = (int)datos.Lector["IdMedico"],
-                        Nombres = (string)datos.Lector["Nombres"],
-                        Apellidos = (string)datos.Lector["Apellidos"],
-                        Matricula = (string)datos.Lector["Matricula"],
-                        Email = (string)datos.Lector["Mail"],
-                    };
+                    medico.IdMedico = (int)datos.Lector["IdMedico"];
+                    medico.Nombres = (string)datos.Lector["Nombres"];
+                    medico.Apellidos = (string)datos.Lector["Apellidos"];
+                    medico.Matricula = (string)datos.Lector["Matricula"];
+                    medico.Email = (string)datos.Lector["Mail"];
+
+                    medico.Especialidades = especialidadNegocio.BuscarEspecialidadesMedico(medico);
+                    medico.Prepagas = prepagaNegocio.BuscarPrepagasMedico(medico);
+                    medico.TurnosTrabajo = turnoNegocio.BuscarTurnosTrabajoMedico(medico);
+                    
                 }
 
                 return medico;
@@ -337,5 +369,8 @@ namespace Negocio
             }
 
         }
+    
+        
+    
     }
 }

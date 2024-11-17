@@ -9,7 +9,7 @@ namespace Dominio
     public class TurnoTrabajo
     {
         public int IdTurnoTrabajo { get; set; }
-        public DayOfWeek DiaDeLaSemana { get; set; }
+        public String DiaDeLaSemana { get; set; }
         public TimeSpan HoraInicio { get; set; }
         public TimeSpan HoraFin { get; set; }
 

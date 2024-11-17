@@ -4,6 +4,7 @@ using Seguridad;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -47,45 +48,29 @@ namespace Tp_Cuatrimestral_18A
 
                 if (usuarioLogueado.Rol.RolId == 1)
                 {
-                    lblMatricula.Visible = false;
-                    txtMatricula.Visible = false;
-                    lblEspecialidades.Visible = false;
-                    cblEspecialidades.Visible = false;
-                    lblPrepagas.Visible = false;
-                    cblPrepagas.Visible = false;
-                    contenedorHorarios.Visible = false;
+                    contenedorInfoMedico.Visible = false;
+                    
                 }
                 if (usuarioLogueado.Rol.RolId == 2)
                 {
-                    ddlRol.SelectedIndex = 3;
+                    lblTitulo.Text = "Alta de Medicos: ";
                     ddlRol.Enabled = false;
-                    lblMatricula.Visible = true;
-                    txtMatricula.Visible = true;
-                    lblEspecialidades.Visible = true;
-                    cblEspecialidades.Visible = true;
-                    lblPrepagas.Visible = true;
-                    cblPrepagas.Visible = true;
-
+                    ddlRol.SelectedIndex = 3;
+                    contenedorInfoMedico.Visible = true;                    
                 }
 
                 if (Request.QueryString["Id"] != null)
                 {
                     int IdUsuario = Convert.ToInt32(Request.QueryString["Id"]);
                     usuario = usuarioNegocio.cargarDatosUsuario(IdUsuario);
+                    txtMatricula.Enabled = false;
                     cargarCampos(usuario);
 
-                    lblPassword.Visible = false;
-                    txtPassword.Visible = false;
-                    lblConfirmacionPassword.Visible = false;
-                    txtConfirmacionPassword.Visible = false;
-
-                    
+                    contenedorPasswords.Visible = false;
+                                                            
                     if(usuarioLogueado.Rol.RolId == 1)
-                    {                   
-                        lblPassword.Visible = true;
-                        txtPassword.Visible = true;
-                        lblConfirmacionPassword.Visible = true;
-                        txtConfirmacionPassword.Visible = true;
+                    {
+                        contenedorPasswords.Visible = true;                        
                     }                   
                     
                 }
@@ -174,7 +159,6 @@ namespace Tp_Cuatrimestral_18A
             {
                 txtNombreUsuario.Text = usuario.NombreUsuario;
                 txtPassword.Text = usuario.Contraseña;
-                txtConfirmacionPassword.Text = usuario.Contraseña;
                 txtNombre.Text = usuario.Nombre;
                 txtApellido.Text = usuario.Apellido;
                 txtEmail.Text = usuario.Mail;
@@ -183,14 +167,31 @@ namespace Tp_Cuatrimestral_18A
 
                 if (usuario.Rol.RolId == 3)
                 {
-                    lblMatricula.Visible = true;
-                    txtMatricula.Visible = true;
+                    contenedorInfoMedico.Visible = true;                    
 
                     MedicoNegocio Mnegocio = new MedicoNegocio();
 
-                    Medico medico = Mnegocio.BuscarMatricula(usuario.IdUsuario);
+                    Medico medico = Mnegocio.BuscarPorIDUsuario(usuario.IdUsuario);
 
                     txtMatricula.Text = medico.Matricula;
+
+                    foreach(ListItem item in cblEspecialidades.Items)
+                    {
+                        if (medico.Especialidades.Any(e => e.IdEspecialidad == int.Parse(item.Value)))
+                        {
+                            item.Selected = true;
+                        }
+                    }
+
+                    foreach (ListItem item in cblPrepagas.Items)
+                    {
+                        if (medico.Prepagas.Any(p => p.IdPrepaga == int.Parse(item.Value)))
+                        {
+                            item.Selected = true;
+                        }
+                    }
+
+
                 }
 
             }
@@ -199,7 +200,6 @@ namespace Tp_Cuatrimestral_18A
         {
             rfvNombreUsuario.Enabled = true;
             rfvPassword.Enabled = true;
-            rfvConfirmPassword.Enabled = true;
             rfvNombre.Enabled = true;
             rfvApellido.Enabled = true;
             rfvEmail.Enabled = true;
@@ -208,7 +208,9 @@ namespace Tp_Cuatrimestral_18A
 
             if(Request.QueryString["Id"] != null)
             {
-                
+                Usuario usuarioLogueado = new Usuario();
+                usuarioLogueado = (Usuario)Session["Usuario"];
+
                 Rol rolSeleccionado = new Rol();
 
                 Usuario usuarioModificado =  new Usuario();
@@ -219,6 +221,11 @@ namespace Tp_Cuatrimestral_18A
                 usuarioModificado.Apellido = txtApellido.Text;
                 usuarioModificado.Mail = txtEmail.Text;
                 usuarioModificado.Telefono = txtTelefono.Text;
+
+                if(usuarioLogueado.Rol.RolId == 1)
+                {
+                    usuarioModificado.Contraseña = txtPassword.Text;
+                }
 
                 rolSeleccionado.RolId = int.Parse(ddlRol.SelectedValue);
                 rolSeleccionado.Nombre = ddlRol.SelectedItem.Text;
@@ -238,9 +245,7 @@ namespace Tp_Cuatrimestral_18A
                     medico.Matricula = txtMatricula.Text;
                     medico.Prepagas = prepagasSeleccionadas;
                     medico.Especialidades = especialidadesSeleccionadas;
-                    medico.TurnosTrabajo = turnosSeleccionados;
-
-                    txtMatricula.Enabled = false; //buscar como deshabilitar el control
+                    medico.TurnosTrabajo = turnosSeleccionados;                    
 
                     // hacer metodo para modificar medico
 
@@ -248,11 +253,7 @@ namespace Tp_Cuatrimestral_18A
             }
             else
             {
-                if (txtPassword != txtConfirmacionPassword)
-                {
-
-                }
-
+                
                 Usuario nuevoUsuario = new Usuario();
                 Rol rolSeleccionado = new Rol();
 
@@ -268,57 +269,127 @@ namespace Tp_Cuatrimestral_18A
 
                 nuevoUsuario.Rol = rolSeleccionado;
 
-                //usuarioNegocio.AgregarUsuario(nuevoUsuario);
+                usuarioNegocio.AgregarUsuario(nuevoUsuario);
 
                 if(rolSeleccionado.RolId == 3)
                 {
+                    EspecialidadNegocio especialidadNegocio = new EspecialidadNegocio();
+                    PrepagaNegocio prepagaNegocio = new PrepagaNegocio();
+                    TurnoNegocio turnoNegocio = new TurnoNegocio();
+
                     Medico nuevoMedico = new Medico();
 
-                    List<Prepaga> prepagasSeleccionadas = new List<Prepaga>();
-
-                    foreach (ListItem item in cblPrepagas.Items)
-                    {
-                        if (item.Selected)
-                        {
-                            Prepaga seleccionPrepaga= new Prepaga();
-                            seleccionPrepaga.IdPrepaga = int.Parse(item.Value);
-                            seleccionPrepaga.Nombre = item.Text;
-                            prepagasSeleccionadas.Add(seleccionPrepaga);
-                        }
-                    }    
-
-                    List<Especialidad> especialidadesSeleccionadas = new List<Especialidad>();
-
-
-                    foreach (ListItem item in cblPrepagas.Items)
-                    {
-                        if (item.Selected)
-                        {
-                            Especialidad seleccionEspecialidad= new Especialidad();
-                            seleccionEspecialidad.IdEspecialidad = int.Parse(item.Value);
-                            seleccionEspecialidad.Nombre = item.Text;
-                            especialidadesSeleccionadas.Add(seleccionEspecialidad);
-                        }
-                    }
-
-                    List<TurnoTrabajo> turnosSeleccionados = new List<TurnoTrabajo>();
 
                     nuevoMedico.IdUsuario = usuarioNegocio.buscarID(nuevoUsuario.NombreUsuario);
                     nuevoMedico.Matricula = txtMatricula.Text;
-                    nuevoMedico.Prepagas = prepagasSeleccionadas;
-                    nuevoMedico.Especialidades = especialidadesSeleccionadas;
-                    nuevoMedico.TurnosTrabajo = turnosSeleccionados;
+                    nuevoMedico.Prepagas = obtenerPrepagasSeleccionadas();
+                    nuevoMedico.Especialidades = ObtenerEspecialidadesSeleccionadas();
+                    nuevoMedico.TurnosTrabajo = ObtenerTurnosTrabajoSeleccionados();
 
                     medicoNegocio.Agregar(nuevoMedico);
 
-                    // agregar a especialidades por medico, turnostrabajo y prepagas por medico
+                    nuevoMedico.IdMedico = medicoNegocio.ObtenerID(nuevoMedico);
 
+                    especialidadNegocio.GuardarEspecialidadesMedico(nuevoMedico);
+                    prepagaNegocio.GuardarPrepagasMedico(nuevoMedico);
+                    turnoNegocio.GuardarTurnosTrabajoMedico(nuevoMedico);
                 }
             }
             
             Response.Redirect("Usuarios.aspx");
         }
 
+        private List<TurnoTrabajo> ObtenerTurnosTrabajoSeleccionados()
+        {
+            List<TurnoTrabajo> turnosSeleccionados = new List<TurnoTrabajo>();
+                        
+            turnosSeleccionados.Add(new TurnoTrabajo
+            {
+                DiaDeLaSemana = "Lunes",
+                HoraInicio = TimeSpan.Parse(ddlInicioLunes.SelectedItem.Text),
+                HoraFin = TimeSpan.Parse(ddlFinLunes.SelectedItem.Text)
+            });
+                        
+            turnosSeleccionados.Add(new TurnoTrabajo
+            {
+                DiaDeLaSemana = "Martes",
+                HoraInicio = TimeSpan.Parse(ddlInicioMartes.SelectedItem.Text),
+                HoraFin = TimeSpan.Parse(ddlFinMartes.SelectedItem.Text)
+            });
+            
+            turnosSeleccionados.Add(new TurnoTrabajo
+            {
+                DiaDeLaSemana = "Miércoles",
+                HoraInicio = TimeSpan.Parse(ddlInicioMiercoles.SelectedItem.Text),
+                HoraFin = TimeSpan.Parse(ddlFinMiercoles.SelectedItem.Text)
+            });
+            
+            turnosSeleccionados.Add(new TurnoTrabajo
+            {
+                DiaDeLaSemana = "Jueves",
+                HoraInicio = TimeSpan.Parse(ddlInicioJueves.SelectedItem.Text),
+                HoraFin = TimeSpan.Parse(ddlFinJueves.SelectedItem.Text)
+            });
+            
+            turnosSeleccionados.Add(new TurnoTrabajo
+            {
+                DiaDeLaSemana = "Viernes",
+                HoraInicio = TimeSpan.Parse(ddlInicioViernes.SelectedItem.Text),
+                HoraFin = TimeSpan.Parse(ddlFinViernes.SelectedItem.Text)
+            });
+            
+            turnosSeleccionados.Add(new TurnoTrabajo
+            {
+                DiaDeLaSemana = "Sábado",
+                HoraInicio = TimeSpan.Parse(ddlInicioSabado.SelectedItem.Text),
+                HoraFin = TimeSpan.Parse(ddlFinSabado.SelectedItem.Text)
+            });
+
+            turnosSeleccionados.Add(new TurnoTrabajo
+            {
+                DiaDeLaSemana = "Domingo",
+                HoraInicio = TimeSpan.Parse(ddlInicioDomingo.SelectedItem.Text),
+                HoraFin = TimeSpan.Parse(ddlFinDomingo.SelectedItem.Text)
+            });
+
+            return turnosSeleccionados;
+        }
+
+        private List<Prepaga> obtenerPrepagasSeleccionadas()
+        {
+            List<Prepaga> prepagasSeleccionadas = new List<Prepaga>();
+
+            foreach (ListItem item in cblPrepagas.Items)
+            {
+                if (item.Selected)
+                {
+                    Prepaga seleccionPrepaga = new Prepaga();
+                    seleccionPrepaga.IdPrepaga = int.Parse(item.Value);
+                    seleccionPrepaga.Nombre = item.Text;
+                    prepagasSeleccionadas.Add(seleccionPrepaga);
+                }
+            }
+            return prepagasSeleccionadas;
+        }
+
+        private List<Especialidad> ObtenerEspecialidadesSeleccionadas()
+        {
+            List<Especialidad> especialidadesSeleccionadas = new List<Especialidad>();
+
+
+            foreach (ListItem item in cblEspecialidades.Items)
+            {
+                if (item.Selected)
+                {
+                    Especialidad seleccionEspecialidad = new Especialidad();
+                    seleccionEspecialidad.IdEspecialidad = int.Parse(item.Value);
+                    seleccionEspecialidad.Nombre = item.Text;
+                    especialidadesSeleccionadas.Add(seleccionEspecialidad);
+                }
+            }
+            return especialidadesSeleccionadas;
+        }
+                
         protected void btnVolver_Click(object sender, EventArgs e)
         {
             
@@ -334,26 +405,11 @@ namespace Tp_Cuatrimestral_18A
 
             if (rolSeleccionado.RolId == 3)
             {
-                lblMatricula.Visible = true;
-                txtMatricula.Visible = true;
-                lblEspecialidades.Visible = true;
-                cblEspecialidades.Visible = true;
-                lblPrepagas.Visible = true;
-                cblPrepagas.Visible = true;
-                contenedorHorarios.Visible = true;
-                contenedorHorarios.Visible = true;
-
-
+                contenedorInfoMedico.Visible = true;
             }
             else
             {
-                lblMatricula.Visible = false;
-                txtMatricula.Visible = false;
-                lblEspecialidades.Visible = false;
-                cblEspecialidades.Visible = false;
-                lblPrepagas.Visible = false;
-                cblPrepagas.Visible = false; 
-                contenedorHorarios.Visible = false;
+                contenedorInfoMedico.Visible = false;
             }
         }
 

@@ -24,6 +24,7 @@ Create table Medicos(
     IdUsuario int FOREIGN KEY REFERENCES Usuarios(IdUsuario),
     Matricula VARCHAR(50) unique not null,
     FechaAlta DATETIME DEFAULT GETDATE(),
+    FechaDeBaja DATETIME NULL,
 )
 GO
 Create table TurnosTrabajo(
@@ -182,18 +183,6 @@ INSERT INTO Pacientes (Nombres, Apellidos, DNI, Mail, Telefono, Direccion, Fecha
 INSERT INTO Pacientes (Nombres, Apellidos, DNI, Mail, Telefono, Direccion, FechaNacimiento, IdPrepaga) VALUES ('Sofía', 'Rojas', '44455566', 'sofia.rojas@example.com', '444555666', 'Calle 9, Ciudad', '1993-09-09', 1);
 INSERT INTO Pacientes (Nombres, Apellidos, DNI, Mail, Telefono, Direccion, FechaNacimiento, IdPrepaga) VALUES ('Lucía', 'Mendoza', '55566677', 'lucia.mendoza@example.com', '555666777', 'Calle 10, Ciudad', '1982-10-10', 2);
 
-INSERT INTO Turnos (IdPaciente, IdMedico, IdEspecialidad, Fecha, Horario, Observaciones, Estado) VALUES (1, 1, 1, '2024-10-23', '09:00', 'Consulta general', 'Nuevo');
-INSERT INTO Turnos (IdPaciente, IdMedico, IdEspecialidad, Fecha, Horario, Observaciones, Estado) VALUES (2, 2, 2, '2024-10-24', '10:00', 'Chequeo anual', 'Nuevo');
-INSERT INTO Turnos (IdPaciente, IdMedico, IdEspecialidad, Fecha, Horario, Observaciones, Estado) VALUES (3, 3, 3, '2024-10-25', '11:00', 'Revisión de medicamentos', 'Nuevo');
-INSERT INTO Turnos (IdPaciente, IdMedico, IdEspecialidad, Fecha, Horario, Observaciones, Estado) VALUES (4, 4, 1, '2024-10-26', '12:00', 'Control de hipertensión', 'Nuevo');
-INSERT INTO Turnos (IdPaciente, IdMedico, IdEspecialidad, Fecha, Horario, Observaciones, Estado) VALUES (5, 5, 2, '2024-10-27', '13:00', 'Consulta dermatológica', 'Nuevo');
-INSERT INTO Turnos (IdPaciente, IdMedico, IdEspecialidad, Fecha, Horario, Observaciones, Estado) VALUES (1, 6, 3, '2024-10-28', '14:00', 'Chequeo de rutina', 'Nuevo');
-INSERT INTO Turnos (IdPaciente, IdMedico, IdEspecialidad, Fecha, Horario, Observaciones, Estado) VALUES (2, 7, 1, '2024-10-29', '15:00', 'Consulta de seguimiento', 'Nuevo');
-INSERT INTO Turnos (IdPaciente, IdMedico, IdEspecialidad, Fecha, Horario, Observaciones, Estado) VALUES (3, 8, 2, '2024-10-30', '16:00', 'Consulta de pediatría', 'Nuevo');
-INSERT INTO Turnos (IdPaciente, IdMedico, IdEspecialidad, Fecha, Horario, Observaciones, Estado) VALUES (4, 9, 3, '2024-10-31', '17:00', 'Consulta neurológica', 'Nuevo');
-INSERT INTO Turnos (IdPaciente, IdMedico, IdEspecialidad, Fecha, Horario, Observaciones, Estado) VALUES (5, 10, 1, '2024-11-01', '18:00', 'Control médico', 'Nuevo');
-
-
 -- Turnos para el médico 1
 INSERT INTO TurnosTrabajo (IdMedico, HoraInicio, HoraFin, DiaTrabajo) VALUES (1, '09:00', '17:00', 'Lunes');
 INSERT INTO TurnosTrabajo (IdMedico, HoraInicio, HoraFin, DiaTrabajo) VALUES (1, '09:00', '17:00', 'Martes');
@@ -274,55 +263,3 @@ INSERT INTO TurnosTrabajo (IdMedico, HoraInicio, HoraFin, DiaTrabajo) VALUES (10
 INSERT INTO TurnosTrabajo (IdMedico, HoraInicio, HoraFin, DiaTrabajo) VALUES (10, '11:00', '19:00', 'Viernes');
 INSERT INTO TurnosTrabajo (IdMedico, HoraInicio, HoraFin, DiaTrabajo) VALUES (10, '11:00', '14:00', 'Sábado');
 
-CREATE PROCEDURE SP_ObtenerTurnosDisponibles
-    @IdMedico INT,
-    @Fecha DATE
-AS
-BEGIN
-    DECLARE @HoraInicio TIME;
-    DECLARE @HoraFin TIME;
-    DECLARE @HoraActual TIME;
-
-    -- Consulta el horario de trabajo del médico para el día especificado
-    SELECT @HoraInicio = HoraInicio, @HoraFin = HoraFin
-    FROM TurnosTrabajo
-    WHERE IdMedico = @IdMedico 
-      AND DiaTrabajo = DATENAME(WEEKDAY, @Fecha);
-
-    -- Verifica que el médico trabaje el día solicitado
-    IF @HoraInicio IS NULL OR @HoraFin IS NULL
-    BEGIN
-        PRINT 'El médico no trabaja en el día seleccionado';
-        RETURN;
-    END
-
-    -- Crear una tabla temporal para almacenar los turnos disponibles
-    CREATE TABLE #TurnosDisponibles (Horario TIME);
-
-    -- Generar los turnos de 1 hora dentro del rango de trabajo
-    SET @HoraActual = @HoraInicio;
-    WHILE @HoraActual < @HoraFin
-    BEGIN
-        -- Verificar si el horario ya está ocupado
-        IF NOT EXISTS (
-            SELECT 1 
-            FROM Turnos 
-            WHERE IdMedico = @IdMedico 
-              AND Fecha = @Fecha 
-              AND Horario = @HoraActual
-        )
-        BEGIN
-            -- Insertar el horario en la tabla temporal
-            INSERT INTO #TurnosDisponibles (Horario) VALUES (@HoraActual);
-        END
-
-        -- Avanzar la hora en 1 hora
-        SET @HoraActual = DATEADD(hour, 1, @HoraActual);
-    END
-
-    -- Seleccionar los turnos disponibles
-    SELECT Horario FROM #TurnosDisponibles;
-
-    -- Limpiar la tabla temporal
-    DROP TABLE #TurnosDisponibles;
-END;

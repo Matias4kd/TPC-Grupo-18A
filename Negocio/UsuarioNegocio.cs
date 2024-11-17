@@ -179,7 +179,7 @@ namespace Negocio
 
 		public int buscarID(string nombreUsuario)
 		{
-			int id = new int();
+			int id;
 			try
 			{
                 datos.setearConsulta("SELECT IdUsuario FROM Usuarios WHERE NombreUsuario = @nombreUsuario");

@@ -152,8 +152,6 @@ namespace Negocio
         
         public void Eliminar(int id)
         {
-            
-
             try
             {
                 string consulta = "DELETE FROM Turnos WHERE Id = @Id";
@@ -163,6 +161,68 @@ namespace Negocio
             }
             catch (Exception ex)
             {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+        public void GuardarTurnosTrabajoMedico(Medico medico)
+        {
+            foreach (TurnoTrabajo item in medico.TurnosTrabajo)
+            {
+                try
+                {
+                    if (item.HoraInicio != item.HoraFin)
+                    {
+                        datos.setearConsulta("Insert into TurnosTrabajo (IdMedico, HoraInicio, HoraFin, DiaTrabajo) VALUES (@IdMedico, @HoraInicio, @HoraFin, @DiaTrabajo)");
+                        datos.setearParametro("@IdMedico", medico.IdMedico);
+                        datos.setearParametro("@HoraInicio",item.HoraInicio);
+                        datos.setearParametro("@HoraFin", item.HoraFin);
+                        datos.setearParametro("@DiaTrabajo",item.DiaDeLaSemana);
+                        datos.ejecutarAccion();
+                    }
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
+                finally
+                {
+                    datos.cerrarConexion();
+                }
+            }
+
+        }
+
+        public List<TurnoTrabajo> BuscarTurnosTrabajoMedico(Medico medico)
+        {
+            List<TurnoTrabajo> turnosTrabajo = new List<TurnoTrabajo>();
+
+            try
+            {
+                datos.setearConsulta("Select HoraInicio, HoraFin, DiaTrabajo from TurnosTrabajo where IdMedico = @IdMedico");
+                datos.setearParametro("@IdMedico", medico.IdMedico);
+                datos.ejecutarLectura();
+
+                while (datos.lector.Read())
+                {
+                    TurnoTrabajo turnoTrabajo = new TurnoTrabajo();
+
+                    turnoTrabajo.HoraInicio = (TimeSpan)datos.lector["HoraInicio"];
+                    turnoTrabajo.HoraFin = (TimeSpan)datos.lector["HoraFin"];
+                    turnoTrabajo.DiaDeLaSemana = (string)datos.lector["DiaTrabajo"];
+                    turnosTrabajo.Add(turnoTrabajo);
+                }
+
+                return turnosTrabajo;
+            }
+            catch (Exception ex)
+            {
+
                 throw ex;
             }
             finally

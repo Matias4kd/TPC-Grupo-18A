@@ -16,7 +16,7 @@ namespace Tp_Cuatrimestral_18A
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+          
         }
 
         protected void btnIngresar_Click(object sender, EventArgs e) 
