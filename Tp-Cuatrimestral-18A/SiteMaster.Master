@@ -21,7 +21,7 @@
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <div class="collapse navbar-collapse" id="navbarNav">
-                        <ul class="navbar-nav" id="navbarOptions" runat="server">
+                        <ul class="navbar-nav me-auto" id="navbarOptions" runat="server">
                             <li class="nav-item">
                                 <a class="nav-link" href="Pacientes.aspx">Pacientes</a>
                             </li>
@@ -36,14 +36,14 @@
                                 </a>
                             </li>
                                <li class="nav-item">
-                                <a class="nav-link" href="EspecialidadMedica.aspx">Especialidades Médicas</a>
-                               </li>
-                            <li class="nav-item">
-                                <a class="nav-link " href="Default.aspx">Cerrar Sesion</a>
-                            </li>
-
-                         
+                                <a class="nav-link" href="EspecialidadMedica.aspx">
+                                    <asp:Label ID="lblEspecialidades" runat="server" Text="Especialidades"></asp:Label>
+                                </a>
+                            </li>                                                   
                         </ul>
+                        <div id="cerrarSesion" class="ml-auto" runat="server">
+                            <asp:Button ID="btnCerrarSesion" runat="server" Text="Cerrar Sesión" CssClass="btn btn-outline-danger" OnClick="btnCerrarSesion_Click" />
+                        </div>
                     </div>
                 </div>
             </nav>

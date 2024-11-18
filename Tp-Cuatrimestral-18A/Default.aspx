@@ -24,4 +24,17 @@
             </div>
         </div>
     </div>
+    <script type="text/javascript">
+        
+        if (performance.navigation.type == 2) {
+            
+            window.location.href = "Default.aspx"; 
+        }
+
+        
+        window.history.pushState(null, null, window.location.href);
+        window.onpopstate = function () {
+            window.history.go(1); 
+        };
+</script>
 </asp:Content>

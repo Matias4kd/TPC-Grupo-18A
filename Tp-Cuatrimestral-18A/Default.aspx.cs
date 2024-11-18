@@ -16,7 +16,12 @@ namespace Tp_Cuatrimestral_18A
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-          
+            Response.Cache.SetCacheability(HttpCacheability.NoCache); 
+            Response.Cache.SetNoStore();
+            Response.Cache.SetExpires(DateTime.UtcNow.AddMinutes(-1));
+
+            Response.AddHeader("Pragma", "no-cache");
+            Response.AddHeader("Expires", "0");
         }
 
         protected void btnIngresar_Click(object sender, EventArgs e) 

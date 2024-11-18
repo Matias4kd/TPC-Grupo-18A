@@ -20,6 +20,11 @@ namespace Tp_Cuatrimestral_18A
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["Usuario"] == null)
+            {
+                Response.Redirect("Default.aspx");
+            }         
+
             if (!IsPostBack)
             {
                 Usuario usuarioLogueado = new Usuario();
