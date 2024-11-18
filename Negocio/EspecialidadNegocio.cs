@@ -50,6 +50,47 @@ namespace Negocio
             }
         }
 
+        public List<Especialidad> Listar()
+        {
+            AccesoDatos datos = new AccesoDatos();
+            List<Especialidad> lista = new List<Especialidad>();
+            try
+            {
+                // Solo listar las especialidades activas
+                datos.setearConsulta("SELECT IdEspecialidad, NombreEspecialidad, CASE WHEN Activo = 1 THEN 'Activo' ELSE 'Inactivo' END AS Estado FROM Especialidades WHERE Activo = 1");
+                datos.ejecutarLectura();
+                while (datos.Lector.Read())
+                {
+                    lista.Add(new Especialidad
+                    {
+                        IdEspecialidad = (int)datos.Lector["IdEspecialidad"],
+                        Nombre = datos.Lector["NombreEspecialidad"].ToString(),
+                        Estado = datos.Lector["Estado"].ToString()
+                    });
+                }
+                return lista;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+        public void Agregar(string nombre)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setearConsulta("INSERT INTO Especialidades (NombreEspecialidad, Activo) VALUES (@Nombre, 1)");
+                datos.setearParametro("@Nombre", nombre);
+                datos.ejecutarAccion();
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
 
 
         public List<Especialidad> ListarTodas()
@@ -78,6 +119,22 @@ namespace Negocio
             catch (Exception ex)
             {
                 throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+        public void EliminarLogicamente(int id)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                // Baja lógica: Actualizar la columna "Activo"
+                datos.setearConsulta("UPDATE Especialidades SET Activo = 0 WHERE IdEspecialidad = @Id");
+                datos.setearParametro("@Id", id);
+                datos.ejecutarAccion();
             }
             finally
             {
