@@ -1,4 +1,5 @@
-﻿using Dominio;
+﻿using ClinicaMedica;
+using Dominio;
 using Negocio;
 using Seguridad;
 using System;
@@ -191,11 +192,55 @@ namespace Tp_Cuatrimestral_18A
                         }
                     }
 
-
+                    PreseleccionarTurnos(medico);
                 }
-
             }
         }
+
+        private void PreseleccionarTurnos(Medico medico)
+        {
+            foreach (TurnoTrabajo item in medico.TurnosTrabajo)
+            {
+                switch (item.DiaDeLaSemana)
+                {
+                    case "Lunes":
+                        ddlInicioLunes.SelectedValue = item.HoraInicio.ToString("hh\\:mm");
+                        ddlFinLunes.SelectedValue = item.HoraFin.ToString("hh\\:mm");
+                        break;
+                    
+                    case "Martes":
+                        ddlInicioMartes.SelectedValue = item.HoraInicio.ToString("hh\\:mm");
+                        ddlFinMartes.SelectedValue = item.HoraFin.ToString("hh\\:mm");
+                        break;
+
+                    case "Miércoles":
+                        ddlInicioMiercoles.SelectedValue = item.HoraInicio.ToString("hh\\:mm");
+                        ddlFinMiercoles.SelectedValue = item.HoraFin.ToString("hh\\:mm");
+                        break;
+
+                    case "Jueves":
+                        ddlInicioJueves.SelectedValue = item.HoraInicio.ToString("hh\\:mm");
+                        ddlFinJueves.SelectedValue = item.HoraFin.ToString("hh\\:mm");
+                        break;
+
+                    case "Viernes":
+                        ddlInicioViernes.SelectedValue = item.HoraInicio.ToString("hh\\:mm");
+                        ddlFinViernes.SelectedValue = item.HoraFin.ToString("hh\\:mm");
+                        break;
+
+                    case "Sábado":
+                        ddlInicioSabado.SelectedValue = item.HoraInicio.ToString("hh\\:mm");
+                        ddlFinSabado.SelectedValue = item.HoraFin.ToString("hh\\:mm");
+                        break;
+
+                    case "Domingo":
+                        ddlInicioDomingo.SelectedValue = item.HoraInicio.ToString("hh\\:mm");
+                        ddlFinDomingo.SelectedValue = item.HoraFin.ToString("hh\\:mm");
+                        break;                    
+                }
+            }
+        }
+
         protected void btnGuardar_Click(object sender, EventArgs e)
         {
             rfvNombreUsuario.Enabled = true;
@@ -214,8 +259,9 @@ namespace Tp_Cuatrimestral_18A
                 Rol rolSeleccionado = new Rol();
 
                 Usuario usuarioModificado =  new Usuario();
+                string idseleccion = Request.QueryString["Id"];
 
-                usuarioModificado.IdUsuario = usuario.IdUsuario; //no lo esta levantando
+                usuarioModificado.IdUsuario = int.Parse(idseleccion); //no lo esta levantando
                 usuarioModificado.NombreUsuario = txtNombreUsuario.Text;
                 usuarioModificado.Nombre = txtNombre.Text;
                 usuarioModificado.Apellido = txtApellido.Text;
@@ -232,24 +278,26 @@ namespace Tp_Cuatrimestral_18A
 
                 usuarioModificado.Rol = rolSeleccionado;
 
-                usuarioNegocio.ModificarUsuario(usuarioModificado);
 
                 if (rolSeleccionado.RolId == 3)
                 {
-                    Medico medico = new Medico();
+                    Medico medico = medicoNegocio.BuscarPorIDUsuario(usuarioModificado.IdUsuario);
+                    
                     List<Prepaga> prepagasSeleccionadas = new List<Prepaga>();
                     List<Especialidad> especialidadesSeleccionadas = new List<Especialidad>();
                     List<TurnoTrabajo> turnosSeleccionados = new List<TurnoTrabajo>();
 
                     medico.IdUsuario = usuarioNegocio.buscarID(usuarioModificado.NombreUsuario);
-                    medico.Matricula = txtMatricula.Text;
-                    medico.Prepagas = prepagasSeleccionadas;
-                    medico.Especialidades = especialidadesSeleccionadas;
-                    medico.TurnosTrabajo = turnosSeleccionados;                    
 
-                    // hacer metodo para modificar medico
+                    medico.Matricula = txtMatricula.Text;
+                    medico.Prepagas = obtenerPrepagasSeleccionadas();
+                    medico.Especialidades = ObtenerEspecialidadesSeleccionadas();
+                    medico.TurnosTrabajo = ReescribirTurnosTrabajoSeleccionados(medico.TurnosTrabajo);                    
+
+                    medicoNegocio.Modificar(medico);
 
                 }
+                usuarioNegocio.ModificarUsuario(usuarioModificado);
             }
             else
             {
@@ -297,6 +345,51 @@ namespace Tp_Cuatrimestral_18A
             }
             
             Response.Redirect("Usuarios.aspx");
+        }
+        private List<TurnoTrabajo> ReescribirTurnosTrabajoSeleccionados(List<TurnoTrabajo> turnos)
+        {
+            foreach (TurnoTrabajo item in turnos)
+            {
+                switch (item.DiaDeLaSemana)
+                {
+                    case "Lunes":
+                        item.HoraInicio = TimeSpan.Parse(ddlInicioLunes.SelectedItem.Text);
+                        item.HoraFin = TimeSpan.Parse(ddlFinLunes.SelectedItem.Text);
+                        break;
+
+                    case "Martes":
+                        item.HoraInicio = TimeSpan.Parse(ddlInicioMartes.SelectedItem.Text);
+                        item.HoraFin = TimeSpan.Parse(ddlFinMartes.SelectedItem.Text);
+                        break;
+
+                    case "Miércoles":
+                        item.HoraInicio = TimeSpan.Parse(ddlInicioMiercoles.SelectedItem.Text);
+                        item.HoraFin = TimeSpan.Parse(ddlFinMiercoles.SelectedItem.Text);
+                        break;
+
+                    case "Jueves":
+                        item.HoraInicio = TimeSpan.Parse(ddlInicioJueves.SelectedItem.Text);
+                        item.HoraFin = TimeSpan.Parse(ddlFinJueves.SelectedItem.Text);
+                        break;
+
+                    case "Viernes":
+                        item.HoraInicio = TimeSpan.Parse(ddlInicioViernes.SelectedItem.Text);
+                        item.HoraFin = TimeSpan.Parse(ddlFinViernes.SelectedItem.Text);
+                        break;
+
+                    case "Sábado":
+                        item.HoraInicio = TimeSpan.Parse(ddlInicioSabado.SelectedItem.Text);
+                        item.HoraFin = TimeSpan.Parse(ddlFinSabado.SelectedItem.Text);
+                        break;
+
+                    case "Domingo":
+                        item.HoraInicio = TimeSpan.Parse(ddlInicioDomingo.SelectedItem.Text);
+                        item.HoraFin = TimeSpan.Parse(ddlFinDomingo.SelectedItem.Text);
+                        break;
+                }
+            }
+
+            return turnos;
         }
 
         private List<TurnoTrabajo> ObtenerTurnosTrabajoSeleccionados()
@@ -412,7 +505,5 @@ namespace Tp_Cuatrimestral_18A
                 contenedorInfoMedico.Visible = false;
             }
         }
-
-
     }
 }

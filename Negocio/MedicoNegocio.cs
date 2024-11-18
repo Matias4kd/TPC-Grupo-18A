@@ -308,7 +308,7 @@ namespace Negocio
         }
 
 
-        public void Eliminar(int id) // se aplica baja logica en lugar de fisica para el medico
+        public void Eliminar(int id) 
         {
             AccesoDatos datos = new AccesoDatos();
             DateTime fechabaja = DateTime.Now;
@@ -371,8 +371,99 @@ namespace Negocio
             }
 
         }
-    
-        
-    
+
+        public void Modificar(Medico medico)
+        {
+            cambiarHorariosMedico(medico);
+            cambiarEspecialidadesPorMedico(medico);
+            cambiarPrepagasPorMedico(medico);
+        }
+
+        private void cambiarEspecialidadesPorMedico(Medico medico)
+        {
+            try
+            {
+                datos.setearConsulta("DELETE FROM Especialidades_x_Medico WHERE IdMedico = @IdMedico;");
+                datos.setearParametro("@IdMedico", medico.IdMedico);
+                datos.ejecutarAccion();
+
+                foreach (Especialidad item in medico.Especialidades)
+                {
+                    datos.setearConsulta("INSERT INTO Especialidades_x_Medico (IdEspecialidad, IdMedico) VALUES (@IdEspecialidad, @IdMedico)");
+                    datos.setearParametro("@IdMedico", medico.IdMedico);
+                    datos.setearParametro("@IdEspecialidad", item.IdEspecialidad);
+                    datos.ejecutarAccion();
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+
+        }
+
+        private void cambiarHorariosMedico(Medico medico)
+        {
+            try
+            {
+                foreach (TurnoTrabajo item in medico.TurnosTrabajo)
+                {
+                    datos.setearConsulta("UPDATE TurnosTrabajo SET HoraInicio = @HoraInicio, HoraFin = @HoraFin where IdTurnoTrabajo = @IdTurnoTrabajo");
+                    datos.setearParametro("@HoraInicio", item.HoraInicio);
+                    datos.setearParametro("@HoraFin", item.HoraFin);
+                    datos.setearParametro("@IdTurnoTrabajo", item.IdTurnoTrabajo);
+                    datos.ejecutarAccion();
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+        private void cambiarPrepagasPorMedico(Medico medico)
+        {
+            try
+            {
+                datos.setearConsulta("DELETE FROM Prepagas_x_Medico  WHERE IdMedico = @IdMedico;");
+                datos.setearParametro("@IdMedico", medico.IdMedico);
+                datos.ejecutarAccion();
+
+                foreach (Prepaga item in medico.Prepagas)
+                {
+                    datos.setearConsulta("INSERT INTO Prepagas_x_Medico  (IdPrepaga, IdMedico) VALUES (@IdPrepaga, @IdMedico)");
+                    datos.setearParametro("@IdMedico", medico.IdMedico);
+                    datos.setearParametro("@IdPrepaga", item.IdPrepaga);
+                    datos.ejecutarAccion();
+
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+
+        }
+
+
+
+
+
     }
 }

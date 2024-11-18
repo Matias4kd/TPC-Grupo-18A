@@ -204,7 +204,7 @@ namespace Negocio
 
             try
             {
-                datos.setearConsulta("Select HoraInicio, HoraFin, DiaTrabajo from TurnosTrabajo where IdMedico = @IdMedico");
+                datos.setearConsulta("Select IdTurnoTrabajo, HoraInicio, HoraFin, DiaTrabajo from TurnosTrabajo where IdMedico = @IdMedico");
                 datos.setearParametro("@IdMedico", medico.IdMedico);
                 datos.ejecutarLectura();
 
@@ -212,6 +212,7 @@ namespace Negocio
                 {
                     TurnoTrabajo turnoTrabajo = new TurnoTrabajo();
 
+                    turnoTrabajo.IdTurnoTrabajo = (int)datos.lector["IdTurnoTrabajo"] ;
                     turnoTrabajo.HoraInicio = (TimeSpan)datos.lector["HoraInicio"];
                     turnoTrabajo.HoraFin = (TimeSpan)datos.lector["HoraFin"];
                     turnoTrabajo.DiaDeLaSemana = (string)datos.lector["DiaTrabajo"];
