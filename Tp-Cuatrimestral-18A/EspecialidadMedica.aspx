@@ -10,7 +10,8 @@
                 <asp:BoundField DataField="Estado" HeaderText="Estado" />
                 <asp:TemplateField>
                     <ItemTemplate>
-                        <asp:Button ID="btnEliminar" runat="server" CommandName="Eliminar" CommandArgument='<%# Eval("Id") %>' Text="Eliminar" CssClass="btn btn-danger btn-sm" />
+                        <asp:Button ID="btnReactivar" runat="server" CommandName="Reactivar" OnClick="btnReactivar_Click" CommandArgument='<%# Eval("IdEspecialidad") %>' Text="Reactivar" CssClass="btn btn-success btn-sm" Enabled='<%# Eval("Estado").ToString() == "Inactivo" %>' />
+                        <asp:Button ID="btnEliminar" runat="server" CommandName="Eliminar" OnClick="btnEliminar_Click" CommandArgument='<%# Eval("IdEspecialidad") %>' Text="Eliminar" CssClass="btn btn-danger btn-sm" />
                     </ItemTemplate>
                 </asp:TemplateField>
             </Columns>
@@ -18,6 +19,11 @@
 
         <h2>Agregar Nueva Especialidad</h2>
         <asp:TextBox ID="txtNombreEspecialidad" runat="server" CssClass="form-control" Placeholder="Nombre de la Especialidad"></asp:TextBox>
+        <br />
+        <asp:Label ID="lblError" runat="server" CssClass="alert alert-danger" Visible="false"></asp:Label>
+        <br />
         <asp:Button ID="btnAgregar" runat="server" Text="Agregar" CssClass="btn btn-primary mt-2" OnClick="btnAgregar_Click" />
+        <asp:Button ID="btnVolver" runat="server" Text="Volver" CssClass="btn btn-primary mt-2" OnClick="btnVolver_Click" />
+        <br />
     </div>
 </asp:Content>

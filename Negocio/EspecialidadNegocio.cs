@@ -57,7 +57,7 @@ namespace Negocio
             try
             {
                 // Solo listar las especialidades activas
-                datos.setearConsulta("SELECT IdEspecialidad, NombreEspecialidad, CASE WHEN Activo = 1 THEN 'Activo' ELSE 'Inactivo' END AS Estado FROM Especialidades WHERE Activo = 1");
+                datos.setearConsulta("SELECT IdEspecialidad, NombreEspecialidad, CASE WHEN Estado = 'Activo' THEN 'Activo' ELSE 'Inactivo' END AS Estado FROM Especialidades");
                 datos.ejecutarLectura();
                 while (datos.Lector.Read())
                 {
@@ -81,7 +81,7 @@ namespace Negocio
             AccesoDatos datos = new AccesoDatos();
             try
             {
-                datos.setearConsulta("INSERT INTO Especialidades (NombreEspecialidad, Activo) VALUES (@Nombre, 1)");
+                datos.setearConsulta("INSERT INTO Especialidades (NombreEspecialidad) VALUES (@Nombre)");
                 datos.setearParametro("@Nombre", nombre);
                 datos.ejecutarAccion();
             }
@@ -99,7 +99,7 @@ namespace Negocio
 
             try
             {
-                datos.setearConsulta("SELECT IdEspecialidad, NombreEspecialidad from Especialidades");
+                datos.setearConsulta("SELECT IdEspecialidad, NombreEspecialidad from Especialidades WHERE Estado='Activo'");
                 datos.ejecutarLectura();
 
                 while (datos.Lector.Read())
@@ -132,7 +132,23 @@ namespace Negocio
             try
             {
                 // Baja lógica: Actualizar la columna "Activo"
-                datos.setearConsulta("UPDATE Especialidades SET Activo = 0 WHERE IdEspecialidad = @Id");
+                datos.setearConsulta("UPDATE Especialidades SET Estado= 'Inactivo' WHERE IdEspecialidad = @Id");
+                datos.setearParametro("@Id", id);
+                datos.ejecutarAccion();
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+        public void ReactivarEspecialidad(int id)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                // Baja lógica: Actualizar la columna "Activo"
+                datos.setearConsulta("UPDATE Especialidades SET Estado= 'Activo' WHERE IdEspecialidad = @Id");
                 datos.setearParametro("@Id", id);
                 datos.ejecutarAccion();
             }

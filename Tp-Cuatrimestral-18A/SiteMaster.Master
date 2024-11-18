@@ -35,13 +35,14 @@
                                     <asp:Label ID="lblGestionUsuarios" runat="server" Text="Usuarios"></asp:Label>
                                 </a>
                             </li>
+                               <li class="nav-item">
+                                <a class="nav-link" href="EspecialidadMedica.aspx">Especialidades Médicas</a>
+                               </li>
                             <li class="nav-item">
                                 <a class="nav-link " href="Default.aspx">Cerrar Sesion</a>
                             </li>
 
-                            <li class="nav-item">
-                                  <a class="nav-link" href="EspecialidadMedica.aspx">Especialidades Médicas</a>
-                                </li>
+                         
                         </ul>
                     </div>
                 </div>

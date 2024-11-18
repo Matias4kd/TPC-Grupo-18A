@@ -25,8 +25,7 @@ namespace ClinicaMedica
 
             if (!IsPostBack)
             {
-
-              
+                
                 Paciente pacienteSeleccionado = (Paciente)Session["PacienteSeleccionado"];
 
                 if (pacienteSeleccionado != null)
@@ -35,13 +34,9 @@ namespace ClinicaMedica
                     CargarPrepagas();
                     ddlPrepagas.SelectedValue = pacienteSeleccionado.prepaga.IdPrepaga.ToString();
 
-
-                 
-                    ddlPrepagas.Enabled = false;
-
-
-                    
+                    //Chequear que solo te levante paciente en sesion si venis de la pag de pacientes.
                 }
+                CargarPrepagas();
                 CargarEspecialidades();
                 CargarMedicos();
 

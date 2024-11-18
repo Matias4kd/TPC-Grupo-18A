@@ -49,6 +49,7 @@ GO
 Create TABLE Especialidades(
     IdEspecialidad int PRIMARY key IDENTITY(1,1),
     NombreEspecialidad varchar(50) not null, 
+	Estado varchar(10) not null Default 'Activo',
 )
 GO
 Create table Especialidades_x_Medico(
