@@ -15,7 +15,6 @@ namespace ClinicaMedica
         private PrepagaNegocio prepagaNegocio;
         private EspecialidadNegocio especialidadNegocio;
         private MedicoNegocio medicoNegocio;
- 
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -39,7 +38,7 @@ namespace ClinicaMedica
                     ddlPrepagas.SelectedValue = pacienteSeleccionado.prepaga.IdPrepaga.ToString();
 
                     //Chequear que solo te levante paciente en sesion si venis de la pag de pacientes.
-                }
+                } 
                 CargarPrepagas();
                 CargarEspecialidades();
                 CargarMedicos();

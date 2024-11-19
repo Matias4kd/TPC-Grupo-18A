@@ -32,54 +32,10 @@ namespace Tp_Cuatrimestral_18A
             }
         }
 
-        protected void btnAceptar_Click(object sender, EventArgs e)
-        {
-
-            int dni;
-
-            if (int.TryParse(txtDni.Text, out dni))
-            {
-                txtDniFormulario.Text = txtDni.Text;
-                PacienteNegocio negociopaciente = new PacienteNegocio();
-                Paciente paciente = negociopaciente.ObtenerPorDNI(dni);
-
-                if (paciente != null)
-                {
-                    pnlFormularioPaciente.Visible = true;
-                    txtNombre.Text = paciente.Nombre;
-                    txtApellido.Text = paciente.Apellido;
-                    txtEmail.Text = paciente.Email;
-                    txtTelefono.Text = paciente.Telefono;
-                    txtDireccion.Text = paciente.Direccion;
-                    txtFechaNacimiento.Text = paciente.FechaNacimiento.ToString("yyyy-MM-dd");
-                }
-                else
-                {
-                    pnlFormularioPaciente.Visible = true;
-                    LimpiarCampos();
-                }
-            }
-        }
-
-        private void LimpiarCampos()
-        {
-            txtNombre.Text = "";
-            txtApellido.Text = "";
-            txtEmail.Text = "";
-            txtTelefono.Text = "";
-            txtDireccion.Text = "";
-            txtFechaNacimiento.Text = "";
-        }
-
-        protected void btnAgendar_Click(object sender, EventArgs e)
-        {
-            // Código para guardar o actualizar los datos del paciente en la base de datos
-        }
-
-        protected void btnAceptarHorario_Click(object sender, EventArgs e)
+        protected void btnAgendarTurno_Click(object sender, EventArgs e)
         {
             pnlFormularioMedico.Visible = false;
-            pnlDni.Visible = true;
+            pnlTurnoExitoso.Visible = true;
         }
 
         private void CargarDatosMedico(int idMedico)
@@ -105,6 +61,7 @@ namespace Tp_Cuatrimestral_18A
 
         protected void calendarioTurnos_SelectionChanged(object sender, EventArgs e)
         {
+            btnAgendarTurno.Visible = true;
             DateTime fechaSeleccionada = calendarioTurnos.SelectedDate;
 
             string idMedicoAnterior = Request.QueryString["IdMedico"];
@@ -119,6 +76,11 @@ namespace Tp_Cuatrimestral_18A
                 lblSeleccioneHorario.Visible = true;
                 ddlTurnosDisponibles.Visible = true;
             }
+        }
+
+        protected void btnRegresar_Click(object sender, EventArgs e)
+        {
+                Response.Redirect("Pacientes.aspx");
         }
     }
 }
