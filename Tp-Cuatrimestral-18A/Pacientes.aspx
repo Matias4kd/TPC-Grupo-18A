@@ -14,6 +14,7 @@
             <label for="txtBuscarDNI">Buscar por DNI:</label>
             <asp:TextBox ID="txtBuscarDNI" runat="server" CssClass="form-control"></asp:TextBox>
             <asp:Button ID="btnBuscar" runat="server" Text="Buscar" CssClass="btn btn-secondary mt-2" OnClick="btnBuscar_Click" />
+                 <asp:Button ID="Limpiar" runat="server" Text="Limpiar" CssClass="btn btn-secondary mt-2" OnClick="btnLimpiar_Click" />
         </div>
     </div>
 
@@ -43,4 +44,13 @@
             </asp:GridView>
         </div>
     </div>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white text-center py-3 mt-5">
+        <div class="container">
+            <p class="mb-0">Clínica Médica ZN - Todos los derechos reservados © 2024</p>
+            <p class="mb-0">Dirección: Calle Falsa 123, Ciudad Autónoma de Buenos Aires</p>
+            <p class="mb-0">Teléfono: +54 11 1234-5678 | Email: contacto@clinicaZN.com</p>
+        </div>
+    </footer>
 </asp:Content>

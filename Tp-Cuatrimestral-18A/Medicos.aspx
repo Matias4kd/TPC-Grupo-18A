@@ -23,7 +23,9 @@
                 <label for="ddlEspecialidades">Especialidad:</label>
                 <asp:DropDownList ID="ddlEspecialidades" runat="server" CssClass="form-control" AutoPostBack="true"
                     OnSelectedIndexChanged="ddlEspecialidades_SelectedIndexChanged">
+                    
                 </asp:DropDownList>
+                <asp:Label ID="lblEspecialidadError" runat="server" Text="" ForeColor="Red"></asp:Label>
             </div>
         </div>
     </div>
@@ -56,4 +58,13 @@
             <asp:Literal ID="litMensaje" runat="server"></asp:Literal>
         </div>
     </asp:Panel>
+
+    <!-- Footer -->
+<footer class="bg-dark text-white text-center py-3 mt-5">
+    <div class="container">
+        <p class="mb-0">Clínica Médica ZN - Todos los derechos reservados © 2024</p>
+        <p class="mb-0">Dirección: Calle Falsa 123, Ciudad Autónoma de Buenos Aires</p>
+        <p class="mb-0">Teléfono: +54 11 1234-5678 | Email: contacto@clinicaZN.com</p>
+    </div>
+</footer>
 </asp:Content>

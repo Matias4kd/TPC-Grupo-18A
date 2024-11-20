@@ -49,7 +49,8 @@ namespace Tp_Cuatrimestral_18A
 
         protected void lnkEliminar_Click(object sender, EventArgs e)
         {
-
+         
+          
         }
 
         protected void btnAgregarUsuario_Click(object sender, EventArgs e)

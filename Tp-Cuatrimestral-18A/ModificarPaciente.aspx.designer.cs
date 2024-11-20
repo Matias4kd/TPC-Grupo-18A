@@ -33,6 +33,15 @@ namespace ClinicaMedica
         protected global::System.Web.UI.WebControls.TextBox txtNombre;
 
         /// <summary>
+        /// Control rfvNombre.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvNombre;
+
+        /// <summary>
         /// Control lblApellido.
         /// </summary>
         /// <remarks>
@@ -49,6 +58,15 @@ namespace ClinicaMedica
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtApellido;
+
+        /// <summary>
+        /// Control rfvApellido.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvApellido;
 
         /// <summary>
         /// Control lblDNI.
@@ -69,6 +87,15 @@ namespace ClinicaMedica
         protected global::System.Web.UI.WebControls.TextBox txtDNI;
 
         /// <summary>
+        /// Control rfvDNI.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvDNI;
+
+        /// <summary>
         /// Control lblEmail.
         /// </summary>
         /// <remarks>
@@ -85,6 +112,15 @@ namespace ClinicaMedica
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtEmail;
+
+        /// <summary>
+        /// Control rfvEmail.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvEmail;
 
         /// <summary>
         /// Control lblTelefono.
@@ -105,6 +141,15 @@ namespace ClinicaMedica
         protected global::System.Web.UI.WebControls.TextBox txtTelefono;
 
         /// <summary>
+        /// Control rfvTelefono.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvTelefono;
+
+        /// <summary>
         /// Control lblDireccion.
         /// </summary>
         /// <remarks>
@@ -121,6 +166,15 @@ namespace ClinicaMedica
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtDireccion;
+
+        /// <summary>
+        /// Control rfvDireccion.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvDireccion;
 
         /// <summary>
         /// Control lblPrepaga.
@@ -141,6 +195,15 @@ namespace ClinicaMedica
         protected global::System.Web.UI.WebControls.DropDownList ddlPrepaga;
 
         /// <summary>
+        /// Control rfvPrepaga.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvPrepaga;
+
+        /// <summary>
         /// Control lblFechaNacimiento.
         /// </summary>
         /// <remarks>
@@ -157,6 +220,15 @@ namespace ClinicaMedica
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtFechaNacimiento;
+
+        /// <summary>
+        /// Control rfvFechaNacimiento.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvFechaNacimiento;
 
         /// <summary>
         /// Control btnGuardar.

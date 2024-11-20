@@ -133,12 +133,23 @@ namespace ClinicaMedica
 
         protected void lnkSeleccionar_Command(object sender, CommandEventArgs e)
         {
+            if (ddlEspecialidades.SelectedIndex == 0)
+            {
+                lblEspecialidadError.Text = "Debe seleccionar una especialidad.";
+
+            }
+            else { 
+
+
             int idMedico = Convert.ToInt32(e.CommandArgument);
             string NombreEspecialidad = ddlEspecialidades.SelectedItem.Text;
             Especialidad especialidad = new Especialidad();
             especialidad = especialidadNegocio.BuscarEspecialidadesPorNombre(NombreEspecialidad);
             Session.Add("EspecialidadTurno", especialidad);
+
             Response.Redirect("TurnosMedico.aspx?IdMedico=" + idMedico);
+
+            }
         }
 
         private void MostrarMensaje(string mensaje)

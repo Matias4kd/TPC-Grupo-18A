@@ -40,6 +40,13 @@ namespace ClinicaMedica
             gvPacientes.DataBind();
         }
 
+        
+
+             protected void btnLimpiar_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Pacientes.aspx");
+        }
+
         protected void btnModificar_Click(object sender, EventArgs e)
         {
             LinkButton btnModificar = (LinkButton)sender;
