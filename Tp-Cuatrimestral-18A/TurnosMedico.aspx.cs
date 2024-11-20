@@ -10,6 +10,9 @@ using Negocio;
 using Dominio;
 using ClinicaMedica;
 using Seguridad;
+using System.Net.Mail;
+using System.Web.Services.Description;
+using System.Net;
 
 namespace Tp_Cuatrimestral_18A
 {
@@ -70,12 +73,15 @@ namespace Tp_Cuatrimestral_18A
                 turno.Hora = DateTime.Parse(ddlTurnosDisponibles.SelectedValue);
                 turno.Observaciones = txtObservaciones.Text;
 
-                // Guardar el turno en la base de datos
                 TurnoNegocio turnoNegocio = new TurnoNegocio();
                 bool turnoAgendado = turnoNegocio.AgendarTurno(turno);
 
                 if (turnoAgendado)
                 {
+
+                    paciente = (Paciente)Session["PacienteSeleccionado"];
+                    EnviarCorreoConfirmacion(paciente, turno);
+
                     pnlFormularioMedico.Visible = false;
                     pnlTurnoExitoso.Visible = true;
                 }
@@ -136,6 +142,48 @@ namespace Tp_Cuatrimestral_18A
             {
                 e.Day.IsSelectable = false;
                 e.Cell.ForeColor = System.Drawing.Color.Gray;
+            }
+        }
+
+        private void EnviarCorreoConfirmacion(Paciente paciente, Turno turno)
+        {
+            try
+            {
+                // Configurar mensaje de correo
+                string asunto = "Confirmación de turno";
+                string cuerpo = $@"
+            Estimado paciente,
+
+            Su turno ha sido confirmado exitosamente. Aquí están los detalles:
+            - Fecha: {turno.Fecha.ToShortDateString()}
+            - Horario: {turno.Hora}
+            - Médico: {lblNombreMedico.Text} {lblApellidoMedico.Text}
+            - Especialidad: {lblEspecialidadesMedico.Text}
+
+            Por favor, conserve este correo como comprobante.
+
+            Saludos,
+            Clínica Médica UTN";
+
+                MailMessage mensaje = new MailMessage();
+                mensaje.From = new MailAddress("clinicamedicautn@gmail.com");
+                mensaje.To.Add(paciente.Email);
+                mensaje.Subject = asunto;
+                mensaje.Body = cuerpo;
+                mensaje.IsBodyHtml = false;
+
+                SmtpClient smtpClient = new SmtpClient("sandbox.smtp.mailtrap.io")
+                {
+                    Port = 2525,
+                    Credentials = new NetworkCredential("10cc991206f503", "fffd0c65d71d53"),
+                    EnableSsl = true
+                };
+
+                smtpClient.Send(mensaje);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
             }
         }
 
