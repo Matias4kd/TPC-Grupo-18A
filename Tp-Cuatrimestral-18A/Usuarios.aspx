@@ -8,7 +8,7 @@
                 <asp:Label ID="lblTitulo" runat="server" Text="Gestión de Usuarios"></asp:Label>
             </h2>
             <asp:Button ID="btnAgregarUsuario" runat="server" Text="Agregar Usuario" CssClass="btn btn-primary" OnClick="btnAgregarUsuario_Click" />
-            <asp:Label ID="lblMensaje" runat="server" CssClass="d-block mt-3"></asp:Label> <!-- Label para mostrar mensajes -->
+            <asp:Label ID="lblMensaje" runat="server" CssClass="d-block mt-3"></asp:Label> 
         </div>
     </div>
 
@@ -43,12 +43,4 @@
             </asp:GridView>
         </div>
     </div>
-    <!-- Footer -->
-<footer class="bg-dark text-white text-center py-3 mt-5">
-    <div class="container">
-        <p class="mb-0">Clínica Médica ZN - Todos los derechos reservados © 2024</p>
-        <p class="mb-0">Dirección: Calle Falsa 123, Ciudad Autónoma de Buenos Aires</p>
-        <p class="mb-0">Teléfono: +54 11 1234-5678 | Email: contacto@clinicaZN.com</p>
-    </div>
-</footer>
 </asp:Content>

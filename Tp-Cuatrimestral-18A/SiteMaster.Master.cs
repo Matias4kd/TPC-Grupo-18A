@@ -24,6 +24,7 @@ namespace Tp_Cuatrimestral_18A
             {
                 navbarOptions.Visible = false;
                 cerrarSesion.Visible = false;
+                footer.Visible = false;
             }
             else
             {
