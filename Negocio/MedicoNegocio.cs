@@ -309,29 +309,6 @@ namespace Negocio
         }
 
 
-        public void Eliminar(int id) 
-        {
-            AccesoDatos datos = new AccesoDatos();
-            DateTime fechabaja = DateTime.Now;
-
-            try
-            {
-                string consulta = "Update Medicos set FechaDeBaja = @Fechadebaja WHERE Id = @Id";
-                datos.setearConsulta(consulta);
-                datos.setearParametro("@Id", id);
-                datos.setearParametro("@Fechadebaja", fechabaja);
-                datos.ejecutarAccion();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-                datos.cerrarConexion();
-            }
-        }
-
         public Medico BuscarPorIDUsuario(int idUsuario) 
         {
 

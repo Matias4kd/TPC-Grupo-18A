@@ -65,6 +65,8 @@
                 <asp:Label ID="lblEspecialidades" runat="server" Text="Seleccione especialidad/es:" CssClass="form-label"></asp:Label> 
                 <div class="row"> 
                     <asp:CheckBoxList ID="cblEspecialidades" runat="server" CssClass="form-check-list"></asp:CheckBoxList>
+                    <asp:Label ID="lblErrorEspecialidades" runat="server" Text="Seleccione al menos una especialidad." Visible="false" CssClass="text-danger"></asp:Label> 
+
                 </div>
             </div>
             <br />
@@ -73,6 +75,8 @@
                 <asp:Label ID="lblPrepagas" runat="server" Text="Seleccione la/las prepaga/as con las que trabaja:" CssClass="form-label"></asp:Label> 
                 <div class="row"> 
                     <asp:CheckBoxList ID="cblPrepagas" runat="server" CssClass="form-check-list"></asp:CheckBoxList>
+                    <asp:Label ID="lblErrorPrepagas" runat="server" Text="Seleccione al menos una prepaga." Visible="false" CssClass="text-danger"></asp:Label> 
+
                 </div>
             </div>
             <br />

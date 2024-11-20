@@ -256,100 +256,126 @@ namespace Tp_Cuatrimestral_18A
             rfvTelefono.Enabled = true;
             ddlRol.Enabled = true;
 
-            if(Request.QueryString["Id"] != null)
-            {
-                Usuario usuarioLogueado = new Usuario();
-                usuarioLogueado = (Usuario)Session["Usuario"];
+            bool especialidadesValidas = ValidarCheckBoxList(cblEspecialidades);
+            bool prepagasValidas = ValidarCheckBoxList(cblPrepagas);
 
-                Rol rolSeleccionado = new Rol();
-
-                Usuario usuarioModificado =  new Usuario();
-                string idseleccion = Request.QueryString["Id"];
-
-                usuarioModificado.IdUsuario = int.Parse(idseleccion); //no lo esta levantando
-                usuarioModificado.NombreUsuario = txtNombreUsuario.Text;
-                usuarioModificado.Nombre = txtNombre.Text;
-                usuarioModificado.Apellido = txtApellido.Text;
-                usuarioModificado.Mail = txtEmail.Text;
-                usuarioModificado.Telefono = txtTelefono.Text;
-
-                if(usuarioLogueado.Rol.RolId == 1)
-                {
-                    usuarioModificado.Contraseña = txtPassword.Text;
-                }
-
-                rolSeleccionado.RolId = int.Parse(ddlRol.SelectedValue);
-                rolSeleccionado.Nombre = ddlRol.SelectedItem.Text;
-
-                usuarioModificado.Rol = rolSeleccionado;
-
-
-                if (rolSeleccionado.RolId == 3)
-                {
-                    Medico medico = medicoNegocio.BuscarPorIDUsuario(usuarioModificado.IdUsuario);
-                    
-                    List<Prepaga> prepagasSeleccionadas = new List<Prepaga>();
-                    List<Especialidad> especialidadesSeleccionadas = new List<Especialidad>();
-                    List<TurnoTrabajo> turnosSeleccionados = new List<TurnoTrabajo>();
-
-                    medico.IdUsuario = usuarioNegocio.buscarID(usuarioModificado.NombreUsuario);
-
-                    medico.Matricula = txtMatricula.Text;
-                    medico.Prepagas = obtenerPrepagasSeleccionadas();
-                    medico.Especialidades = ObtenerEspecialidadesSeleccionadas();
-                    medico.TurnosTrabajo = ReescribirTurnosTrabajoSeleccionados(medico.TurnosTrabajo);                    
-
-                    medicoNegocio.Modificar(medico);
-
-                }
-                usuarioNegocio.ModificarUsuario(usuarioModificado);
-            }
-            else
-            {
-                
-                Usuario nuevoUsuario = new Usuario();
-                Rol rolSeleccionado = new Rol();
-
-                nuevoUsuario.NombreUsuario = txtNombreUsuario.Text;
-                nuevoUsuario.Contraseña = txtPassword.Text;
-                nuevoUsuario.Nombre = txtNombre.Text;
-                nuevoUsuario.Apellido = txtApellido.Text;
-                nuevoUsuario.Mail = txtEmail.Text;
-                nuevoUsuario.Telefono = txtTelefono.Text;
-
-                rolSeleccionado.RolId = int.Parse(ddlRol.SelectedValue);
-                rolSeleccionado.Nombre = ddlRol.SelectedItem.Text;
-
-                nuevoUsuario.Rol = rolSeleccionado;
-
-                usuarioNegocio.AgregarUsuario(nuevoUsuario);
-
-                if(rolSeleccionado.RolId == 3)
-                {
-                    EspecialidadNegocio especialidadNegocio = new EspecialidadNegocio();
-                    PrepagaNegocio prepagaNegocio = new PrepagaNegocio();
-                    TurnoNegocio turnoNegocio = new TurnoNegocio();
-
-                    Medico nuevoMedico = new Medico();
-
-
-                    nuevoMedico.IdUsuario = usuarioNegocio.buscarID(nuevoUsuario.NombreUsuario);
-                    nuevoMedico.Matricula = txtMatricula.Text;
-                    nuevoMedico.Prepagas = obtenerPrepagasSeleccionadas();
-                    nuevoMedico.Especialidades = ObtenerEspecialidadesSeleccionadas();
-                    nuevoMedico.TurnosTrabajo = ObtenerTurnosTrabajoSeleccionados();
-
-                    medicoNegocio.Agregar(nuevoMedico);
-
-                    nuevoMedico.IdMedico = medicoNegocio.ObtenerID(nuevoMedico);
-
-                    especialidadNegocio.GuardarEspecialidadesMedico(nuevoMedico);
-                    prepagaNegocio.GuardarPrepagasMedico(nuevoMedico);
-                    turnoNegocio.GuardarTurnosTrabajoMedico(nuevoMedico);
-                }
-            }
             
-            Response.Redirect("Usuarios.aspx");
+            lblErrorEspecialidades.Visible = !especialidadesValidas;
+
+            
+            lblErrorPrepagas.Visible = !prepagasValidas;
+
+            if (especialidadesValidas && prepagasValidas)
+            {
+
+                if (Request.QueryString["Id"] != null)
+                {
+                    Usuario usuarioLogueado = new Usuario();
+                    usuarioLogueado = (Usuario)Session["Usuario"];
+
+                    Rol rolSeleccionado = new Rol();
+
+                    Usuario usuarioModificado =  new Usuario();
+                    string idseleccion = Request.QueryString["Id"];
+
+                    usuarioModificado.IdUsuario = int.Parse(idseleccion); 
+                    usuarioModificado.NombreUsuario = txtNombreUsuario.Text;
+                    usuarioModificado.Nombre = txtNombre.Text;
+                    usuarioModificado.Apellido = txtApellido.Text;
+                    usuarioModificado.Mail = txtEmail.Text;
+                    usuarioModificado.Telefono = txtTelefono.Text;
+
+                    if(usuarioLogueado.Rol.RolId == 1)
+                    {
+                        usuarioModificado.Contraseña = txtPassword.Text;
+                    }
+
+                    rolSeleccionado.RolId = int.Parse(ddlRol.SelectedValue);
+                    rolSeleccionado.Nombre = ddlRol.SelectedItem.Text;
+
+                    usuarioModificado.Rol = rolSeleccionado;
+
+
+                    if (rolSeleccionado.RolId == 3)
+                    {
+                        Medico medico = medicoNegocio.BuscarPorIDUsuario(usuarioModificado.IdUsuario);
+                        
+                        List<Prepaga> prepagasSeleccionadas = new List<Prepaga>();
+                        List<Especialidad> especialidadesSeleccionadas = new List<Especialidad>();
+                        List<TurnoTrabajo> turnosSeleccionados = new List<TurnoTrabajo>();
+
+                        medico.IdUsuario = usuarioNegocio.buscarID(usuarioModificado.NombreUsuario);
+
+                        medico.Matricula = txtMatricula.Text;
+                        medico.Prepagas = obtenerPrepagasSeleccionadas();
+                        medico.Especialidades = ObtenerEspecialidadesSeleccionadas();
+                        medico.TurnosTrabajo = ReescribirTurnosTrabajoSeleccionados(medico.TurnosTrabajo);                    
+
+                        medicoNegocio.Modificar(medico);
+
+                    }
+                    usuarioNegocio.ModificarUsuario(usuarioModificado);
+                }
+                else
+                {
+                    
+                    Usuario nuevoUsuario = new Usuario();
+                    Rol rolSeleccionado = new Rol();
+
+                    nuevoUsuario.NombreUsuario = txtNombreUsuario.Text;
+                    nuevoUsuario.Contraseña = txtPassword.Text;
+                    nuevoUsuario.Nombre = txtNombre.Text;
+                    nuevoUsuario.Apellido = txtApellido.Text;
+                    nuevoUsuario.Mail = txtEmail.Text;
+                    nuevoUsuario.Telefono = txtTelefono.Text;
+
+                    rolSeleccionado.RolId = int.Parse(ddlRol.SelectedValue);
+                    rolSeleccionado.Nombre = ddlRol.SelectedItem.Text;
+
+                    nuevoUsuario.Rol = rolSeleccionado;
+
+                    usuarioNegocio.AgregarUsuario(nuevoUsuario);
+
+                    if(rolSeleccionado.RolId == 3)
+                    {
+                        EspecialidadNegocio especialidadNegocio = new EspecialidadNegocio();
+                        PrepagaNegocio prepagaNegocio = new PrepagaNegocio();
+                        TurnoNegocio turnoNegocio = new TurnoNegocio();
+
+                        Medico nuevoMedico = new Medico();
+
+
+                        nuevoMedico.IdUsuario = usuarioNegocio.buscarID(nuevoUsuario.NombreUsuario);
+                        nuevoMedico.Matricula = txtMatricula.Text;
+                        nuevoMedico.Prepagas = obtenerPrepagasSeleccionadas();
+                        nuevoMedico.Especialidades = ObtenerEspecialidadesSeleccionadas();
+                        nuevoMedico.TurnosTrabajo = ObtenerTurnosTrabajoSeleccionados();
+
+                        medicoNegocio.Agregar(nuevoMedico);
+
+                        nuevoMedico.IdMedico = medicoNegocio.ObtenerID(nuevoMedico);
+
+                        especialidadNegocio.GuardarEspecialidadesMedico(nuevoMedico);
+                        prepagaNegocio.GuardarPrepagasMedico(nuevoMedico);
+                        turnoNegocio.GuardarTurnosTrabajoMedico(nuevoMedico);
+                    }
+                }
+                
+                Response.Redirect("Usuarios.aspx");
+            }
+
+        }
+
+        protected bool ValidarCheckBoxList(CheckBoxList checkBoxList)
+        {
+            foreach (ListItem item in checkBoxList.Items)
+            {
+                if (item.Selected)
+                {
+                    return true; 
+                }
+            }
+            return false; 
         }
         private List<TurnoTrabajo> ReescribirTurnosTrabajoSeleccionados(List<TurnoTrabajo> turnos)
         {
