@@ -22,7 +22,7 @@ namespace Negocio
                 datos.setearConsulta(@"SELECT m.IdMedico, u.IdUsuario, u.Nombres, u.Apellidos, m.Matricula, u.Mail 
                                FROM Medicos m
                                INNER JOIN Usuarios u ON u.IdUsuario = m.IdUsuario
-                               WHERE m.FechaDeBaja IS NULL");
+                               WHERE u.FechaDeBaja IS NULL");
                 datos.ejecutarLectura();
 
                 while (datos.Lector.Read())
@@ -123,7 +123,7 @@ namespace Negocio
                             INNER JOIN Prepagas p ON pm.IdPrepaga = p.IdPrepaga
                             INNER JOIN Especialidades e ON em.IdEspecialidad = e.IdEspecialidad
                             WHERE p.NombrePrepaga = @nombrePrepaga
-                            AND e.NombreEspecialidad = @nombreEspecialidad AND m.FechaDeBaja IS NULL";
+                            AND e.NombreEspecialidad = @nombreEspecialidad AND u.FechaDeBaja IS NULL";
 
                 datos.setearConsulta(consulta);
                 datos.setearParametro("@nombrePrepaga", nombrePrepaga);
@@ -168,7 +168,7 @@ namespace Negocio
                             INNER JOIN Usuarios u ON u.IdUsuario = m.IdUsuario
                             INNER JOIN Especialidades_x_Medico em ON m.IdMedico = em.IdMedico
                             INNER JOIN Especialidades e ON em.IdEspecialidad = e.IdEspecialidad
-                            WHERE e.NombreEspecialidad = @nombreEspecialidad AND m.FechaDeBaja IS NULL";
+                            WHERE e.NombreEspecialidad = @nombreEspecialidad AND u.FechaDeBaja IS NULL";
 
                 datos.setearConsulta(consulta);
                 datos.setearParametro("@nombreEspecialidad", nombreEspecialidad);
@@ -216,7 +216,7 @@ namespace Negocio
                             INNER JOIN Usuarios u ON u.IdUsuario = m.IdUsuario
                             INNER JOIN Prepagas_x_Medico pm ON m.IdMedico = pm.IdMedico
                             INNER JOIN Prepagas p ON pm.IdPrepaga = p.IdPrepaga
-                            WHERE p.NombrePrepaga = @nombrePrepaga AND m.FechaDeBaja IS NULL";
+                            WHERE p.NombrePrepaga = @nombrePrepaga AND u.FechaDeBaja IS NULL";
 
                 datos.setearConsulta(consulta);
                 datos.setearParametro("@nombrePrepaga", nombrePrepaga);

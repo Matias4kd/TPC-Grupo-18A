@@ -16,15 +16,15 @@ CREATE TABLE Usuarios(
     Apellidos VARCHAR(50) not null,
     Mail varchar(50) not null, 
     Telefono varchar(20) not null,
-    IdRol SMALLINT NOT NULL FOREIGN KEY REFERENCES Roles(IdRol)
+    IdRol SMALLINT NOT NULL FOREIGN KEY REFERENCES Roles(IdRol),
+    FechaDeBaja DATETIME NULL,
 )
 GO
 Create table Medicos(
     IdMedico int PRIMARY KEY IDENTITY(1,1),
     IdUsuario int FOREIGN KEY REFERENCES Usuarios(IdUsuario),
     Matricula VARCHAR(50) unique not null,
-    FechaAlta DATETIME DEFAULT GETDATE(),
-    FechaDeBaja DATETIME NULL,
+    FechaAlta DATETIME DEFAULT GETDATE(),    
 )
 GO
 Create table TurnosTrabajo(

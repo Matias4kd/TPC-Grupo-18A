@@ -49,8 +49,26 @@ namespace Tp_Cuatrimestral_18A
 
         protected void lnkEliminar_Click(object sender, EventArgs e)
         {
-         
-          
+            try
+            {
+                LinkButton btnEliminar = (LinkButton)sender;
+                int idUsuario = Convert.ToInt32(btnEliminar.CommandArgument);
+
+                UsuarioNegocio uNegocio = new UsuarioNegocio();
+                Usuario usuario = new Usuario();
+                usuario = uNegocio.cargarDatosUsuario(idUsuario);
+                uNegocio.EliminarUsuario(usuario);
+
+                lblMensaje.Text = "Usuario eliminado correctamente.";
+                lblMensaje.CssClass = "text-success";
+                CargarUsuarios();
+            }
+            catch (Exception ex)
+            {
+                lblMensaje.Text = "Error al eliminar el Usuario: " + ex.Message;
+                lblMensaje.CssClass = "text-danger";
+            }
+
         }
 
         protected void btnAgregarUsuario_Click(object sender, EventArgs e)

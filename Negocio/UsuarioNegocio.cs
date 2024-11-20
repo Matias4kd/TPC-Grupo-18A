@@ -177,6 +177,28 @@ namespace Negocio
 
 		}
 
+        public void EliminarUsuario(Usuario usuario)
+        {
+            try
+            {
+                DateTime fechaBaja = DateTime.Now;
+
+                datos.setearConsulta("Update Usuarios set FechaDeBaja = @Fechadebaja WHERE IdUsuario = @IdUsuario");
+                datos.setearParametro("@Fechadebaja", fechaBaja);
+                datos.setearParametro("@IdUsuario", usuario.IdUsuario);
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
 		public int buscarID(string nombreUsuario)
 		{
 			int id;
@@ -215,12 +237,12 @@ namespace Negocio
             {
 				if(usuarioLogueado.Rol.RolId == 2)
 				{
-                    datos.setearConsulta("SELECT u.IdUsuario, u.NombreUsuario, u.Contraseña,u.Nombres, u.Apellidos, u.Mail, u.Telefono, r.IdRol, r.NombreRol FROM Usuarios as u inner join Roles as r on u.IdRol = r.IdRol where u.IdRol = 3");
+                    datos.setearConsulta("SELECT u.IdUsuario, u.NombreUsuario, u.Contraseña,u.Nombres, u.Apellidos, u.Mail, u.Telefono, r.IdRol, r.NombreRol FROM Usuarios as u inner join Roles as r on u.IdRol = r.IdRol where u.IdRol = 3 and u.FechaDeBaja IS NULL");
                     datos.ejecutarLectura();
                 }
                 else
                 {
-                    datos.setearConsulta("SELECT u.IdUsuario, u.NombreUsuario, u.Contraseña,u.Nombres, u.Apellidos, u.Mail, u.Telefono, r.IdRol, r.NombreRol FROM Usuarios as u inner join Roles as r on u.IdRol = r.IdRol ");
+                    datos.setearConsulta("SELECT u.IdUsuario, u.NombreUsuario, u.Contraseña,u.Nombres, u.Apellidos, u.Mail, u.Telefono, r.IdRol, r.NombreRol FROM Usuarios as u inner join Roles as r on u.IdRol = r.IdRol and u.FechaDeBaja IS NULL");
                     datos.ejecutarLectura();
                 }
                 
