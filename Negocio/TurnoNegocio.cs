@@ -175,15 +175,14 @@ namespace Negocio
             {
                 try
                 {
-                    if (item.HoraInicio != item.HoraFin)
-                    {
-                        datos.setearConsulta("Insert into TurnosTrabajo (IdMedico, HoraInicio, HoraFin, DiaTrabajo) VALUES (@IdMedico, @HoraInicio, @HoraFin, @DiaTrabajo)");
-                        datos.setearParametro("@IdMedico", medico.IdMedico);
-                        datos.setearParametro("@HoraInicio",item.HoraInicio);
-                        datos.setearParametro("@HoraFin", item.HoraFin);
-                        datos.setearParametro("@DiaTrabajo",item.DiaDeLaSemana);
-                        datos.ejecutarAccion();
-                    }
+                    
+                    datos.setearConsulta("Insert into TurnosTrabajo (IdMedico, HoraInicio, HoraFin, DiaTrabajo) VALUES (@IdMedico, @HoraInicio, @HoraFin, @DiaTrabajo)");
+                    datos.setearParametro("@IdMedico", medico.IdMedico);
+                    datos.setearParametro("@HoraInicio",item.HoraInicio);
+                    datos.setearParametro("@HoraFin", item.HoraFin);
+                    datos.setearParametro("@DiaTrabajo",item.DiaDeLaSemana);
+                    datos.ejecutarAccion();
+                    
                 }
                 catch (Exception)
                 {
