@@ -78,10 +78,12 @@ namespace ClinicaMedica
 
             LinkButton btnSeleccionar = (LinkButton)sender;
             int idPaciente = Convert.ToInt32(btnSeleccionar.CommandArgument);
-            Paciente paciente = new Paciente();
+
             PacienteNegocio pacienteNegocio = new PacienteNegocio();
-            paciente = pacienteNegocio.ObtenerPorID(idPaciente);
-            Session.Add("PacienteSeleccionado", paciente);
+            Paciente paciente = pacienteNegocio.ObtenerPorID(idPaciente);
+            
+            Session["PacienteSeleccionado"] = paciente;
+
             Response.Redirect("Medicos.aspx");
 
         }

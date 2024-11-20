@@ -9,6 +9,7 @@ using System.Web.UI.WebControls;
 using Negocio;
 using Dominio;
 using ClinicaMedica;
+using Seguridad;
 
 namespace Tp_Cuatrimestral_18A
 {
@@ -22,21 +23,72 @@ namespace Tp_Cuatrimestral_18A
             }
             if (!IsPostBack)
             {
+
+                if (Session["PacienteSeleccionado"] != null && Session["PacienteSeleccionado"] is Paciente paciente)
+                {
+                    // Paciente es una instancia válida, continúa con el flujo
+                }
+                else
+                {
+                    // Si no es válido, redirige o muestra un mensaje de error
+                    Response.Redirect("Pacientes.aspx");
+                }
                 string idMedicoAnterior = Request.QueryString["IdMedico"];
+
                 if (int.TryParse(idMedicoAnterior, out int idMedico))
                 {
                     CargarDatosMedico(idMedico);
 
                     ddlTurnosDisponibles.Visible = false;
                 }
+
             }
+
+
         }
 
         protected void btnAgendarTurno_Click(object sender, EventArgs e)
         {
+
+            try
+            {
+
+                MedicoNegocio medicoNegocio = new MedicoNegocio();
+                Paciente paciente = (Paciente)Session["PacienteSeleccionado"];
+                int idMedico = int.Parse(Request.QueryString["IdMedico"]);
+                Medico medico = new Medico();
+                medico = medicoNegocio.ObtenerPorID(idMedico);
+                Especialidad especialidad = (Especialidad)Session["EspecialidadTurno"];
+
+                EspecialidadNegocio especialidadNegocio = new EspecialidadNegocio();
+                Turno turno = new Turno();
+
+                turno.Paciente = paciente;
+                turno.Medico = medico;
+                turno.Especialidad = especialidad;
+                turno.Fecha = calendarioTurnos.SelectedDate;
+                turno.Hora = DateTime.Parse(ddlTurnosDisponibles.SelectedValue);
+
+                // Guardar el turno en la base de datos
+                TurnoNegocio turnoNegocio = new TurnoNegocio();
+                bool turnoAgendado = turnoNegocio.AgendarTurno(turno);
+
+                if (turnoAgendado)
+                {
+                    pnlFormularioMedico.Visible = false;
+                    pnlTurnoExitoso.Visible = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+
             pnlFormularioMedico.Visible = false;
             pnlTurnoExitoso.Visible = true;
         }
+
 
         private void CargarDatosMedico(int idMedico)
         {
@@ -47,15 +99,9 @@ namespace Tp_Cuatrimestral_18A
             {
                 lblNombreMedico.Text = medico.Nombres;
                 lblApellidoMedico.Text = medico.Apellidos;
+                Especialidad especialidad = (Especialidad)Session["EspecialidadTurno"];
+                lblEspecialidadesMedico.Text = especialidad.Nombre;
 
-                if (medico.Especialidades != null && medico.Especialidades.Count > 0)
-                {
-                    lblEspecialidadesMedico.Text = string.Join(", ", medico.Especialidades.Select(e => e.Nombre));
-                }
-                else
-                {
-                    lblEspecialidadesMedico.Text = "Sin especialidades";
-                }
             }
         }
 
@@ -80,8 +126,9 @@ namespace Tp_Cuatrimestral_18A
 
         protected void btnRegresar_Click(object sender, EventArgs e)
         {
-                Response.Redirect("Pacientes.aspx");
+            Response.Redirect("Pacientes.aspx");
         }
+
     }
 }
 

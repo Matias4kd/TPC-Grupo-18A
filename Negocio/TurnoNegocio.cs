@@ -231,6 +231,31 @@ namespace Negocio
                 datos.cerrarConexion();
             }
         }
+        public bool AgendarTurno(Turno turno)
+        {
+            try
+            {
+                datos.setearConsulta("Insert into Turnos (IdPaciente, IdMedico, IdEspecialidad, Fecha, Horario) VALUES (@IdPaciente, @IdMedico, @IdEspecialidad, @Fecha, @Horario)");
+                datos.setearParametro("@IdPaciente", turno.Paciente.IdPaciente);
+                datos.setearParametro("@IdMedico", turno.Medico.IdMedico);
+                datos.setearParametro("@IdEspecialidad", turno.Especialidad.IdEspecialidad);
+                datos.setearParametro("@Fecha", turno.Fecha);
+                datos.setearParametro("@Horario", turno.Hora);
+                datos.ejecutarAccion();
+
+                return true;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
     }
 }
 

@@ -211,6 +211,36 @@ namespace Negocio
 
         }
 
+        public Especialidad BuscarEspecialidadesPorNombre(string NombreEspecialidad)
+        {
+            Especialidad especialidad = new Especialidad();
+
+            try
+            {
+                datos.setearConsulta("Select IdEspecialidad from Especialidades where NombreEspecialidad = @NombreEspecialidad");
+                datos.setearParametro("@NombreEspecialidad", NombreEspecialidad);
+                datos.ejecutarLectura();
+
+                if (datos.lector.Read())
+                {
+                    especialidad.Nombre = NombreEspecialidad;
+                    especialidad.IdEspecialidad = (int)datos.lector["IdEspecialidad"];
+                }
+
+                return especialidad;
+                
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+
+        }
+
     }
 
 }

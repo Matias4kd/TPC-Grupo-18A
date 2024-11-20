@@ -21,7 +21,7 @@
                                 <asp:Label ID="lblApellidoMedico" runat="server" CssClass="form-control-plaintext" />
                             </p>
                             <p>
-                                <strong>Especialidades:</strong>
+                                <strong>Especialidad:</strong>
                                 <asp:Label ID="lblEspecialidadesMedico" runat="server" CssClass="form-control-plaintext" />
                             </p>
                         </div>
