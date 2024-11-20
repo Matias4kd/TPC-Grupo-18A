@@ -68,6 +68,7 @@ namespace Tp_Cuatrimestral_18A
                 turno.Especialidad = especialidad;
                 turno.Fecha = calendarioTurnos.SelectedDate;
                 turno.Hora = DateTime.Parse(ddlTurnosDisponibles.SelectedValue);
+                turno.Observaciones = txtObservaciones.Text;
 
                 // Guardar el turno en la base de datos
                 TurnoNegocio turnoNegocio = new TurnoNegocio();
@@ -127,6 +128,15 @@ namespace Tp_Cuatrimestral_18A
         protected void btnRegresar_Click(object sender, EventArgs e)
         {
             Response.Redirect("Pacientes.aspx");
+        }
+
+        protected void calendarioTurnos_DayRender(object sender, DayRenderEventArgs e)
+        {
+            if (e.Day.Date < DateTime.Today)
+            {
+                e.Day.IsSelectable = false;
+                e.Cell.ForeColor = System.Drawing.Color.Gray;
+            }
         }
 
     }

@@ -235,12 +235,13 @@ namespace Negocio
         {
             try
             {
-                datos.setearConsulta("Insert into Turnos (IdPaciente, IdMedico, IdEspecialidad, Fecha, Horario) VALUES (@IdPaciente, @IdMedico, @IdEspecialidad, @Fecha, @Horario)");
+                datos.setearConsulta("Insert into Turnos (IdPaciente, IdMedico, IdEspecialidad, Fecha, Horario, Observaciones) VALUES (@IdPaciente, @IdMedico, @IdEspecialidad, @Fecha, @Horario, @Observaciones)");
                 datos.setearParametro("@IdPaciente", turno.Paciente.IdPaciente);
                 datos.setearParametro("@IdMedico", turno.Medico.IdMedico);
                 datos.setearParametro("@IdEspecialidad", turno.Especialidad.IdEspecialidad);
                 datos.setearParametro("@Fecha", turno.Fecha);
                 datos.setearParametro("@Horario", turno.Hora);
+                datos.setearParametro("@Observaciones", turno.Observaciones);
                 datos.ejecutarAccion();
 
                 return true;
