@@ -14,9 +14,9 @@
         <div class="col-md-6">
 
             <strong>
-                <asp:Label ID="lblFechaNacimiento" runat="server" Text="Fecha del turno:" AssociatedControlID="txtFechaNacimiento" /></strong>
-            <asp:TextBox ID="txtFechaNacimiento" runat="server" CssClass="form-control" TextMode="Date" />
-            <asp:RequiredFieldValidator ID="rfvFechaNacimiento" runat="server" ControlToValidate="txtFechaNacimiento" ErrorMessage="La fecha de nacimiento es obligatoria." CssClass="text-danger" Display="Dynamic" />
+                <asp:Label ID="lblFechaTurno" runat="server" Text="Fecha del turno:" AssociatedControlID="txtFechaTurno" /></strong>
+            <asp:TextBox ID="txtFechaTurno" runat="server" CssClass="form-control" TextMode="Date" OnTextChanged="txtFechaTurno_TextChanged" AutoPostBack="true" />
+            <asp:RequiredFieldValidator ID="rfvFechaTurno" runat="server" ControlToValidate="txtFechaTurno" ErrorMessage="La fecha de nacimiento es obligatoria." CssClass="text-danger" Display="Dynamic" />
             <br />
 
             <div class="row mt-4">

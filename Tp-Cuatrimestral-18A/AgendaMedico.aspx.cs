@@ -1,4 +1,5 @@
-﻿using Dominio;
+﻿using ClinicaMedica;
+using Dominio;
 using Negocio;
 using Seguridad;
 using System;
@@ -12,7 +13,7 @@ namespace Tp_Cuatrimestral_18A
 {
     public partial class AgendaMedico : System.Web.UI.Page
     {
-
+        Medico medico = new Medico();
         protected void Page_Load(object sender, EventArgs e)
         {
             
@@ -29,7 +30,7 @@ namespace Tp_Cuatrimestral_18A
                 {
                     int idMedico = int.Parse(Request.QueryString["IdMedico"] ?? "0");
                     MedicoNegocio medicoNegocio = new MedicoNegocio();
-                    Medico medico = medicoNegocio.ObtenerPorID(idMedico);
+                    medico = medicoNegocio.ObtenerPorID(idMedico);
 
                     if (medico != null)
                     {
@@ -47,9 +48,23 @@ namespace Tp_Cuatrimestral_18A
                 {
                     Response.Redirect("Default.aspx");
                 }
+
             }
 
         }
-            
+
+        private void CargarTurnos(DateTime fecha)
+        {
+            TurnoNegocio negocio = new TurnoNegocio();
+            gvTurnos.DataSource = negocio.Listar(medico, fecha);
+            gvTurnos.DataBind();
+        }
+
+        protected void txtFechaTurno_TextChanged(object sender, EventArgs e)
+        {
+            DateTime fechaSeleccionada = new DateTime();
+            fechaSeleccionada = DateTime.Parse(txtFechaTurno.Text);
+            CargarTurnos(fechaSeleccionada);
+        }
     }
 }

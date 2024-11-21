@@ -24,31 +24,31 @@ namespace Tp_Cuatrimestral_18A
         protected global::System.Web.UI.WebControls.Label lblAgenda;
 
         /// <summary>
-        /// Control lblFechaNacimiento.
+        /// Control lblFechaTurno.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblFechaNacimiento;
+        protected global::System.Web.UI.WebControls.Label lblFechaTurno;
 
         /// <summary>
-        /// Control txtFechaNacimiento.
+        /// Control txtFechaTurno.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtFechaNacimiento;
+        protected global::System.Web.UI.WebControls.TextBox txtFechaTurno;
 
         /// <summary>
-        /// Control rfvFechaNacimiento.
+        /// Control rfvFechaTurno.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvFechaNacimiento;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvFechaTurno;
 
         /// <summary>
         /// Control gvTurnos.
