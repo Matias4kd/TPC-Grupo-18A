@@ -24,8 +24,13 @@
                     <asp:GridView ID="gvTurnos" runat="server" CssClass="table table-striped" AutoGenerateColumns="false"
                         EmptyDataText="No se encontraron turnos en el día de la fecha">
                         <Columns>
-                            <asp:BoundField DataField="Nombre" HeaderText="Nombre" />
-                            <asp:BoundField DataField="Apellido" HeaderText="Apellido" />
+                            <asp:BoundField DataField="IdTurno" HeaderText="ID" Visible="False" />
+
+                            <asp:BoundField DataField="NombrePaciente" HeaderText="Nombre del Paciente" />
+                            <asp:BoundField DataField="ApellidoPaciente" HeaderText="Apellido del Paciente" />
+                            <asp:BoundField DataField="HorarioTurno" HeaderText="Horario del Turno" />
+                            <asp:BoundField DataField="Observaciones" HeaderText="Observaciones" />
+                            <asp:BoundField DataField="Estado" HeaderText="Estado de consulta" />
                             <asp:TemplateField HeaderText="Acciones">
                                 <ItemTemplate>
                                     <asp:LinkButton ID="lnkVer" runat="server" Text="Ver Turno" CssClass="btn btn-warning btn-sm"

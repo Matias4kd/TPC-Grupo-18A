@@ -13,7 +13,6 @@ namespace Tp_Cuatrimestral_18A
 {
     public partial class AgendaMedico : System.Web.UI.Page
     {
-        Medico medico = new Medico();
         protected void Page_Load(object sender, EventArgs e)
         {
             
@@ -28,7 +27,8 @@ namespace Tp_Cuatrimestral_18A
                 Usuario usuario = (Usuario)Session["Usuario"];
                 if (usuario != null)
                 {
-                    int idMedico = int.Parse(Request.QueryString["IdMedico"] ?? "0");
+                    Medico medico = new Medico();
+                    int idMedico = int.Parse(Request.QueryString["IdMedico"]);
                     MedicoNegocio medicoNegocio = new MedicoNegocio();
                     medico = medicoNegocio.ObtenerPorID(idMedico);
 
@@ -53,10 +53,28 @@ namespace Tp_Cuatrimestral_18A
 
         }
 
+
         private void CargarTurnos(DateTime fecha)
         {
+            Medico medico = new Medico();
+            int idMedico = int.Parse(Request.QueryString["IdMedico"]);
+            MedicoNegocio medicoNegocio = new MedicoNegocio();
+            medico = medicoNegocio.ObtenerPorID(idMedico);
+            List<Turno> turnos = new List<Turno>();
             TurnoNegocio negocio = new TurnoNegocio();
-            gvTurnos.DataSource = negocio.Listar(medico, fecha);
+            turnos = negocio.Listar(medico, fecha);
+
+            var turnosSimplificados = turnos.Select(t => new
+            {
+                IdTurno = t.IdTurno,
+                NombrePaciente = t.Paciente.Nombre,
+                ApellidoPaciente = t.Paciente.Apellido,
+                HorarioTurno = t.Hora.ToString(@"hh\:mm"),
+                Observaciones = t.Observaciones,
+                Estado = t.Estado
+            }).ToList();
+
+            gvTurnos.DataSource = turnosSimplificados;
             gvTurnos.DataBind();
         }
 

@@ -70,7 +70,7 @@ namespace Tp_Cuatrimestral_18A
                 turno.Medico = medico;
                 turno.Especialidad = especialidad;
                 turno.Fecha = calendarioTurnos.SelectedDate;
-                turno.Hora = DateTime.Parse(ddlTurnosDisponibles.SelectedValue);
+                turno.Hora = TimeSpan.Parse(ddlTurnosDisponibles.SelectedValue);
                 turno.Observaciones = txtObservaciones.Text;
 
                 TurnoNegocio turnoNegocio = new TurnoNegocio();
@@ -84,6 +84,7 @@ namespace Tp_Cuatrimestral_18A
 
                     pnlFormularioMedico.Visible = false;
                     pnlTurnoExitoso.Visible = true;
+                    Session.Remove("PacienteSeleccionado");
                 }
             }
             catch (Exception ex)

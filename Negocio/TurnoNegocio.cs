@@ -19,7 +19,7 @@ namespace Negocio
 
             try
             {
-                datos.setearConsulta(@"SELECT t.IdTurno, t.Fecha, t.Horario, t.IdPaciente, t.IdMedico, t.IdEspecialidad, t.Estado, t.Observaciones, p.Nombres as PacienteNombre, p.Apellidos AS PacienteApellidos,
+                datos.setearConsulta(@"SELECT t.IdTurno, t.Fecha, t.Horario, t.IdPaciente, t.IdMedico, t.IdEspecialidad, t.Estado, t.Observaciones, p.Nombres as PacienteNombres, p.Apellidos AS PacienteApellidos,
                                      u.Nombres as MedicoNombre, u.Apellidos as MedicoApellidos, e.NombreEspecialidad as EspecialidadNombre
                                      FROM Turnos t
                                      JOIN Pacientes p ON t.IdPaciente = p.IdPaciente
@@ -34,25 +34,30 @@ namespace Negocio
 
                 while (datos.Lector.Read())
                 {
-                    Turno turno = new Turno
-                    {
-                        IdTurno = (int)datos.Lector["IdTurno"],
-                        Fecha = (DateTime)datos.Lector["Fecha"],
-                        Hora = (DateTime)datos.Lector["Horario"],
-                        Paciente = new Paciente
-                        {
-                            IdPaciente = (int)datos.Lector["IdPaciente"],
-                            Nombre = (string)datos.Lector["PacienteNombre"],
-                            Apellido = (string)datos.Lector["PacienteApellido"]
-                        },
-                        Medico = medico,
-                        Especialidad = new Especialidad
-                        {
-                            IdEspecialidad = (int)datos.Lector["IdEspecialidad"],
-                            Nombre = (string)datos.Lector["EspecialidadNombre"]
-                        },
-                        Estado = (string)datos.Lector["Estado"]
-                    };
+                    Turno turno = new Turno();
+
+                    turno.IdTurno = Convert.ToInt32(datos.Lector["IdTurno"]);
+                    turno.Fecha = (DateTime)datos.Lector["Fecha"];
+                    turno.Hora = (TimeSpan)datos.Lector["Horario"];
+                    turno.Observaciones = (string)datos.Lector["Observaciones"];
+                    Paciente paciente = new Paciente();
+
+                    paciente.IdPaciente = Convert.ToInt32(datos.Lector["IdPaciente"]);
+                    paciente.Nombre = (string)datos.Lector["PacienteNombres"];
+                    paciente.Apellido = (string)datos.Lector["PacienteApellidos"];
+
+                    turno.Paciente = paciente;
+
+                    Medico medicoturno = new Medico();
+
+                    medicoturno = medico;
+
+                    Especialidad especialidad = new Especialidad();
+
+                    especialidad.IdEspecialidad = (int)datos.Lector["IdEspecialidad"];
+                    especialidad.Nombre = (string)datos.Lector["EspecialidadNombre"];
+
+                    turno.Estado = (string)datos.Lector["Estado"];
 
                     lista.Add(turno);
                 }
