@@ -23,11 +23,13 @@
                     <div class="collapse navbar-collapse" id="navbarNav">
                         <ul class="navbar-nav me-auto" id="navbarOptions" runat="server">
                             <li class="nav-item">
-                                <a class="nav-link" href="Pacientes.aspx">Pacientes</a>
+                                <a class="nav-link" href="Pacientes.aspx">
+                                    <asp:Label ID="lblPacientes" runat="server" Text="Pacientes"></asp:Label>
+                                </a>
                             </li>
                             <li class="nav-item active">
                                 <a class="nav-link" href="Medicos.aspx">
-                                    Medicos
+                                    <asp:Label ID="lblMedicos" runat="server" Text="Medicos"></asp:Label>
                                 </a>
                             </li>
                             <li class="nav-item">

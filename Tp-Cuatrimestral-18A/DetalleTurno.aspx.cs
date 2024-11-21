@@ -80,8 +80,7 @@ namespace Tp_Cuatrimestral_18A
             {
                 Paciente pacienteEnAgenda = new Paciente();
                 pacienteEnAgenda = (Paciente)Session["PacienteEnAgenda"];
-                Response.Redirect("AgendaPaciente.aspx");
-
+                Response.Redirect("AgendaPaciente.aspx?IdPaciente=" + pacienteEnAgenda.IdPaciente);
             }
         }
 

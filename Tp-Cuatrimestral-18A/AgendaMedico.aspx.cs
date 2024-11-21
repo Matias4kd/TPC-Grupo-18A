@@ -39,6 +39,7 @@ namespace Tp_Cuatrimestral_18A
                         if (usuario.Rol.RolId == 3)
                         {
                             lblAgenda.Text = $"Bienvenido, Dr./Dra. {medico.Nombres} {medico.Apellidos}";
+                            //ver como seleccionar el dia de forma automatica
                         }
                         else
                         {

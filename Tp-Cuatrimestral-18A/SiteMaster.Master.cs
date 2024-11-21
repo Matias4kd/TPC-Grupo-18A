@@ -37,6 +37,13 @@ namespace Tp_Cuatrimestral_18A
                     lblGestionUsuarios.Text = "Administrar Médicos";
                     lblEspecialidades.Visible = false;
                 }
+                if(usuarioLogueado.Rol.RolId == 3)
+                {
+                    lblEspecialidades.Visible = false;
+                    lblPacientes.Visible = false;
+                    lblMedicos.Visible = false;
+                    lblGestionUsuarios.Visible = false;
+                }
             }
         }
 
