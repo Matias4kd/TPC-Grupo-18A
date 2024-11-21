@@ -2,6 +2,7 @@
 using Negocio;
 using System;
 using System.Collections.Generic;
+using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -22,6 +23,10 @@ namespace ClinicaMedica
             {
                 Response.Redirect("Default.aspx");
             }
+            Response.Cache.SetCacheability(HttpCacheability.NoCache);
+            Response.Cache.SetExpires(DateTime.UtcNow.AddMinutes(-1));
+            Response.Cache.SetNoStore();
+
             prepagaNegocio = new PrepagaNegocio();
             especialidadNegocio = new EspecialidadNegocio();
             medicoNegocio = new MedicoNegocio();

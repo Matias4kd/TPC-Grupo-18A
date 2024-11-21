@@ -19,6 +19,9 @@ namespace Tp_Cuatrimestral_18A
             {
                 Response.Redirect("Default.aspx");         // Verificar sesion de usuario
             }
+            Response.Cache.SetCacheability(HttpCacheability.NoCache);
+            Response.Cache.SetExpires(DateTime.UtcNow.AddMinutes(-1));
+            Response.Cache.SetNoStore();
 
             if (!IsPostBack)
             {

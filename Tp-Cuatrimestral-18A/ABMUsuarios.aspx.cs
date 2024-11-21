@@ -23,7 +23,11 @@ namespace Tp_Cuatrimestral_18A
             if (Session["Usuario"] == null)
             {
                 Response.Redirect("Default.aspx");
-            }         
+            }
+            Response.Cache.SetCacheability(HttpCacheability.NoCache);
+            Response.Cache.SetExpires(DateTime.UtcNow.AddMinutes(-1));
+            Response.Cache.SetNoStore();
+
 
             if (!IsPostBack)
             {
