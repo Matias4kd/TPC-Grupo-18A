@@ -152,6 +152,19 @@ namespace ClinicaMedica
             }
         }
 
+        protected void lnkAgenda_Command(object sender, CommandEventArgs e)
+        {
+            try
+            {
+                int idMedico = Convert.ToInt32(e.CommandArgument);
+                Response.Redirect("AgendaMedico.aspx?IdMedico=" + idMedico);
+            }
+            catch (Exception ex)
+            {
+                MostrarMensaje("Error al redirigir a la agenda del médico: " + ex.Message);
+            }
+        }
+
         private void MostrarMensaje(string mensaje)
         {
             litMensaje.Text = mensaje;

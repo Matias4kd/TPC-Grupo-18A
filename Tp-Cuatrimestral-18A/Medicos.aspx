@@ -12,18 +12,17 @@
         <div class="col-md-4">
             <div class="form-group">
                 <label for="ddlPrepagas">Prepaga:</label>
-                <asp:DropDownList ID="ddlPrepagas" runat="server" CssClass="form-control" AutoPostBack="true" 
+                <asp:DropDownList ID="ddlPrepagas" runat="server" CssClass="form-control" AutoPostBack="true"
                     OnSelectedIndexChanged="ddlPrepagas_SelectedIndexChanged">
                 </asp:DropDownList>
             </div>
         </div>
-        
+
         <div class="col-md-4">
             <div class="form-group">
                 <label for="ddlEspecialidades">Especialidad:</label>
                 <asp:DropDownList ID="ddlEspecialidades" runat="server" CssClass="form-control" AutoPostBack="true"
                     OnSelectedIndexChanged="ddlEspecialidades_SelectedIndexChanged">
-                    
                 </asp:DropDownList>
                 <asp:Label ID="lblEspecialidadError" runat="server" Text="" ForeColor="Red"></asp:Label>
             </div>
@@ -45,6 +44,11 @@
                                 CommandName="Seleccionar" CommandArgument='<%# Eval("IdMedico") %>'
                                 OnCommand="lnkSeleccionar_Command">
                                 Turnos
+                            </asp:LinkButton>
+                            <asp:LinkButton ID="lnkAgenda" runat="server" CssClass="btn btn-secondary btn-sm"
+                                CommandName="Agenda" CommandArgument='<%# Eval("IdMedico") %>'
+                                OnCommand="lnkAgenda_Command">
+                                Agenda
                             </asp:LinkButton>
                         </ItemTemplate>
                     </asp:TemplateField>
