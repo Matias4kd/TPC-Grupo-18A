@@ -65,9 +65,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="ABMUsuarios.aspx" />
+    <Content Include="AgendaPaciente.aspx" />
     <Content Include="AgendaMedico.aspx" />
     <Content Include="AltaPaciente.aspx" />
     <Content Include="Default.aspx" />
+    <Content Include="DetalleTurno.aspx" />
     <Content Include="ModificarPaciente.aspx" />
     <Content Include="Pacientes.aspx" />
     <Content Include="EspecialidadMedica.aspx" />
@@ -95,6 +97,13 @@
     <Compile Include="ABMUsuarios.aspx.designer.cs">
       <DependentUpon>ABMUsuarios.aspx</DependentUpon>
     </Compile>
+    <Compile Include="AgendaPaciente.aspx.cs">
+      <DependentUpon>AgendaPaciente.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AgendaPaciente.aspx.designer.cs">
+      <DependentUpon>AgendaPaciente.aspx</DependentUpon>
+    </Compile>
     <Compile Include="AgendaMedico.aspx.cs">
       <DependentUpon>AgendaMedico.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -115,6 +124,13 @@
     </Compile>
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="DetalleTurno.aspx.cs">
+      <DependentUpon>DetalleTurno.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DetalleTurno.aspx.designer.cs">
+      <DependentUpon>DetalleTurno.aspx</DependentUpon>
     </Compile>
     <Compile Include="ModificarPaciente.aspx.cs">
       <DependentUpon>ModificarPaciente.aspx</DependentUpon>

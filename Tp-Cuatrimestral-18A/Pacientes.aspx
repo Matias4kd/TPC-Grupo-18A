@@ -37,6 +37,7 @@
                                 CommandName="Eliminar" CommandArgument='<%# Eval("IdPaciente") %>' />
                             <asp:LinkButton ID="linkSeleccionar" runat="server" Text="Seleccionar" CssClass="btn btn-primary" OnClick ="linkSeleccionar_Click"
                             CommandName="Seleccionar" CommandArgument='<%# Eval("IdPaciente") %>' />
+                            <asp:LinkButton ID="lnkAgenda" runat="server" CssClass="btn btn-secondary btn-sm" CommandName="Agenda" CommandArgument='<%# Eval("IdPaciente") %>' OnCommand="lnkAgenda_Command">Agenda</asp:LinkButton>
 
                         </ItemTemplate>
                     </asp:TemplateField>
@@ -44,4 +45,9 @@
             </asp:GridView>
         </div>
     </div>
+    <asp:Panel ID="pnlMensajes" runat="server" Visible="false" CssClass="mt-3">
+        <div class="alert alert-info">
+            <asp:Literal ID="litMensaje" runat="server"></asp:Literal>
+        </div>
+    </asp:Panel>
 </asp:Content>

@@ -333,8 +333,7 @@ namespace Negocio
 
                     medico.Especialidades = especialidadNegocio.BuscarEspecialidadesMedico(medico);
                     medico.Prepagas = prepagaNegocio.BuscarPrepagasMedico(medico);
-                    medico.TurnosTrabajo = turnoNegocio.BuscarTurnosTrabajoMedico(medico);
-                    
+                    medico.TurnosTrabajo = turnoNegocio.BuscarTurnosTrabajoMedico(medico);                    
                 }
 
                 return medico;

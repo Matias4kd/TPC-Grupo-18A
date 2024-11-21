@@ -128,16 +128,16 @@ INSERT INTO Prepagas(NombrePrepaga) VALUES ('No tiene')
 
 
 -- Relacionamos los médicos con los usuarios correspondientes
-INSERT INTO Medicos (IdUsuario, Matricula) VALUES (1, 'MED001');
-INSERT INTO Medicos (IdUsuario, Matricula) VALUES (2, 'MED002');
-INSERT INTO Medicos (IdUsuario, Matricula) VALUES (3, 'MED003');
-INSERT INTO Medicos (IdUsuario, Matricula) VALUES (4, 'MED004');
-INSERT INTO Medicos (IdUsuario, Matricula) VALUES (5, 'MED005');
-INSERT INTO Medicos (IdUsuario, Matricula) VALUES (6, 'MED006');
-INSERT INTO Medicos (IdUsuario, Matricula) VALUES (7, 'MED007');
-INSERT INTO Medicos (IdUsuario, Matricula) VALUES (8, 'MED008');
-INSERT INTO Medicos (IdUsuario, Matricula) VALUES (9, 'MED009');
-INSERT INTO Medicos (IdUsuario, Matricula) VALUES (10, 'MED010');
+INSERT INTO Medicos (IdUsuario, Matricula) VALUES (3, 'MED001');
+INSERT INTO Medicos (IdUsuario, Matricula) VALUES (4, 'MED002');
+INSERT INTO Medicos (IdUsuario, Matricula) VALUES (5, 'MED003');
+INSERT INTO Medicos (IdUsuario, Matricula) VALUES (6, 'MED004');
+INSERT INTO Medicos (IdUsuario, Matricula) VALUES (7, 'MED005');
+INSERT INTO Medicos (IdUsuario, Matricula) VALUES (8, 'MED006');
+INSERT INTO Medicos (IdUsuario, Matricula) VALUES (9, 'MED007');
+INSERT INTO Medicos (IdUsuario, Matricula) VALUES (10, 'MED008');
+INSERT INTO Medicos (IdUsuario, Matricula) VALUES (11, 'MED009');
+INSERT INTO Medicos (IdUsuario, Matricula) VALUES (12, 'MED010');
 
 INSERT INTO Prepagas_x_Medico (IdPrepaga, IdMedico) VALUES (1, 1); -- Osde
 INSERT INTO Prepagas_x_Medico (IdPrepaga, IdMedico) VALUES (2, 2); -- Galeno

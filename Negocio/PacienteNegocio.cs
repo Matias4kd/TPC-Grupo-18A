@@ -116,7 +116,9 @@ namespace Negocio
 
             try
             {
-                datos.setearConsulta("SELECT IdPaciente, Nombres, Apellidos, DNI, FechaNacimiento, Mail, Telefono, Direccion, IdPrepaga FROM Pacientes WHERE IdPaciente = @IdPaciente");
+                datos.setearConsulta(@"SELECT p.IdPaciente, p.Nombres, p.Apellidos, p.DNI, p.FechaNacimiento, p.Mail, p.Telefono, p.Direccion, p.IdPrepaga, prep.NombrePrepaga FROM Pacientes p
+                                    Inner join Prepagas prep on p.IdPrepaga = prep.IdPrepaga    
+                                    WHERE IdPaciente = @IdPaciente");
                 datos.setearParametro("@IdPaciente", id);
                 datos.ejecutarLectura();
 
@@ -139,7 +141,8 @@ namespace Negocio
                     {
                         paciente.prepaga = new Prepaga
                         {
-                            IdPrepaga = (int)datos.Lector["IdPrepaga"]
+                            IdPrepaga = (int)datos.Lector["IdPrepaga"],
+                            Nombre = (string)datos.lector["NombrePrepaga"]
                         };
                     }
                 }

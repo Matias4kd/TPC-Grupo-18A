@@ -37,6 +37,17 @@ namespace Tp_Cuatrimestral_18A
                 {
                     usuario = usuarioNegocio.cargarDatosUsuario(usuario.NombreUsuario);
                     Session.Add("Usuario", usuario);
+
+                    if(usuario.Rol.RolId == 3)
+                    {
+                        MedicoNegocio medicoNegocio = new MedicoNegocio();
+                        Medico medico = new Medico();
+
+                        medico = medicoNegocio.BuscarPorIDUsuario(usuario.IdUsuario);
+
+                        Response.Redirect("AgendaMedico.aspx?IdMedico=" + medico.IdMedico);
+
+                    }
                     Response.Redirect("Pacientes.aspx");
                 }
                 else 

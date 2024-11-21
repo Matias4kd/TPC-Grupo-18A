@@ -94,5 +94,23 @@ namespace ClinicaMedica
             Response.Redirect("Medicos.aspx");
 
         }
+
+        protected void lnkAgenda_Command(object sender, CommandEventArgs e)
+        {
+            try
+            {
+                int idPaciente = Convert.ToInt32(e.CommandArgument);
+                Response.Redirect("AgendaPaciente.aspx?IdPaciente=" + idPaciente);
+            }
+            catch (Exception ex)
+            {
+                MostrarMensaje("Error al redirigir a la agenda del paciente: " + ex.Message);
+            }
+        }
+        private void MostrarMensaje(string mensaje)
+        {
+            litMensaje.Text = mensaje;
+            pnlMensajes.Visible = true;
+        }
     }
 }

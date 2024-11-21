@@ -15,8 +15,6 @@ namespace Tp_Cuatrimestral_18A
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            
-
             if (Session["Usuario"] == null)
             {
                 Response.Redirect("Default.aspx");         // Verificar sesion de usuario
@@ -31,6 +29,7 @@ namespace Tp_Cuatrimestral_18A
                     int idMedico = int.Parse(Request.QueryString["IdMedico"]);
                     MedicoNegocio medicoNegocio = new MedicoNegocio();
                     medico = medicoNegocio.ObtenerPorID(idMedico);
+                    Session.Add("MedicoEnAgenda", medico);
 
                     if (medico != null)
                     {
@@ -48,9 +47,7 @@ namespace Tp_Cuatrimestral_18A
                 {
                     Response.Redirect("Default.aspx");
                 }
-
             }
-
         }
 
 
@@ -62,7 +59,7 @@ namespace Tp_Cuatrimestral_18A
             medico = medicoNegocio.ObtenerPorID(idMedico);
             List<Turno> turnos = new List<Turno>();
             TurnoNegocio negocio = new TurnoNegocio();
-            turnos = negocio.Listar(medico, fecha);
+            turnos = negocio.ListarTurnosMedico(medico, fecha);
 
             var turnosSimplificados = turnos.Select(t => new
             {
@@ -83,6 +80,13 @@ namespace Tp_Cuatrimestral_18A
             DateTime fechaSeleccionada = new DateTime();
             fechaSeleccionada = DateTime.Parse(txtFechaTurno.Text);
             CargarTurnos(fechaSeleccionada);
+        }
+
+        protected void lnkVer_Click(object sender, EventArgs e)
+        {
+            LinkButton btnVer = (LinkButton)sender;
+            int idTurno = Convert.ToInt32(btnVer.CommandArgument);
+            Response.Redirect("DetalleTurno.aspx?IdTurno=" + idTurno + "&origen=AgendaMedico");
         }
     }
 }

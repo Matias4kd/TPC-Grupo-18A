@@ -4,10 +4,10 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="row mt-3">
-    <div class="col-12">
-        <h2><asp:Label ID="lblTitulo" runat="server" Text="Alta de Usuarios"></asp:Label></h2>
+        <div class="col-12">
+            <h2><asp:Label ID="lblTitulo" runat="server" Text="Alta de Usuarios"></asp:Label></h2>
+        </div>
     </div>
-</div>
 
 <div class="row mt-4">
     <div class="col-md-6">
