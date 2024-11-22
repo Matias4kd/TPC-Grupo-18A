@@ -25,9 +25,10 @@
                                 <asp:Label ID="lblEspecialidadesMedico" runat="server" CssClass="form-control-plaintext" />
                             </p>
                         </div>
+
                     </div>
                     <asp:Label runat="server"><strong>Seleccione el día del turno: </strong></asp:Label>
-                    <asp:Calendar ID="calendarioTurnos" runat="server" OnDayRender="calendarioTurnos_DayRender" OnSelectionChanged="calendarioTurnos_SelectionChanged" Style="margin-left: 200px; margin-top: 20px; margin-bottom: 20px" />
+                    <asp:Calendar ID="calendarioTurnos" runat="server" OnDayRender="calendarioTurnos_DayRender" OnSelectionChanged="calendarioTurnos_SelectionChanged" Style="margin-left: 130px; margin-top: 20px; margin-bottom: 20px" />
                     <asp:Label runat="server" Style="margin-top: 20px" Visible="false" ID="lblSeleccioneHorario"><strong>Seleccione un horario: </strong></asp:Label>
                     <asp:DropDownList ID="ddlTurnosDisponibles" runat="server" class="form-select" Visible="false"></asp:DropDownList>
                     <br />

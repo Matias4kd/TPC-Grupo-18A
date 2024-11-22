@@ -1,0 +1,486 @@
+﻿/* Estilos específicos para el login */
+.login-background {
+    background-image: url('https://media.istockphoto.com/id/1312706413/es/foto/edificio-moderno-del-hospital.jpg?s=612x612&w=0&k=20&c=NEQ8FnVfb9_VUOeGG3slv0mmPuLYPX-W60GmWtYN4Gk=');
+    background-size: cover;
+    background-position: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
+}
+
+.login-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(44, 62, 80, 0.7);
+    z-index: -1;
+}
+
+.login-card {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 15px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    transition: transform 0.3s ease;
+}
+
+    .login-card:hover {
+        transform: translateY(-5px);
+    }
+
+.login-title {
+    color: #2c3e50;
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 2rem;
+    text-align: center;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.login-form-group {
+    margin-bottom: 1.5rem;
+}
+
+    .login-form-group label {
+        font-weight: 500;
+        color: #34495e;
+        margin-bottom: 0.5rem;
+    }
+
+.login-input {
+    border: 2px solid #e9ecef;
+    border-radius: 8px;
+    padding: 12px 15px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+    .login-input:focus {
+        border-color: #3498db;
+        box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25);
+    }
+
+.login-btn {
+    background-color: #3498db;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    padding: 12px 30px;
+    font-size: 1.1rem;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+    width: 100%;
+    max-width: 200px;
+}
+
+    .login-btn:hover {
+        background-color: #2980b9;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(52, 152, 219, 0.35);
+    }
+
+.login-error {
+    border-radius: 8px;
+    padding: 1rem;
+    margin-top: 1rem;
+    background-color: rgba(231, 76, 60, 0.1);
+    border: 1px solid #e74c3c;
+    color: #c0392b;
+}
+
+/* Ocultar el navbar y footer en la página de login */
+.login-page .navbar,
+.login-page footer {
+    display: none;
+}
+
+/* Ajustes responsive */
+@media (max-width: 768px) {
+    .login-card {
+        margin: 1rem;
+        padding: 1.5rem !important;
+    }
+
+    .login-title {
+        font-size: 1.75rem;
+    }
+}
+
+/* Página de Gestión de Pacientes */
+.page-title {
+    color: #2c3e50;
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.btn-primary {
+    background-color: #3498db;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    padding: 8px 20px;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+    .btn-primary:hover {
+        background-color: #2980b9;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(52, 152, 219, 0.35);
+    }
+
+.btn-secondary {
+    background-color: #95a5a6;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    padding: 8px 20px;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+    .btn-secondary:hover {
+        background-color: #7f8c8d;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(149, 165, 166, 0.35);
+    }
+
+.btn-warning {
+    background-color: #f39c12;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    padding: 6px 15px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+    .btn-warning:hover {
+        background-color: #e67e22;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(243, 156, 18, 0.35);
+    }
+
+.btn-danger {
+    background-color: #e74c3c;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    padding: 6px 15px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+    .btn-danger:hover {
+        background-color: #c0392b;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(231, 76, 60, 0.35);
+    }
+
+/* Tabla de Pacientes */
+.table {
+    width: 100%;
+    margin-bottom: 1rem;
+    border-collapse: separate;
+    border-spacing: 0 10px; /* Espaciado entre filas */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+}
+
+    .table thead th {
+        background-color: #3498db;
+        color: white;
+        font-weight: 600;
+        text-align: left;
+        padding: 12px;
+        border: none;
+    }
+
+    .table tbody tr {
+        background-color: white;
+        transition: all 0.3s ease;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+    }
+
+        .table tbody tr:hover {
+            background-color: rgba(52, 152, 219, 0.1);
+            transform: scale(1.02);
+        }
+
+    .table tbody td {
+        padding: 12px;
+        border-top: 1px solid rgba(0, 0, 0, 0.05);
+    }
+
+/* Inputs */
+.form-control {
+    border: 2px solid #e9ecef;
+    border-radius: 8px;
+    padding: 10px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+    .form-control:focus {
+        border-color: #3498db;
+        box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25);
+    }
+
+/* Mensajes */
+.alert-info {
+    background-color: rgba(52, 152, 219, 0.1);
+    border: 1px solid #3498db;
+    border-radius: 8px;
+    padding: 1rem;
+    color: #2980b9;
+    font-size: 1rem;
+    font-weight: 500;
+}
+/* Barra de Navegación */
+.navbar {
+    background-color: #2980b9 !important; /* Azul oscuro elegante */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+}
+
+.navbar-brand {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: white !important; /* Texto claro, azul suave */
+}
+
+.nav-link {
+    color: white !important;
+    font-size: 1.2rem;
+    margin-right: 15px;
+    transition: color 0.3s ease;
+}
+
+    .nav-link:hover {
+        color: #00d8f3 !important; /* Azul celeste claro en hover */
+        text-decoration: none;
+    }
+
+
+
+/* Botón de Cerrar Sesión */
+.btn-outline-danger {
+    color: #e74c3c;
+    border-color: #e74c3c;
+    transition: all 0.3s ease;
+}
+
+    .btn-outline-danger:hover {
+        background-color: #e74c3c;
+        color: #fff;
+    }
+
+/* Footer */
+footer {
+    background-color: #3498db !important; /* Fondo azul */
+    color: #ffffff !important; /* Texto blanco */
+    padding: 20px 0;
+    font-size: 0.9rem;
+    border-top: 4px solid #85c1e9; /* Línea decorativa */
+}
+
+
+   
+
+/* General */
+body {
+    font-family: 'Roboto', sans-serif; /* Tipografía moderna */
+    background-color: #f4f8fb; /* Fondo azul muy claro para contraste */
+    color: #1e3a5f; /* Texto azul oscuro */
+}
+
+.container {
+    max-width: 1200px;
+    text-align: center;
+    ackground-color: #3498db !important;
+}
+
+/* Ajuste para Botones */
+button, .btn {
+    font-size: 1rem;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.btn-primary {
+    background-color: #347ab7;
+    border-color: #347ab7;
+}
+
+    .btn-primary:hover {
+        background-color: #285f8f;
+        border-color: #285f8f;
+    }
+
+
+/* Animaciones */
+
+
+.card {
+    animation: fadeIn 0.5s ease-out;
+    /* Estilos para la tarjeta de información del médico */
+    .card
+
+{
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    margin-bottom: 2rem;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.card-header {
+    background-color: #3498db !important;
+    border-radius: 15px 15px 0 0 !important;
+    padding: 1.25rem;
+}
+
+    .card-header h5 {
+        font-size: 1.5rem;
+        font-weight: 600;
+    }
+
+.card-body {
+    padding: 1.5rem;
+}
+
+    .card-body p {
+        margin-bottom: 1rem;
+        font-size: 1.1rem;
+    }
+
+    .card-body strong {
+        color: #2c3e50;
+        display: inline-block;
+        width: 120px;
+    }
+
+/* Estilos para el contenedor del calendario */
+#calendarioTurnos {
+    width: 400px !important;
+    margin: 2rem auto !important;
+    background-color: white;
+    border: none !important;
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    font-family: 'Roboto', sans-serif;
+}
+
+    /* Título del calendario */
+    #calendarioTurnos td[style*="background-color: Silver"] {
+        background-color: #3498db !important;
+        border-radius: 15px 15px 0 0;
+        padding: 15px !important;
+        color: white !important;
+        font-weight: bold;
+        font-size: 1.1rem;
+        text-align: center;
+    }
+
+    /* Encabezados de días */
+    #calendarioTurnos th {
+        background-color: #f8f9fa !important;
+        color: #2c3e50 !important;
+        padding: 15px 10px !important;
+        font-weight: 600 !important;
+        text-transform: uppercase;
+        font-size: 0.8rem;
+        border: none !important;
+    }
+
+    /* Celdas de días */
+    #calendarioTurnos td {
+        padding: 12px !important;
+        text-align: center !important;
+        border: none !important;
+        font-size: 0.9rem;
+        color: #34495e;
+        position: relative;
+    }
+
+        /* Días del otro mes */
+        #calendarioTurnos td.other-month {
+            color: #bdc3c7 !important;
+        }
+
+        /* Estilo para el día actual */
+        #calendarioTurnos td.today {
+            font-weight: bold;
+            color: #3498db !important;
+        }
+
+        /* Estilo para el día seleccionado */
+        #calendarioTurnos td[style*="background-color: White"] {
+            background-color: transparent !important;
+        }
+
+        #calendarioTurnos td a {
+            text-decoration: none !important;
+            color: inherit !important;
+            display: block;
+            width: 36px;
+            height: 36px;
+            line-height: 36px;
+            margin: 0 auto;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+            #calendarioTurnos td a:hover {
+                background-color: #ebf5fb;
+                color: #3498db !important;
+            }
+
+    /* Día seleccionado */
+    #calendarioTurnos .selected a {
+        background-color: #3498db !important;
+        color: white !important;
+    }
+
+    /* Botones de navegación */
+    #calendarioTurnos td[style*="background-color: White"] a[style*="text-decoration:none"] {
+        color: #3498db !important;
+        font-weight: bold;
+        font-size: 1.2rem;
+        width: auto;
+        height: auto;
+    }
+
+/* Responsivo */
+@media (max-width: 768px) {
+    #calendarioTurnos {
+        width: 100% !important;
+        max-width: 350px;
+    }
+
+        #calendarioTurnos td {
+            padding: 8px !important;
+        }
+
+            #calendarioTurnos td a {
+                width: 32px;
+                height: 32px;
+                line-height: 32px;
+            }
+}

@@ -68,14 +68,14 @@ namespace ClinicaMedica
                 PacienteNegocio negocio = new PacienteNegocio();
                 negocio.EliminarPacienteYTurnos(idPaciente);
 
-                lblMensaje.Text = "Paciente eliminado correctamente.";
-                lblMensaje.CssClass = "text-success";
+               // lblMensaje.Text = "Paciente eliminado correctamente.";
+              //  lblMensaje.CssClass = "text-success";
                 CargarPacientes();
             }
             catch (Exception ex)
             {
-                lblMensaje.Text = "Error al eliminar el paciente: " + ex.Message;
-                lblMensaje.CssClass = "text-danger";
+                //lblMensaje.Text = "Error al eliminar el paciente: " + ex.Message;
+                //lblMensaje.CssClass = "text-danger";
             }
         }
 
