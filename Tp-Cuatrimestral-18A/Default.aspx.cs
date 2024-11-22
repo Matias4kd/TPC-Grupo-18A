@@ -58,7 +58,7 @@ namespace Tp_Cuatrimestral_18A
             }
             catch (Exception ex)
             {
-                lblError.Text = "Ocurrió un error: " + ex.Message; // Mostrar el mensaje de error
+                lblError.Text = "Ocurrió un error: " + ex.Message;
                 lblError.Visible = true;
             }
         }

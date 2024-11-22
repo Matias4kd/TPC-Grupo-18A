@@ -17,7 +17,7 @@ namespace Tp_Cuatrimestral_18A
         {
             if (Session["Usuario"] == null)
             {
-                Response.Redirect("Default.aspx");         // Verificar sesion de usuario
+                Response.Redirect("Default.aspx");       
             }
             Response.Cache.SetCacheability(HttpCacheability.NoCache);
             Response.Cache.SetExpires(DateTime.UtcNow.AddMinutes(-1));
@@ -41,7 +41,6 @@ namespace Tp_Cuatrimestral_18A
                         if (usuario.Rol.RolId == 3)
                         {
                             lblAgenda.Text = $"Bienvenido, Dr./Dra. {medico.Nombres} {medico.Apellidos}";
-                            //ver como seleccionar el dia de forma automatica
                         }
                         else
                         {

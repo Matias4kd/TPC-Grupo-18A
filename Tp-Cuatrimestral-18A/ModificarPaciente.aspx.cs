@@ -44,7 +44,6 @@ namespace ClinicaMedica
             }
             catch (Exception ex)
             {
-                // Manejo de errores (opcional: mostrar mensaje al usuario)
                 throw ex;
             }
         }

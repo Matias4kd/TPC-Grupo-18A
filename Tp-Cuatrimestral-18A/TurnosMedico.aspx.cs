@@ -31,14 +31,9 @@ namespace Tp_Cuatrimestral_18A
             if (!IsPostBack)
             {
 
-                if (Session["PacienteSeleccionado"] != null && Session["PacienteSeleccionado"] is Paciente paciente)
+                if (Session["PacienteSeleccionado"] == null)
                 {
-                    // Paciente es una instancia válida, continúa con el flujo
-                }
-                else
-                {
-                    // Si no es válido, redirige o muestra un mensaje de error
-                    Response.Redirect("Pacientes.aspx");
+                    Response.Redirect("Pacientes.aspx");                    
                 }
                 string idMedicoAnterior = Request.QueryString["IdMedico"];
 

@@ -135,8 +135,8 @@ namespace Tp_Cuatrimestral_18A
                 List<Prepaga> listaRoles = prepagaNegocio.Listar();
 
                 cblPrepagas.DataSource = listaRoles;
-                cblPrepagas.DataTextField = "Nombre"; // Campo a mostrar
-                cblPrepagas.DataValueField = "IdPrepaga"; // Valor asociado
+                cblPrepagas.DataTextField = "Nombre";
+                cblPrepagas.DataValueField = "IdPrepaga"; 
                 cblPrepagas.DataBind();
 
                 
@@ -155,8 +155,8 @@ namespace Tp_Cuatrimestral_18A
                 List<Especialidad> listaEspecialidades = especialidadNegocio.ListarTodas();
 
                 cblEspecialidades.DataSource = listaEspecialidades;
-                cblEspecialidades.DataTextField = "Nombre"; // Campo a mostrar
-                cblEspecialidades.DataValueField = "IdEspecialidad"; // Valor asociado
+                cblEspecialidades.DataTextField = "Nombre";
+                cblEspecialidades.DataValueField = "IdEspecialidad";
                 cblEspecialidades.DataBind();    
             }
             catch (Exception ex)

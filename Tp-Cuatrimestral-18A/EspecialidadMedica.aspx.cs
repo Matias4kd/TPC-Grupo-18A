@@ -30,7 +30,7 @@ namespace ClinicaMedica {
 
         private void CargarEspecialidades()
         {
-            gvEspecialidades.DataSource = negocio.Listar(); // Llamada al método adaptado
+            gvEspecialidades.DataSource = negocio.Listar();
             gvEspecialidades.DataBind();
         }
 
@@ -65,7 +65,7 @@ namespace ClinicaMedica {
             GridViewRow row = (GridViewRow)btnEliminar.NamingContainer;
             int id = int.Parse(btnEliminar.CommandArgument);
 
-            negocio.EliminarLogicamente(id); // Actualiza el estado en la base de datos
+            negocio.EliminarLogicamente(id); 
             CargarEspecialidades();
         }
 
@@ -75,7 +75,7 @@ namespace ClinicaMedica {
             GridViewRow row = (GridViewRow)btnReactivar.NamingContainer;
             int id = int.Parse(btnReactivar.CommandArgument);
 
-            negocio.ReactivarEspecialidad(id); // Actualiza el estado en la base de datos
+            negocio.ReactivarEspecialidad(id); 
             CargarEspecialidades();
         }
 

@@ -59,14 +59,12 @@ namespace ClinicaMedica
         {
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
-                // Busca el botón dentro de la fila actual
                 LinkButton lnkSeleccionar = (LinkButton)e.Row.FindControl("lnkSeleccionar");
 
-                // Verifica si la sesión no tiene un paciente seleccionado
                 if (Session["PacienteSeleccionado"] == null)
                 {
-                    lnkSeleccionar.Enabled = false; // Deshabilita el botón
-                    lnkSeleccionar.CssClass += " disabled"; // Opcional: añade una clase CSS para estilo visual
+                    lnkSeleccionar.Enabled = false; 
+                    lnkSeleccionar.CssClass += " disabled";
                 }
             }
         }

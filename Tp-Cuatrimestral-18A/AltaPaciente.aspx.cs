@@ -40,16 +40,14 @@ namespace ClinicaMedica
                 List<Prepaga> listaPrepagas = prepagaNegocio.Listar();
 
                 ddlPrepaga.DataSource = listaPrepagas;
-                ddlPrepaga.DataTextField = "Nombre"; // Campo a mostrar
-                ddlPrepaga.DataValueField = "IdPrepaga"; // Valor asociado
+                ddlPrepaga.DataTextField = "Nombre"; 
+                ddlPrepaga.DataValueField = "IdPrepaga"; 
                 ddlPrepaga.DataBind();
 
-                // Agregar la opción predeterminada al inicio de la lista
                 ddlPrepaga.Items.Insert(0, new ListItem("Seleccionar Prepaga", "0"));
             }
             catch (Exception ex)
             {
-                // Manejo de errores (opcional: mostrar mensaje al usuario, registrar el error, etc.)
                 throw ex;
             }
         }

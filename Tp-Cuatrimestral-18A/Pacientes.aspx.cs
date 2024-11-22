@@ -54,8 +54,8 @@ namespace ClinicaMedica
         protected void btnModificar_Click(object sender, EventArgs e)
         {
             LinkButton btnModificar = (LinkButton)sender;
-            string idPaciente = btnModificar.CommandArgument; // Obtiene el ID del paciente desde el CommandArgument
-            Response.Redirect("ModificarPaciente.aspx?Id=" + idPaciente); // Pasa el ID en la URL
+            string idPaciente = btnModificar.CommandArgument;
+            Response.Redirect("ModificarPaciente.aspx?Id=" + idPaciente); 
         }
 
         protected void btnEliminar_Click(object sender, EventArgs e)
@@ -68,14 +68,13 @@ namespace ClinicaMedica
                 PacienteNegocio negocio = new PacienteNegocio();
                 negocio.EliminarPacienteYTurnos(idPaciente);
 
-               // lblMensaje.Text = "Paciente eliminado correctamente.";
-              //  lblMensaje.CssClass = "text-success";
+
                 CargarPacientes();
             }
             catch (Exception ex)
             {
-                //lblMensaje.Text = "Error al eliminar el paciente: " + ex.Message;
-                //lblMensaje.CssClass = "text-danger";
+                lblMensaje.Text = "Error al eliminar el paciente: " + ex.Message;
+                lblMensaje.CssClass = "text-danger";
             }
         }
 
