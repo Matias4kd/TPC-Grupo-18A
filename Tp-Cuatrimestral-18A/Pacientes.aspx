@@ -1,16 +1,17 @@
 ﻿<%@ Page Title="Gestión de Pacientes" Language="C#" MasterPageFile="~/SiteMaster.master" AutoEventWireup="true" CodeBehind="Pacientes.aspx.cs" Inherits="ClinicaMedica.Pacientes" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <div class="row mt-3">
-        <div class="col-12">
-            <h2>Gestión de Pacientes</h2>
-            <asp:Button ID="btnAgregarPaciente" runat="server" Text="Agregar Paciente" CssClass="btn btn-primary" OnClick="btnAgregarPaciente_Click" />
-            <asp:Label ID="lblMensaje" runat="server" CssClass="d-block mt-3"></asp:Label> <!-- Label para mostrar mensajes -->
-        </div>
-    </div>
+    
 
     <div class="row mt-3">
         <div class="col-md-4">
+                    <div class="row mt-3">
+            <div class="col-12">
+                <h2>Gestión de Pacientes</h2>
+                <asp:Button ID="btnAgregarPaciente" runat="server" Text="Agregar Paciente" CssClass="btn btn-primary" OnClick="btnAgregarPaciente_Click" />
+                <asp:Label ID="lblMensaje" runat="server" CssClass="d-block mt-3"></asp:Label> 
+            </div>
+        </div>
             <label for="txtBuscarDNI">Buscar por DNI:</label>
             <asp:TextBox ID="txtBuscarDNI" runat="server" CssClass="form-control"></asp:TextBox>
             <asp:Label ID="lblBuscar" runat="server" CssClass="d-block mt-3" Visible="false"></asp:Label>
