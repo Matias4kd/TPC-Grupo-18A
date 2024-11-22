@@ -18,8 +18,8 @@
                         EmptyDataText="No se encontraron turnos agendados">
                         <Columns>
                             <asp:BoundField DataField="IdTurno" HeaderText="ID" Visible="False" />    
-                            <asp:BoundField DataField="NombreMedico" HeaderText="Nombre del Paciente" />
-                            <asp:BoundField DataField="ApellidoMedico" HeaderText="Apellido del Paciente" />
+                            <asp:BoundField DataField="NombreMedico" HeaderText="Nombre del Médico" />
+                            <asp:BoundField DataField="ApellidoMedico" HeaderText="Apellido del Médico" />
                             <asp:BoundField DataField="HorarioTurno" HeaderText="Horario del Turno" />
                             <asp:BoundField DataField="Observaciones" HeaderText="Observaciones" />
                             <asp:BoundField DataField="Estado" HeaderText="Estado de consulta" />

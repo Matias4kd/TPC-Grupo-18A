@@ -27,6 +27,8 @@ namespace ClinicaMedica
             Response.Cache.SetExpires(DateTime.UtcNow.AddMinutes(-1));
             Response.Cache.SetNoStore();
 
+            gvMedicos.RowDataBound += gvMedicos_RowDataBound;
+
             prepagaNegocio = new PrepagaNegocio();
             especialidadNegocio = new EspecialidadNegocio();
             medicoNegocio = new MedicoNegocio();
@@ -41,13 +43,31 @@ namespace ClinicaMedica
 
                     CargarPrepagas();
                     ddlPrepagas.SelectedValue = pacienteSeleccionado.prepaga.IdPrepaga.ToString();
+                   
 
-                    //Chequear que solo te levante paciente en sesion si venis de la pag de pacientes.
+                   
                 } 
+
                 CargarPrepagas();
                 CargarEspecialidades();
                 CargarMedicos();
 
+            }
+        }
+
+        protected void gvMedicos_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                // Busca el botón dentro de la fila actual
+                LinkButton lnkSeleccionar = (LinkButton)e.Row.FindControl("lnkSeleccionar");
+
+                // Verifica si la sesión no tiene un paciente seleccionado
+                if (Session["PacienteSeleccionado"] == null)
+                {
+                    lnkSeleccionar.Enabled = false; // Deshabilita el botón
+                    lnkSeleccionar.CssClass += " disabled"; // Opcional: añade una clase CSS para estilo visual
+                }
             }
         }
 

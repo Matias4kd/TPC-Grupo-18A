@@ -4,7 +4,7 @@
 
 <html>
 <head runat="server">
-    <link rel="stylesheet" href="<%= ResolveUrl("~/Content/styles.css") %>">
+    <link rel="stylesheet" href="<%= ResolveUrl("~/Content/styles.css") %>">
     <title>Clínica Médica ZN</title>
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>

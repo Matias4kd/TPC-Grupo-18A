@@ -1,5 +1,6 @@
 ﻿using Dominio;
 using Negocio;
+using Seguridad;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,6 +29,14 @@ namespace Tp_Cuatrimestral_18A
                 txtFecha.Enabled = false;
                 txtHorario.Enabled = false;
 
+                Usuario usuarioLogueado = new Usuario();
+                usuarioLogueado = (Usuario)Session["Usuario"];
+
+                if(usuarioLogueado.Rol.RolId == 3)
+                {
+                    ddlEstado.Enabled = false;
+                }
+
                 int idTurno = int.Parse(Request.QueryString["IdTurno"]);
 
                 Turno turno = new Turno();
@@ -44,7 +53,7 @@ namespace Tp_Cuatrimestral_18A
         {
             txtNombrePaciente.Text = turno.Paciente.Nombre;
             txtApellidoPaciente.Text = turno.Paciente.Apellido;
-            txtFecha.Text = turno.Fecha.ToString();
+            txtFecha.Text = turno.Fecha.ToString("dd/MM/yyyy");
             txtHorario.Text = turno.Hora.ToString(@"hh\:mm");
 
             foreach (ListItem item in ddlEstado.Items)

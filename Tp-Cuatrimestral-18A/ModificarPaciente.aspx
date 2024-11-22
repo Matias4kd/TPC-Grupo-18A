@@ -20,6 +20,7 @@
 
             <asp:Label ID="lblDNI" runat="server" Text="DNI:" AssociatedControlID="txtDNI" />
             <asp:TextBox ID="txtDNI" runat="server" CssClass="form-control" ReadOnly="false" />
+               <asp:RegularExpressionValidator ID="revDNI" runat="server" ControlToValidate="txtDNI" ValidationExpression="^\d+$" ErrorMessage="El DNI debe contener solo números." CssClass="text-danger" Display="Dynamic" />
              <asp:RequiredFieldValidator ID="rfvDNI" runat="server" ControlToValidate="txtDNI" ErrorMessage="El DNI es obligatorio." CssClass="text-danger" Display="Dynamic" />
 
             <asp:Label ID="lblEmail" runat="server" Text="Email:" AssociatedControlID="txtEmail" />
@@ -30,7 +31,8 @@
             <asp:Label ID="lblTelefono" runat="server" Text="Teléfono:" AssociatedControlID="txtTelefono" />
             <asp:TextBox ID="txtTelefono" runat="server" CssClass="form-control" />
             <asp:RequiredFieldValidator ID="rfvTelefono" runat="server" ControlToValidate="txtTelefono" ErrorMessage="El teléfono es obligatorio." CssClass="text-danger" Display="Dynamic" />
-             <br />
+               <asp:RegularExpressionValidator ID="revTelefono" runat="server" ControlToValidate="txtTelefono" ValidationExpression="^\d+$" ErrorMessage="El teléfono debe contener solo números." CssClass="text-danger" Display="Dynamic" /> 
+            <br />
 
             <asp:Label ID="lblDireccion" runat="server" Text="Dirección:" AssociatedControlID="txtDireccion" />
             <asp:TextBox ID="txtDireccion" runat="server" CssClass="form-control" />

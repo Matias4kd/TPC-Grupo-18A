@@ -23,6 +23,8 @@ namespace Tp_Cuatrimestral_18A
             Response.Cache.SetExpires(DateTime.UtcNow.AddMinutes(-1));
             Response.Cache.SetNoStore();
 
+
+
             if (!IsPostBack)
             {
                 Usuario usuario = (Usuario)Session["Usuario"];
@@ -51,6 +53,11 @@ namespace Tp_Cuatrimestral_18A
                 {
                     Response.Redirect("Default.aspx");
                 }
+
+                DateTime fechaSeleccionada = new DateTime();
+                fechaSeleccionada = DateTime.Now.Date;
+                txtFechaTurno.Text = fechaSeleccionada.ToString("yyyy-MM-dd");
+                CargarTurnos(fechaSeleccionada);
             }
         }
 

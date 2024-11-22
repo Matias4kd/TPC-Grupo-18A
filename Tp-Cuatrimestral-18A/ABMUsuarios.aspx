@@ -47,6 +47,7 @@
 
             <asp:Label ID="lblTelefono" runat="server" Text="Teléfono:" AssociatedControlID="txtTelefono" />
             <asp:TextBox ID="txtTelefono" runat="server" CssClass="form-control" />
+               <asp:RegularExpressionValidator ID="revTelefono" runat="server" ControlToValidate="txtTelefono" ValidationExpression="^\d+$" ErrorMessage="El teléfono debe contener solo números." CssClass="text-danger" Display="Dynamic" />
             <asp:RequiredFieldValidator ID="rfvTelefono" runat="server" ControlToValidate="txtTelefono" ErrorMessage="El telefono es obligatorio." CssClass="text-danger" Display="Dynamic" />
             
         </div>

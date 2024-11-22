@@ -32,7 +32,7 @@
     <div class="row mt-4">
         <div class="col-12">
             <asp:GridView ID="gvMedicos" runat="server" CssClass="table table-striped" AutoGenerateColumns="false"
-                EmptyDataText="No se encontraron médicos con los criterios seleccionados">
+                EmptyDataText="No se encontraron médicos con los criterios seleccionados" OnRowDataBound="gvMedicos_RowDataBound">
                 <Columns>
                     <asp:BoundField DataField="Nombres" HeaderText="Nombres" />
                     <asp:BoundField DataField="Apellidos" HeaderText="Apellidos" />
@@ -40,9 +40,7 @@
                     <asp:BoundField DataField="Email" HeaderText="Email" />
                     <asp:TemplateField HeaderText="Acciones">
                         <ItemTemplate>
-                            <asp:LinkButton ID="lnkSeleccionar" runat="server" CssClass="btn btn-primary btn-sm"
-                                CommandName="Seleccionar" CommandArgument='<%# Eval("IdMedico") %>'
-                                OnCommand="lnkSeleccionar_Command">
+                            <asp:LinkButton ID="lnkSeleccionar" runat="server" CssClass="btn btn-primary btn-sm" CommandName="Seleccionar" CommandArgument='<%# Eval("IdMedico") %>' OnCommand="lnkSeleccionar_Command">
                                 Turnos
                             </asp:LinkButton>
                             <asp:LinkButton ID="lnkAgenda" runat="server" CssClass="btn btn-secondary btn-sm"

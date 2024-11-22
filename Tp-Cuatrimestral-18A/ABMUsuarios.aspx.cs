@@ -65,6 +65,7 @@ namespace Tp_Cuatrimestral_18A
                 {
                     lblTitulo.Text = "Alta de Medicos: ";
                     ddlRol.Enabled = false;
+                    txtNombreUsuario.Enabled = false;
                     ddlRol.SelectedIndex = 3;
                     contenedorInfoMedico.Visible = true;                    
                 }

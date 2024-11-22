@@ -1,4 +1,42 @@
-﻿.form-check-list {
+﻿/* General */
+body, html {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Contenedor principal para que ocupe todo el espacio */
+.container {
+    flex: 1;
+}
+
+/* Footer siempre abajo */
+footer {
+    background-color: #e0f7fa; /* Celeste claro */
+    color: #000; /* Texto negro para contraste */
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    padding: 15px 0;
+    box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.2); /* Sombra para destacar */
+}
+
+/* Navegación */
+.navbar {
+    background-color: #e0f7fa !important; /* Celeste claro */
+    border-bottom: 2px solid #b2ebf2; /* Línea decorativa */
+}
+
+.navbar-dark .navbar-brand,
+.navbar-dark .nav-link {
+    color: #000 !important; /* Cambia el texto de la barra a negro */
+}
+
+/* Formularios */
+.form-check-list {
     display: flex;
     flex-wrap: wrap;
 }
