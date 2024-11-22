@@ -23,6 +23,7 @@
                <asp:RegularExpressionValidator ID="revDNI" runat="server" ControlToValidate="txtDNI" ValidationExpression="^\d+$" ErrorMessage="El DNI debe contener solo números." CssClass="text-danger" Display="Dynamic" />
              <asp:RequiredFieldValidator ID="rfvDNI" runat="server" ControlToValidate="txtDNI" ErrorMessage="El DNI es obligatorio." CssClass="text-danger" Display="Dynamic" />
 
+            <br />
             <asp:Label ID="lblEmail" runat="server" Text="Email:" AssociatedControlID="txtEmail" />
             <asp:TextBox ID="txtEmail" runat="server" CssClass="form-control" />
             <asp:RequiredFieldValidator ID="rfvEmail" runat="server" ControlToValidate="txtEmail" ErrorMessage="El email es obligatorio." CssClass="text-danger" Display="Dynamic" />
