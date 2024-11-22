@@ -137,8 +137,15 @@ namespace ClinicaMedica
                 }
                 else if (prepagaSeleccionada)
                 {
-                   
+                   if(ddlPrepagas.SelectedItem.Text == "No tiene")
+                   {
+                       gvMedicos.DataSource = medicoNegocio.Listar();
+
+                   }
+                   else
+                   {
                     gvMedicos.DataSource = medicoNegocio.ListarPorPrepaga(ddlPrepagas.SelectedItem.Text);
+                   }
                 }
                 else
                 {
