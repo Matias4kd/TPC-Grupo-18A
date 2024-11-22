@@ -4,19 +4,25 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="row mt-3">
         <div class="col-12">
-            <h2>
-                <asp:Label ID="lblTitulo" runat="server" Text="Gestión de Usuarios"></asp:Label>
-            </h2>
-            <asp:Button ID="btnAgregarUsuario" runat="server" Text="Agregar Usuario" CssClass="btn btn-primary" OnClick="btnAgregarUsuario_Click" />
-            <asp:Label ID="lblMensaje" runat="server" CssClass="d-block mt-3"></asp:Label> 
+            
         </div>
     </div>
 
     <div class="row mt-3">
         <div class="col-md-4">
-            <label for="txtBuscarDNI">Buscar por Nombre de usuario:</label>
+            <h2>
+                <asp:Label ID="lblTitulo" runat="server" Text="Gestión de Usuarios"></asp:Label>
+            </h2>
+            <asp:Button ID="btnAgregarUsuario" runat="server" Text="Agregar Usuario" CssClass="btn btn-primary" OnClick="btnAgregarUsuario_Click" />
+            <asp:Label ID="lblMensaje" runat="server" CssClass="d-block mt-3"></asp:Label> 
+
+            <label for="txtBuscarUsuario">Buscar por Nombre de usuario:</label>
             <asp:TextBox ID="txtBuscarUsuario" runat="server" CssClass="form-control"></asp:TextBox>
-            <asp:Button ID="btnBuscar" runat="server" Text="Buscar" CssClass="btn btn-secondary mt-2" />
+            <asp:Label ID="lblBuscar" runat="server" CssClass="d-block mt-3" Visible="false"></asp:Label> 
+
+            <asp:Button ID="btnBuscar" runat="server" Text="Buscar" CssClass="btn btn-secondary mt-2" OnClick="btnBuscar_Click"/>
+            <asp:Button ID="btnLimpiar" runat="server" Text="Limpiar" CssClass="btn btn-secondary mt-2" OnClick="btnLimpiar_Click" />
+
         </div>
     </div>
 

@@ -51,6 +51,15 @@ namespace Tp_Cuatrimestral_18A
         protected global::System.Web.UI.WebControls.TextBox txtBuscarUsuario;
 
         /// <summary>
+        /// lblBuscar control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblBuscar;
+
+        /// <summary>
         /// btnBuscar control.
         /// </summary>
         /// <remarks>
@@ -58,6 +67,15 @@ namespace Tp_Cuatrimestral_18A
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnBuscar;
+
+        /// <summary>
+        /// btnLimpiar control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnLimpiar;
 
         /// <summary>
         /// gvUsuarios control.

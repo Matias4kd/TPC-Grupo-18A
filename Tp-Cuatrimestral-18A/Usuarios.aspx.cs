@@ -79,5 +79,37 @@ namespace Tp_Cuatrimestral_18A
         {
             Response.Redirect("ABMUsuarios.aspx");
         }
+
+        protected void btnBuscar_Click(object sender, EventArgs e)
+        {
+            
+            string nombreUsuario = (string)txtBuscarUsuario.Text;
+            if (string.IsNullOrEmpty(nombreUsuario))
+            {
+                lblBuscar.Visible = true;
+                lblBuscar.Text = "Debe ingresar un nombre de usuario para buscar";
+            }
+            else
+            {
+                Usuario usuarioBuscado = new Usuario();
+                UsuarioNegocio usuarioNegocio = new UsuarioNegocio();
+
+                int idUsuarioBuscado = usuarioNegocio.buscarID(nombreUsuario);
+                usuarioBuscado = usuarioNegocio.cargarDatosUsuario(idUsuarioBuscado);
+
+                List<Usuario> listaAuxiliar = new List<Usuario>();
+                listaAuxiliar.Add(usuarioBuscado);
+
+                gvUsuarios.DataSource = listaAuxiliar;
+                gvUsuarios.DataBind();
+            }           
+
+        }
+
+        protected void btnLimpiar_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Usuarios.aspx");
+
+        }
     }
 }

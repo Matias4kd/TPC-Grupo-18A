@@ -40,8 +40,16 @@ namespace ClinicaMedica
         protected void btnBuscar_Click(object sender, EventArgs e)
         {
             string dni = txtBuscarDNI.Text.Trim();
-            gvPacientes.DataSource = negocio.Listar().FindAll(p => p.DNI == dni);
-            gvPacientes.DataBind();
+            if (string.IsNullOrEmpty(dni))
+            {
+                lblBuscar.Visible = true;
+                lblBuscar.Text = "Debe ingresar un DNI para buscar";
+            }
+            else
+            {
+                gvPacientes.DataSource = negocio.Listar().FindAll(p => p.DNI == dni);
+                gvPacientes.DataBind();
+            }
         }
 
         

@@ -13,6 +13,7 @@
         <div class="col-md-4">
             <label for="txtBuscarDNI">Buscar por DNI:</label>
             <asp:TextBox ID="txtBuscarDNI" runat="server" CssClass="form-control"></asp:TextBox>
+            <asp:Label ID="lblBuscar" runat="server" CssClass="d-block mt-3" Visible="false"></asp:Label>
             <asp:Button ID="btnBuscar" runat="server" Text="Buscar" CssClass="btn btn-secondary mt-2" OnClick="btnBuscar_Click" />
                  <asp:Button ID="Limpiar" runat="server" Text="Limpiar" CssClass="btn btn-secondary mt-2" OnClick="btnLimpiar_Click" />
         </div>
