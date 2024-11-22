@@ -47,8 +47,8 @@ namespace Tp_Cuatrimestral_18A
         protected void lnkModificar_Click(object sender, EventArgs e)
         {
             LinkButton btnModificar = (LinkButton)sender;
-            string idUsuario = btnModificar.CommandArgument; 
-            Response.Redirect("ABMUsuarios.aspx?Id=" + idUsuario); 
+            string idUsuario = btnModificar.CommandArgument;
+            Response.Redirect("ABMUsuarios.aspx?Id=" + idUsuario);
         }
 
         protected void lnkEliminar_Click(object sender, EventArgs e)
@@ -82,8 +82,8 @@ namespace Tp_Cuatrimestral_18A
 
         protected void btnBuscar_Click(object sender, EventArgs e)
         {
-            
-            string nombreUsuario = (string)txtBuscarUsuario.Text;
+            string nombreUsuario = txtBuscarUsuario.Text.Trim();
+
             if (string.IsNullOrEmpty(nombreUsuario))
             {
                 lblBuscar.Visible = true;
@@ -91,19 +91,33 @@ namespace Tp_Cuatrimestral_18A
             }
             else
             {
-                Usuario usuarioBuscado = new Usuario();
-                UsuarioNegocio usuarioNegocio = new UsuarioNegocio();
+                try
+                {
+                    UsuarioNegocio usuarioNegocio = new UsuarioNegocio();
+                    int idUsuarioBuscado = usuarioNegocio.buscarID(nombreUsuario);
 
-                int idUsuarioBuscado = usuarioNegocio.buscarID(nombreUsuario);
-                usuarioBuscado = usuarioNegocio.cargarDatosUsuario(idUsuarioBuscado);
+                    if (idUsuarioBuscado > 0)
+                    {
+                        Usuario usuarioBuscado = usuarioNegocio.cargarDatosUsuario(idUsuarioBuscado);
 
-                List<Usuario> listaAuxiliar = new List<Usuario>();
-                listaAuxiliar.Add(usuarioBuscado);
+                        List<Usuario> listaAuxiliar = new List<Usuario>();
+                        listaAuxiliar.Add(usuarioBuscado);
 
-                gvUsuarios.DataSource = listaAuxiliar;
-                gvUsuarios.DataBind();
-            }           
-
+                        gvUsuarios.DataSource = listaAuxiliar;
+                        gvUsuarios.DataBind();
+                    }
+                    else
+                    {
+                        lblBuscar.Visible = true;
+                        lblBuscar.Text = "No se encontró un usuario con ese nombre de usuario.";
+                    }
+                }
+                catch (Exception ex)
+                {
+                    lblBuscar.Visible = true;
+                    lblBuscar.Text = "Error al realizar la búsqueda: " + ex.Message;
+                }
+            }
         }
 
         protected void btnLimpiar_Click(object sender, EventArgs e)
